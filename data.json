@@ -1,17 +1,17 @@
 {
-  "updated": "2026-06-29 14:40",
+  "updated": "2026-06-29 16:30",
   "market": {
-    "vix": 18.41,
+    "vix": 18.35,
     "yield10y": 4.372,
-    "usdtwd": 31.892
+    "usdtwd": 31.836
   },
   "institutional_market": {
-    "foreign": -1432,
-    "trust": 101,
-    "dealer": -707,
-    "total": -2038
+    "foreign": -60,
+    "trust": 138,
+    "dealer": -46,
+    "total": 32
   },
-  "inst_date": "2026-06-26",
+  "inst_date": "2026-06-29",
   "analysis": "<p><strong>【測試 2026-06-29】</strong></p><p>推送測試成功，此訊息將被真實分析覆蓋。</p>",
   "data": {
     "^TWII": {
@@ -32,10 +32,10 @@
       "pct": 1.28,
       "zone": "watch",
       "institutional": {
-        "foreign": -14281,
-        "trust": 734,
-        "dealer": 1009,
-        "total": -12537
+        "foreign": -1912,
+        "trust": 903,
+        "dealer": 997,
+        "total": -12
       }
     },
     "6669.TW": {
@@ -48,10 +48,10 @@
       "pct": 7.01,
       "zone": "fair",
       "institutional": {
-        "foreign": -52,
-        "trust": 5,
-        "dealer": -96,
-        "total": -143
+        "foreign": 78,
+        "trust": -79,
+        "dealer": 46,
+        "total": 45
       }
     },
     "5274.TWO": {
@@ -64,10 +64,10 @@
       "pct": -2.59,
       "zone": "expensive",
       "institutional": {
-        "foreign": -87,
-        "trust": -51,
-        "dealer": 5,
-        "total": -133
+        "foreign": 76,
+        "trust": -70,
+        "dealer": 1,
+        "total": 7
       }
     },
     "3017.TW": {
@@ -80,10 +80,10 @@
       "pct": 2.0,
       "zone": "fair",
       "institutional": {
-        "foreign": -2054,
-        "trust": 166,
-        "dealer": -127,
-        "total": -2014
+        "foreign": 312,
+        "trust": 214,
+        "dealer": 20,
+        "total": 547
       }
     },
     "3533.TW": {
@@ -96,10 +96,10 @@
       "pct": 1.43,
       "zone": "watch",
       "institutional": {
-        "foreign": 21,
-        "trust": 27,
-        "dealer": -52,
-        "total": -5
+        "foreign": 204,
+        "trust": 12,
+        "dealer": -9,
+        "total": 208
       }
     },
     "3711.TW": {
@@ -112,10 +112,10 @@
       "pct": -0.79,
       "zone": "watch",
       "institutional": {
-        "foreign": 6483,
-        "trust": -953,
-        "dealer": 13,
-        "total": 5543
+        "foreign": -442,
+        "trust": -1393,
+        "dealer": 71,
+        "total": -1765
       }
     },
     "2308.TW": {
@@ -128,10 +128,10 @@
       "pct": 5.25,
       "zone": "watch",
       "institutional": {
-        "foreign": -5479,
-        "trust": -1050,
-        "dealer": -678,
-        "total": -7206
+        "foreign": 233,
+        "trust": -90,
+        "dealer": 556,
+        "total": 699
       }
     },
     "00662.TW": {
@@ -141,10 +141,10 @@
       "pct": 1.09,
       "zone": "etf",
       "institutional": {
-        "foreign": -42,
+        "foreign": 8661,
         "trust": 0,
-        "dealer": -3570,
-        "total": -3611
+        "dealer": -9052,
+        "total": -391
       }
     },
     "006208.TW": {
@@ -154,10 +154,10 @@
       "pct": 1.7,
       "zone": "etf",
       "institutional": {
-        "foreign": -2456,
+        "foreign": 175,
         "trust": 0,
-        "dealer": -1687,
-        "total": -4143
+        "dealer": 159,
+        "total": 334
       }
     },
     "00919.TW": {
@@ -167,10 +167,10 @@
       "pct": -0.34,
       "zone": "etf",
       "institutional": {
-        "foreign": -63378,
+        "foreign": -10239,
         "trust": 0,
-        "dealer": -24999,
-        "total": -88377
+        "dealer": -2590,
+        "total": -12829
       }
     },
     "00878.TW": {
@@ -180,10 +180,10 @@
       "pct": 0.58,
       "zone": "etf",
       "institutional": {
-        "foreign": -24117,
+        "foreign": 8828,
         "trust": 0,
-        "dealer": -2608,
-        "total": -26725
+        "dealer": 1955,
+        "total": 10783
       }
     }
   }
