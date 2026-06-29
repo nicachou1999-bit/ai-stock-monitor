@@ -1,0 +1,36 @@
+name: Update Stock Prices
+
+on:
+  schedule:
+    # 每5分鐘，週一到週五，台北時間 09:00–13:35（UTC 01:00–05:35）
+    - cron: '*/5 1-5 * * 1-5'
+  workflow_dispatch:  # 手動觸發（測試用）
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests pytz
+
+      - name: Fetch prices
+        run: python fetch_prices.py
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git diff --staged --quiet || git commit -m "prices: $(TZ=Asia/Taipei date +'%Y-%m-%d %H:%M')"
+          git push
