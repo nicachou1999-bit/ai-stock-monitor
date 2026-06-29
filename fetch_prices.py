@@ -12,10 +12,16 @@ STOCKS = {
     "3533.TW":   {"name": "嘉澤",    "type": "observe", "cheap": 1500,  "fair": 2100,  "rich": 2850},
     "3711.TW":   {"name": "日月光",  "type": "observe", "cheap": 380,   "fair": 520,   "rich": 720},
     "2308.TW":   {"name": "台達電",  "type": "observe", "cheap": 1050,  "fair": 1500,  "rich": 2000},
-    "00662.TW":  {"name": "00662",   "type": "etf"},
-    "006208.TW": {"name": "006208",  "type": "etf"},
-    "00919.TW":  {"name": "00919",   "type": "etf"},
-    "00878.TW":  {"name": "00878",   "type": "etf"},
+    "00662.TW":  {"name": "富邦NASDAQ",        "type": "etf"},
+    "006208.TW": {"name": "富邦台50",           "type": "etf"},
+    "00919.TW":  {"name": "群益台灣精選高息",   "type": "etf"},
+    "00878.TW":  {"name": "國泰永續高股息",     "type": "etf"},
+}
+
+INDICATORS = {
+    "^VIX":  "vix",
+    "^TNX":  "yield10y",
+    "TWD=X": "usdtwd",
 }
 
 HEADERS = {
@@ -32,14 +38,14 @@ def get_price(symbol):
         price = meta.get("regularMarketPrice") or meta.get("previousClose")
         prev  = meta.get("previousClose") or price
         pct   = round((price - prev) / prev * 100, 2) if prev else 0
-        return {"price": round(price, 2), "pct": pct}
+        return {"price": round(price, 4), "pct": pct}
     except Exception as e:
         print(f"  ERROR {symbol}: {e}")
         return {"price": None, "pct": 0}
 
 def get_zone(price, info):
     if not price or "cheap" not in info:
-        return info["type"]  # "etf" or "index"
+        return info["type"]
     c, f, r = info["cheap"], info["fair"], info["rich"]
     if price <= c: return "buy"
     if price <= f: return "fair"
@@ -48,14 +54,30 @@ def get_zone(price, info):
 
 tw = pytz.timezone("Asia/Taipei")
 now = datetime.now(tw).strftime("%Y-%m-%d %H:%M")
-output = {"updated": now, "data": {}}
+
+output = {"updated": now, "market": {}, "analysis": "", "data": {}}
 
 for symbol, info in STOCKS.items():
     p = get_price(symbol)
     entry = {**info, **p, "zone": get_zone(p["price"], info)}
     output["data"][symbol] = entry
     if p["price"]:
-        print(f"  {info['name']:8s}: {p['price']:>10,.2f}  ({p['pct']:+.2f}%)  {entry['zone']}")
+        print(f"  {info['name']:10s}: {p['price']:>10,.2f}  ({p['pct']:+.2f}%)  {entry['zone']}")
+
+print("\nFetching market indicators...")
+for symbol, key in INDICATORS.items():
+    p = get_price(symbol)
+    if p["price"]:
+        output["market"][key] = round(p["price"], 3)
+        print(f"  {key}: {p['price']}")
+
+try:
+    with open("data.json", "r", encoding="utf-8") as f:
+        existing = json.load(f)
+        if existing.get("analysis"):
+            output["analysis"] = existing["analysis"]
+except:
+    pass
 
 with open("data.json", "w", encoding="utf-8") as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
