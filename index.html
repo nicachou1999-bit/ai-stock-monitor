@@ -3,206 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>AI 選股監控</title>
+<title>AI 選股即時監控</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-         background: #0f0f13; color: #e8e8e8; min-height: 100vh; }
-
-  header { background: #1a1a24; padding: 14px 16px 10px;
-           position: sticky; top: 0; z-index: 10;
-           border-bottom: 1px solid #2a2a3a; }
-  .header-top { display: flex; justify-content: space-between; align-items: center; }
-  h1 { font-size: 17px; font-weight: 700; letter-spacing: .5px; color: #fff; }
-  #refresh-btn { background: #2563eb; color: #fff; border: none; border-radius: 8px;
-                 padding: 6px 14px; font-size: 13px; cursor: pointer; }
-  #refresh-btn:active { background: #1d4ed8; }
-  #updated { font-size: 11px; color: #6b7280; margin-top: 5px; }
-
-  .index-bar { background: #1e1e2e; padding: 10px 16px;
-               display: flex; gap: 18px; flex-wrap: wrap;
-               border-bottom: 1px solid #2a2a3a; }
-  .idx-item { display: flex; flex-direction: column; }
-  .idx-label { font-size: 10px; color: #6b7280; }
-  .idx-val   { font-size: 15px; font-weight: 700; }
-
-  section { padding: 12px 12px 4px; }
-  .section-title { font-size: 11px; font-weight: 600; color: #6b7280;
-                   letter-spacing: 1px; text-transform: uppercase;
-                   margin-bottom: 8px; padding-left: 2px; }
-
-  .card { background: #1a1a24; border-radius: 12px; padding: 13px 14px;
-          margin-bottom: 8px; border-left: 4px solid transparent;
-          display: flex; align-items: center; gap: 10px; }
-
-  .card.buy       { border-left-color: #22c55e; }
-  .card.fair      { border-left-color: #3b82f6; }
-  .card.watch     { border-left-color: #f59e0b; }
-  .card.expensive { border-left-color: #ef4444; }
-  .card.etf       { border-left-color: #8b5cf6; }
-  .card.index     { border-left-color: #6b7280; }
-  .card.na        { border-left-color: #374151; }
-
-  .card-main { flex: 1; }
-  .card-name { font-size: 15px; font-weight: 700; color: #f0f0f0; }
-  .card-price { font-size: 22px; font-weight: 800; margin-top: 1px; }
-  .card-price.up   { color: #f87171; }
-  .card-price.down { color: #4ade80; }
-  .card-price.flat { color: #e8e8e8; }
-
-  .card-right { text-align: right; }
-  .pct { font-size: 14px; font-weight: 600; border-radius: 6px;
-         padding: 2px 8px; margin-bottom: 4px; display: inline-block; }
-  .pct.up   { background: #7f1d1d33; color: #f87171; }
-  .pct.down { background: #14532d33; color: #4ade80; }
-  .pct.flat { background: #1f293733; color: #9ca3af; }
-
-  .zone-badge { font-size: 11px; font-weight: 600; border-radius: 5px;
-                padding: 2px 7px; margin-top: 3px; display: inline-block; }
-  .zone-buy       { background: #14532d55; color: #22c55e; }
-  .zone-fair      { background: #1e3a8a55; color: #60a5fa; }
-  .zone-watch     { background: #78350f55; color: #fbbf24; }
-  .zone-expensive { background: #7f1d1d55; color: #f87171; }
-  .zone-etf       { background: #4c1d9555; color: #a78bfa; }
-  .zone-index     { background: #1f293755; color: #9ca3af; }
-
-  .valuation-row { font-size: 10px; color: #4b5563; margin-top: 4px; }
-
-  .alert-banner { background: #22c55e22; border: 1px solid #22c55e55;
-                  border-radius: 10px; padding: 10px 14px; margin: 8px 12px;
-                  font-size: 13px; color: #4ade80; display: none; }
-  .alert-banner.show { display: block; }
-
-  footer { text-align: center; padding: 20px; font-size: 11px; color: #374151; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:16px;font-size:15px}
+h1{font-size:1.4rem;font-weight:700;margin-bottom:2px}
+.subtitle{color:#94a3b8;font-size:.82rem;margin-bottom:2px}
+.update-time{color:#3b82f6;font-size:.75rem;margin-bottom:16px}
+.top-bar{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.idx-price{font-size:1.8rem;font-weight:700}
+.idx-chg{font-size:.95rem;margin-top:2px}
+.refresh-btn{background:#1e293b;border:1px solid #334155;color:#94a3b8;border-radius:8px;padding:7px 16px;font-size:.85rem;cursor:pointer}
+.refresh-btn:active{background:#334155}
+.alert-banner{background:#22c55e15;border:1px solid #22c55e44;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.85rem;color:#4ade80;display:none}
+.alert-banner.show{display:block}
+.section-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:10px;margin-top:18px}
+.stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:6px}
+.stock-card{background:#1e293b;border-radius:12px;padding:15px;border:1px solid #334155}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
+.card-name{font-size:.95rem;font-weight:600;color:#cbd5e1;text-decoration:none}
+.card-name:hover{color:#60a5fa}
+.card-ticker{display:block;font-size:.7rem;color:#64748b;margin-top:1px;font-family:monospace}
+.card-price{font-size:1.55rem;font-weight:700;margin:4px 0 2px}
+.card-change{font-size:.88rem;font-weight:600;margin-bottom:10px}
+.chg-abs{font-size:.78rem;font-weight:400;color:#64748b}
+.zone-bar-wrap{margin-bottom:8px}
+.zone-bar{position:relative;height:8px;border-radius:4px;overflow:visible;display:flex;margin-bottom:5px}
+.zs{height:100%}
+.z1s{background:#10b981;border-radius:4px 0 0 4px}
+.z2s{background:#34d399}
+.z3s{background:#f59e0b}
+.z4s{background:#ef4444;border-radius:0 4px 4px 0}
+.zone-dot{position:absolute;top:-3px;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid #0f172a;transform:translateX(-50%);box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.zone-prices{display:flex;justify-content:space-between;font-size:.68rem}
+.zone-label{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid;margin-bottom:8px}
+.zone-label.buy{background:#10b98122;color:#10b981;border-color:#10b981}
+.zone-label.fair{background:#34d39922;color:#34d399;border-color:#34d399}
+.zone-label.watch{background:#f59e0b22;color:#f59e0b;border-color:#f59e0b}
+.zone-label.expensive{background:#ef444422;color:#ef4444;border-color:#ef4444}
+.zone-label.etf{background:#3b82f622;color:#3b82f6;border-color:#3b82f6}
+.etf-category{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid}
+footer{text-align:center;padding:24px 0 8px;font-size:.72rem;color:#334155}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="header-top">
-    <h1>📊 AI 選股監控</h1>
-    <button id="refresh-btn" onclick="loadData()">↻ 更新</button>
+<h1>AI 選股即時監控</h1>
+<p class="subtitle">核心 + 潛力池 · 巴菲特長期價值投資</p>
+<p class="update-time" id="update-time">載入中…</p>
+<div class="top-bar">
+  <div>
+    <div class="section-title" style="margin-top:0">加權指數</div>
+    <div class="idx-price" id="twii-price">—</div>
+    <div class="idx-chg" id="twii-chg">—</div>
   </div>
-  <div id="updated">載入中…</div>
-</header>
-
-<div class="index-bar" id="index-bar">
-  <div class="idx-item"><span class="idx-label">加權指數</span><span class="idx-val" id="twii">—</span></div>
-  <div class="idx-item"><span class="idx-label">VIX</span><span class="idx-val" id="vix">—</span></div>
+  <button class="refresh-btn" onclick="loadData()">↻ 更新</button>
 </div>
-
 <div id="alert-banner" class="alert-banner"></div>
-
-<section>
-  <div class="section-title">核心持股</div>
-  <div id="core-list"></div>
-</section>
-
-<section>
-  <div class="section-title">觀察名單</div>
-  <div id="observe-list"></div>
-</section>
-
-<section>
-  <div class="section-title">ETF 定期定額</div>
-  <div id="etf-list"></div>
-</section>
-
-<footer>資料來源：Yahoo Finance｜僅供參考，非投資建議</footer>
-
+<div class="section-title" style="margin-top:0">核心持股 — 估值燈號</div>
+<div class="stocks-grid" id="core-list"></div>
+<div class="section-title">潛力池 — 持續追蹤</div>
+<div class="stocks-grid" id="observe-list"></div>
+<div class="section-title">ETF 定期定額</div>
+<div class="stocks-grid" id="etf-list"></div>
+<footer>資料來源：Yahoo Finance · 僅供參考，非投資建議</footer>
 <script>
-const ZONE_LABEL = {
-  buy: "★ 積極買進", fair: "◎ 合理布局",
-  watch: "△ 謹慎觀察", expensive: "✗ 偏貴等待",
-  etf: "定期定額", index: "", na: "—"
-};
-
-function pctClass(pct) {
-  if (pct > 0) return "up";
-  if (pct < 0) return "down";
-  return "flat";
-}
-
-function fmt(n, dec=0) {
-  if (n == null) return "—";
-  return n.toLocaleString("zh-TW", {minimumFractionDigits: dec, maximumFractionDigits: dec});
-}
-
-function makeCard(symbol, d) {
-  const zone = d.zone || "na";
-  const cls  = pctClass(d.pct);
-  const sign = d.pct > 0 ? "+" : "";
-  const pctStr = d.price ? `${sign}${d.pct?.toFixed(2)}%` : "—";
-
-  let valRow = "";
-  if (d.cheap) {
-    valRow = `<div class="valuation-row">買≤${fmt(d.cheap)} ／ 合理≤${fmt(d.fair)} ／ 貴>${fmt(d.rich)}</div>`;
-  }
-
-  return `
-  <div class="card ${zone}">
-    <div class="card-main">
-      <div class="card-name">${d.name}</div>
-      <div class="card-price ${cls}">${fmt(d.price)}</div>
-      ${valRow}
-    </div>
-    <div class="card-right">
-      <div class="pct ${cls}">${pctStr}</div>
-      <div class="zone-badge zone-${zone}">${ZONE_LABEL[zone] || zone}</div>
-    </div>
-  </div>`;
-}
-
-async function loadData() {
-  const btn = document.getElementById("refresh-btn");
-  btn.textContent = "載入中…";
-  try {
-    const r = await fetch(`./data.json?t=${Date.now()}`);
-    if (!r.ok) throw new Error(r.status);
-    const json = await r.json();
-
-    document.getElementById("updated").textContent = `最後更新：${json.updated}（台北時間）`;
-
-    let core = "", observe = "", etf = "";
-    let alerts = [];
-
-    for (const [sym, d] of Object.entries(json.data || {})) {
-      if (d.type === "index") {
-        const cls = pctClass(d.pct);
-        const sign = d.pct > 0 ? "+" : "";
-        document.getElementById("twii").innerHTML =
-          `<span class="${cls === 'up' ? 'pct up' : cls === 'down' ? 'pct down' : ''}" style="padding:0;background:none;font-size:15px">${fmt(d.price)} <small>${sign}${d.pct?.toFixed(2)}%</small></span>`;
-        continue;
-      }
-      const card = makeCard(sym, d);
-      if (d.type === "core")    core    += card;
-      else if (d.type === "observe") observe += card;
-      else if (d.type === "etf")     etf     += card;
-
-      if (d.zone === "buy")  alerts.push(`${d.name} 進入★積極買進區（${fmt(d.price)}）`);
-      if (d.zone === "fair") alerts.push(`${d.name} 進入◎合理布局區（${fmt(d.price)}）`);
-    }
-
-    document.getElementById("core-list").innerHTML    = core    || "<p style='color:#4b5563;font-size:13px;padding:4px'>—</p>";
-    document.getElementById("observe-list").innerHTML = observe || "<p style='color:#4b5563;font-size:13px;padding:4px'>—</p>";
-    document.getElementById("etf-list").innerHTML     = etf     || "<p style='color:#4b5563;font-size:13px;padding:4px'>—</p>";
-
-    const banner = document.getElementById("alert-banner");
-    if (alerts.length) {
-      banner.textContent = "🔔 " + alerts.join("　／　");
-      banner.classList.add("show");
-    } else {
-      banner.classList.remove("show");
-    }
-
-  } catch(e) {
-    document.getElementById("updated").textContent = "載入失敗：" + e.message;
-  }
-  btn.textContent = "↻ 更新";
-}
-
-loadData();
-setInterval(loadData, 5 * 60 * 1000); // 每5分鐘自動刷新
+const ZONE_TEXT={buy:'★ 積極買進',fair:'◎ 合理布局',watch:'△ 謹慎觀察',expensive:'✗ 偏貴等待'};
+function colorPct(pct){const s=(pct>0?'+':'')+pct.toFixed(2)+'%';return pct>0?'<span style="color:#10b981">'+s+'</span>':pct<0?'<span style="color:#ef4444">'+s+'</span>':'<span style="color:#94a3b8">'+s+'</span>';}
+function arrow(pct){return pct>0?'▲':pct<0?'▼':'';}
+function zoneBar(price,cheap,fair,rich){const lo=cheap*0.7,hi=rich*1.15,range=hi-lo;const w1=(cheap-lo)/range*100,w2=(fair-cheap)/range*100,w3=(rich-fair)/range*100,w4=(hi-rich)/range*100;const dot=Math.min(Math.max((price-lo)/range*100,1),99);return '<div class="zone-bar"><div class="zs z1s" style="width:'+w1.toFixed(1)+'%"></div><div class="zs z2s" style="width:'+w2.toFixed(1)+'%"></div><div class="zs z3s" style="width:'+w3.toFixed(1)+'%"></div><div class="zs z4s" style="width:'+w4.toFixed(1)+'%"></div><div class="zone-dot" style="left:'+dot.toFixed(1)+'%"></div></div><div class="zone-prices"><span style="color:#10b981">'+cheap.toLocaleString()+'</span><span style="color:#34d399">'+fair.toLocaleString()+'</span><span style="color:#f59e0b">'+rich.toLocaleString()+'</span></div>';}
+function makeCard(sym,d){const p=d.price,pct=d.pct||0;const col=pct>0?'#10b981':pct<0?'#ef4444':'#e2e8f0';const priceStr='<span style="color:'+col+'">'+( p?p.toLocaleString('zh-TW',{maximumFractionDigits:0}):'—')+'</span>';const pctStr=p?arrow(pct)+' '+colorPct(pct):'—';let barHtml='',labelHtml='';if(d.cheap&&p){barHtml='<div class="zone-bar-wrap">'+zoneBar(p,d.cheap,d.fair,d.rich)+'</div>';labelHtml='<div class="zone-label '+d.zone+'">'+(ZONE_TEXT[d.zone]||d.zone)+'</div>';}const ticker=sym.replace('.TW','').replace('.TWO','O');return '<div class="stock-card"><div class="card-top"><div><a class="card-name" href="https://tw.stock.yahoo.com/quote/'+ticker+'" target="_blank" rel="noopener">'+d.name+'</a><span class="card-ticker">'+ticker+'</span></div></div><div class="card-price">'+priceStr+'</div><div class="card-change">'+pctStr+'</div>'+barHtml+labelHtml+'</div>';}
+function makeEtfCard(sym,d){const p=d.price,pct=d.pct||0;const pctStr=p?arrow(pct)+' '+colorPct(pct):'—';const ticker=sym.replace('.TW','');return '<div class="stock-card"><div class="card-top"><div><a class="card-name" href="https://tw.stock.yahoo.com/quote/'+ticker+'" target="_blank" rel="noopener">'+d.name+'</a><span class="card-ticker">'+ticker+'</span></div><span class="etf-category" style="background:#3b82f622;color:#3b82f6;border-color:#3b82f6">定期定額</span></div><div class="card-price" style="font-size:1.3rem">'+(p?p.toLocaleString('zh-TW',{maximumFractionDigits:2}):'—')+'</div><div class="card-change">'+pctStr+'</div><div class="zone-label etf" style="margin-top:6px">長期持有</div></div>';}
+async function loadData(){document.getElementById('update-time').textContent='更新中…';try{const r=await fetch('./data.json?t='+Date.now());const json=await r.json();document.getElementById('update-time').textContent='🕐 資料更新：'+json.updated;let core='',observe='',etf='';const alerts=[];for(const[sym,d]of Object.entries(json.data||{})){if(d.type==='index'){const pct=d.pct||0,p=d.price;const col=pct>0?'#10b981':pct<0?'#ef4444':'#94a3b8';document.getElementById('twii-price').innerHTML='<span style="color:'+col+'">'+(p?p.toLocaleString('zh-TW',{maximumFractionDigits:0}):'—')+'</span>';document.getElementById('twii-chg').innerHTML='<span style="color:'+col+'">'+arrow(pct)+' '+colorPct(pct)+'</span>';continue;}if(d.type==='etf'){etf+=makeEtfCard(sym,d);continue;}if(d.type==='core'){core+=makeCard(sym,d);}else if(d.type==='observe'){observe+=makeCard(sym,d);}if(d.zone==='buy')alerts.push(d.name+' 進入 ★ 積極買進區（'+d.price?.toLocaleString()+'）');if(d.zone==='fair')alerts.push(d.name+' 進入 ◎ 合理布局區（'+d.price?.toLocaleString()+'）');}document.getElementById('core-list').innerHTML=core||'<p style="color:#475569;font-size:.85rem">—</p>';document.getElementById('observe-list').innerHTML=observe||'<p style="color:#475569;font-size:.85rem">—</p>';document.getElementById('etf-list').innerHTML=etf||'<p style="color:#475569;font-size:.85rem">—</p>';const banner=document.getElementById('alert-banner');if(alerts.length){banner.textContent='🔔 '+alerts.join('　／　');banner.classList.add('show');}else{banner.classList.remove('show');}}catch(e){document.getElementById('update-time').textContent='載入失敗：'+e.message;}}
+loadData();setInterval(loadData,5*60*1000);
 </script>
 </body>
 </html>
