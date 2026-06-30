@@ -2,16 +2,21 @@ name: Update Stock Prices
 
 on:
   schedule:
-    # 每5分鐘，週一到週五，台北時間 09:00–13:35（UTC 01:00–05:35）
-    - cron: '*/5 1-5 * * 1-5'
-  workflow_dispatch:  # 手動觸發（測試用）
+    # 平日台北 09:00（UTC 01:00）觸發一次，之後由 job 內部迴圈每 5 分鐘更新到收盤
+    - cron: '0 1 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: price-loop
+  cancel-in-progress: true
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
+    timeout-minutes: 300
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,13 +29,27 @@ jobs:
       - name: Install dependencies
         run: pip install requests pytz
 
-      - name: Fetch prices
-        run: python fetch_prices.py
-
-      - name: Commit and push
+      - name: Intraday loop (every 5 min until 13:35 Taipei)
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json
-          git diff --staged --quiet || git commit -m "prices: $(TZ=Asia/Taipei date +'%Y-%m-%d %H:%M')"
-          git push
+          export TZ=Asia/Taipei
+          END_EPOCH=$(date -d "13:35" +%s)
+          echo "Loop will end at: $(date -d @$END_EPOCH)"
+          while true; do
+            echo "----- cycle $(date +'%H:%M:%S') -----"
+            git pull --rebase --autostash origin main || true
+            python fetch_prices.py || echo "fetch failed, continue"
+            git add data.json
+            if git diff --staged --quiet; then
+              echo "no change"
+            else
+              git commit -m "prices: $(date +'%Y-%m-%d %H:%M')"
+              git push || echo "push failed, retry next cycle"
+            fi
+            if [ "$(date +%s)" -ge "$END_EPOCH" ]; then
+              echo "Market closed, loop ended."
+              break
+            fi
+            sleep 300
+          done
