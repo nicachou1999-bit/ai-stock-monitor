@@ -2,11 +2,12 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 投資顧問</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:16px;font-size:15px}
+html{font-size:18px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:16px;font-size:16px}
 h1{font-size:1.4rem;font-weight:700;margin-bottom:2px}
 .subtitle{color:#94a3b8;font-size:.82rem;margin-bottom:2px}
 .update-time{color:#3b82f6;font-size:.75rem;margin-bottom:16px}
@@ -33,8 +34,8 @@ h1{font-size:1.4rem;font-weight:700;margin-bottom:2px}
 .tc-interp{font-size:.72rem;line-height:1.4}
 /* 分析 */
 .analysis-box{background:#1e293b;border-radius:12px;padding:16px;border:1px solid #334155;margin-bottom:4px}
-.analysis-empty{font-size:.85rem;color:#475569;font-style:italic}
-.analysis-content{font-size:.88rem;color:#e2e8f0;line-height:1.7}
+.analysis-empty{font-size:1rem;color:#475569;font-style:italic}
+.analysis-content{font-size:1.05rem;color:#e2e8f0;line-height:1.8}
 .analysis-content p{margin-bottom:10px}.analysis-content p:last-child{margin-bottom:0}
 /* 個股卡片 */
 .stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:6px}
@@ -74,6 +75,7 @@ h1{font-size:1.4rem;font-weight:700;margin-bottom:2px}
 .hadv-item{background:#0f172a;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:.85rem;line-height:1.5;border-left:3px solid #334155}
 .hadv-name{font-weight:700;margin-bottom:2px}
 footer{text-align:center;padding:24px 0 8px;font-size:.72rem;color:#334155}
+@media(max-width:480px){html{font-size:19px}.idx-price{font-size:2rem}.card-price{font-size:1.7rem}.section-title{font-size:.85rem}}
 </style>
 </head>
 <body>
@@ -101,9 +103,6 @@ footer{text-align:center;padding:24px 0 8px;font-size:.72rem;color:#334155}
   <div class="tc-card"><div class="tc-label">美元／台幣</div><div class="tc-value" id="tc-fx">—</div><div class="tc-interp" id="tc-fx-i">—</div></div>
 </div>
 
-<div class="section-title">盤後深度解讀</div>
-<div class="analysis-box"><div id="analysis-content" class="analysis-empty">盤後分析將於每日收盤後自動更新</div></div>
-
 <div class="section-title">我的持倉</div>
 <div class="holding-section">
   <div id="holding-advice"></div>
@@ -125,6 +124,9 @@ footer{text-align:center;padding:24px 0 8px;font-size:.72rem;color:#334155}
 <div class="stocks-grid" id="observe-list"></div>
 <div class="section-title">ETF 定期定額</div>
 <div class="stocks-grid" id="etf-list"></div>
+
+<div class="section-title">盤後深度解讀</div>
+<div class="analysis-box"><div id="analysis-content" class="analysis-empty">盤後分析將於每日收盤後自動更新</div></div>
 
 <footer>資料來源：Yahoo Finance · TWSE · TPEX · 僅供參考，非投資建議</footer>
 
