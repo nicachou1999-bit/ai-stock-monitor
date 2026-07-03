@@ -1,19 +1,19 @@
 {
-  "updated": "2026-07-02 13:37",
+  "updated": "2026-07-03 12:44",
   "market": {
-    "vix": 16.59,
-    "yield10y": 4.475,
-    "usdtwd": 31.904
+    "vix": 16.15,
+    "yield10y": 4.485,
+    "usdtwd": 31.928
   },
   "institutional_market": {},
-  "inst_date": "2026-06-29",
+  "inst_date": "",
   "analysis": "<p><strong>【深度解讀 2026-07-02】</strong></p><p>今日模式：個股補漲。大盤下跌0.58%、台積電回檔1.60%，但緯穎(+3.28%)、信驊(+3.53%)、奇鋐(+4.58%)、日月光投控(+3.41%)逆勢大漲逾3%。</p><p>今日解讀：權值龍頭台積電領跌拖累指數，資金並未撤出AI主題，而是從權值股轉向中游零組件與次族群（散熱、CoWoS、封測）。但這幾檔補漲後仍落在「謹慎觀察」或「偏貴等待」區，未進入便宜區，屬短期資金輪動，非基本面重估，追高風險偏高。</p><p>存股族行動建議：目前無標的進入積極買進或合理布局區，不建議進場候補股。信驊(17,750，>13,000)、日月光投控(727，>720)已達偏貴等待區，繼續等待不追高。台積電(2,465)、緯穎、奇鋐、嘉澤、台達電落在謹慎觀察區，可觀察不急於加碼。核心持倉：台積電今日回檔仍在合理布局(≤2,200)之上，非甜蜜點；00662/006208維持既定定期定額節奏，無需因單日波動調整。</p>",
   "data": {
     "^TWII": {
       "name": "加權指數",
       "type": "index",
-      "price": 46812.77,
-      "pct": -0.44,
+      "price": 46822.02,
+      "pct": 0.17,
       "zone": "index",
       "institutional": null
     },
@@ -23,15 +23,10 @@
       "cheap": 1800,
       "fair": 2200,
       "rich": 2700,
-      "price": 2470.0,
-      "pct": -1.4,
+      "price": 2455.0,
+      "pct": -0.41,
       "zone": "watch",
-      "institutional": {
-        "foreign": -1912,
-        "trust": 919,
-        "dealer": 997,
-        "total": 4
-      }
+      "institutional": null
     },
     "6669.TW": {
       "name": "緯穎",
@@ -39,15 +34,10 @@
       "cheap": 3600,
       "fair": 5000,
       "rich": 6500,
-      "price": 5155.0,
-      "pct": 2.38,
+      "price": 5210.0,
+      "pct": 0.19,
       "zone": "watch",
-      "institutional": {
-        "foreign": 78,
-        "trust": -79,
-        "dealer": 46,
-        "total": 46
-      }
+      "institutional": null
     },
     "5274.TWO": {
       "name": "信驊",
@@ -55,8 +45,8 @@
       "cheap": 7500,
       "fair": 10000,
       "rich": 13000,
-      "price": 17660.0,
-      "pct": 3.0,
+      "price": 17460.0,
+      "pct": -1.63,
       "zone": "expensive",
       "institutional": {
         "foreign": 76,
@@ -71,15 +61,10 @@
       "cheap": 1900,
       "fair": 2600,
       "rich": 3200,
-      "price": 2735.0,
-      "pct": 4.39,
+      "price": 2775.0,
+      "pct": 1.28,
       "zone": "watch",
-      "institutional": {
-        "foreign": 312,
-        "trust": 214,
-        "dealer": 20,
-        "total": 547
-      }
+      "institutional": null
     },
     "3533.TW": {
       "name": "嘉澤",
@@ -87,15 +72,10 @@
       "cheap": 1500,
       "fair": 2100,
       "rich": 2850,
-      "price": 2160.0,
-      "pct": 0.0,
+      "price": 2180.0,
+      "pct": 0.23,
       "zone": "watch",
-      "institutional": {
-        "foreign": 204,
-        "trust": 12,
-        "dealer": -9,
-        "total": 208
-      }
+      "institutional": null
     },
     "3711.TW": {
       "name": "日月光",
@@ -103,15 +83,10 @@
       "cheap": 380,
       "fair": 520,
       "rich": 720,
-      "price": 721.0,
-      "pct": 2.56,
-      "zone": "expensive",
-      "institutional": {
-        "foreign": -442,
-        "trust": -1393,
-        "dealer": 71,
-        "total": -1765
-      }
+      "price": 674.0,
+      "pct": -7.29,
+      "zone": "watch",
+      "institutional": null
     },
     "2308.TW": {
       "name": "台達電",
@@ -119,67 +94,42 @@
       "cheap": 1050,
       "fair": 1500,
       "rich": 2000,
-      "price": 1985.0,
-      "pct": -0.25,
-      "zone": "watch",
-      "institutional": {
-        "foreign": 233,
-        "trust": -80,
-        "dealer": 556,
-        "total": 709
-      }
+      "price": 2050.0,
+      "pct": 4.06,
+      "zone": "expensive",
+      "institutional": null
     },
     "00662.TW": {
       "name": "富邦NASDAQ",
       "type": "etf",
-      "price": 122.3,
-      "pct": -1.09,
+      "price": 121.55,
+      "pct": -0.53,
       "zone": "etf",
-      "institutional": {
-        "foreign": 8661,
-        "trust": 0,
-        "dealer": -9052,
-        "total": -391
-      }
+      "institutional": null
     },
     "006208.TW": {
       "name": "富邦台50",
       "type": "etf",
-      "price": 252.35,
-      "pct": -0.51,
+      "price": 251.9,
+      "pct": -0.16,
       "zone": "etf",
-      "institutional": {
-        "foreign": 175,
-        "trust": 0,
-        "dealer": 159,
-        "total": 334
-      }
+      "institutional": null
     },
     "00919.TW": {
       "name": "群益台灣精選高息",
       "type": "etf",
-      "price": 29.27,
-      "pct": -0.34,
+      "price": 29.56,
+      "pct": 1.23,
       "zone": "etf",
-      "institutional": {
-        "foreign": -10239,
-        "trust": 0,
-        "dealer": -2590,
-        "total": -12829
-      }
+      "institutional": null
     },
     "00878.TW": {
       "name": "國泰永續高股息",
       "type": "etf",
-      "price": 33.21,
-      "pct": -0.33,
+      "price": 33.34,
+      "pct": 0.36,
       "zone": "etf",
-      "institutional": {
-        "foreign": 8828,
-        "trust": 0,
-        "dealer": 1955,
-        "total": 10783
-      }
+      "institutional": null
     }
   }
 }
