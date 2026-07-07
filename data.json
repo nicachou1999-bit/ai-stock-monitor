@@ -1,9 +1,9 @@
 {
-  "updated": "2026-07-07 13:00",
+  "updated": "2026-07-07 13:05",
   "market": {
     "vix": 15.57,
     "yield10y": 4.479,
-    "usdtwd": 32.068
+    "usdtwd": 32.069
   },
   "institutional_market": {
     "foreign": -255,
@@ -17,8 +17,8 @@
     "^TWII": {
       "name": "加權指數",
       "type": "index",
-      "price": 45788.46,
-      "pct": -1.65,
+      "price": 45710.19,
+      "pct": -1.82,
       "zone": "index",
       "institutional": null
     },
@@ -28,8 +28,8 @@
       "cheap": 1800,
       "fair": 2200,
       "rich": 2700,
-      "price": 2470.0,
-      "pct": 0.41,
+      "price": 2460.0,
+      "pct": 0.0,
       "zone": "watch",
       "institutional": {
         "foreign": -241,
@@ -60,8 +60,8 @@
       "cheap": 7500,
       "fair": 10000,
       "rich": 13000,
-      "price": 14515.0,
-      "pct": -10.79,
+      "price": 14495.0,
+      "pct": -10.91,
       "zone": "expensive",
       "institutional": {
         "foreign": 28,
@@ -92,8 +92,8 @@
       "cheap": 1500,
       "fair": 2100,
       "rich": 2850,
-      "price": 2000.0,
-      "pct": -5.88,
+      "price": 1990.0,
+      "pct": -6.35,
       "zone": "fair",
       "institutional": {
         "foreign": -72,
@@ -108,8 +108,8 @@
       "cheap": 380,
       "fair": 520,
       "rich": 720,
-      "price": 656.0,
-      "pct": -3.39,
+      "price": 657.0,
+      "pct": -3.24,
       "zone": "watch",
       "institutional": {
         "foreign": -3329,
@@ -124,8 +124,8 @@
       "cheap": 1050,
       "fair": 1500,
       "rich": 2000,
-      "price": 1915.0,
-      "pct": -4.01,
+      "price": 1910.0,
+      "pct": -4.26,
       "zone": "watch",
       "institutional": {
         "foreign": -1966,
@@ -150,8 +150,8 @@
     "006208.TW": {
       "name": "富邦台50",
       "type": "etf",
-      "price": 247.65,
-      "pct": -1.47,
+      "price": 247.4,
+      "pct": -1.57,
       "zone": "etf",
       "institutional": {
         "foreign": -240,
@@ -176,8 +176,8 @@
     "00878.TW": {
       "name": "國泰永續高股息",
       "type": "etf",
-      "price": 32.99,
-      "pct": -1.49,
+      "price": 32.98,
+      "pct": -1.52,
       "zone": "etf",
       "institutional": {
         "foreign": 2833,
