@@ -1,9 +1,9 @@
 {
-  "updated": "2026-07-07 13:21",
+  "updated": "2026-07-07 13:26",
   "market": {
     "vix": 15.57,
     "yield10y": 4.479,
-    "usdtwd": 32.108
+    "usdtwd": 32.098
   },
   "institutional_market": {
     "foreign": -255,
@@ -17,8 +17,8 @@
     "^TWII": {
       "name": "加權指數",
       "type": "index",
-      "price": 45685.29,
-      "pct": -1.87,
+      "price": 45557.66,
+      "pct": -2.15,
       "zone": "index",
       "institutional": null
     },
@@ -28,8 +28,8 @@
       "cheap": 1800,
       "fair": 2200,
       "rich": 2700,
-      "price": 2460.0,
-      "pct": 0.0,
+      "price": 2450.0,
+      "pct": -0.41,
       "zone": "watch",
       "institutional": {
         "foreign": -241,
@@ -44,8 +44,8 @@
       "cheap": 3600,
       "fair": 5000,
       "rich": 6500,
-      "price": 5050.0,
-      "pct": 0.3,
+      "price": 5035.0,
+      "pct": 0.0,
       "zone": "watch",
       "institutional": {
         "foreign": -255,
@@ -76,8 +76,8 @@
       "cheap": 1900,
       "fair": 2600,
       "rich": 3200,
-      "price": 2440.0,
-      "pct": -8.61,
+      "price": 2435.0,
+      "pct": -8.8,
       "zone": "fair",
       "institutional": {
         "foreign": -351,
@@ -92,8 +92,8 @@
       "cheap": 1500,
       "fair": 2100,
       "rich": 2850,
-      "price": 1985.0,
-      "pct": -6.59,
+      "price": 1965.0,
+      "pct": -7.53,
       "zone": "fair",
       "institutional": {
         "foreign": -72,
@@ -108,8 +108,8 @@
       "cheap": 380,
       "fair": 520,
       "rich": 720,
-      "price": 655.0,
-      "pct": -3.53,
+      "price": 653.0,
+      "pct": -3.83,
       "zone": "watch",
       "institutional": {
         "foreign": -3329,
@@ -124,8 +124,8 @@
       "cheap": 1050,
       "fair": 1500,
       "rich": 2000,
-      "price": 1895.0,
-      "pct": -5.01,
+      "price": 1890.0,
+      "pct": -5.26,
       "zone": "watch",
       "institutional": {
         "foreign": -1966,
@@ -150,8 +150,8 @@
     "006208.TW": {
       "name": "富邦台50",
       "type": "etf",
-      "price": 246.9,
-      "pct": -1.77,
+      "price": 246.75,
+      "pct": -1.83,
       "zone": "etf",
       "institutional": {
         "foreign": -240,
@@ -163,8 +163,8 @@
     "00919.TW": {
       "name": "群益台灣精選高息",
       "type": "etf",
-      "price": 29.67,
-      "pct": -0.3,
+      "price": 29.63,
+      "pct": -0.44,
       "zone": "etf",
       "institutional": {
         "foreign": 8133,
@@ -176,8 +176,8 @@
     "00878.TW": {
       "name": "國泰永續高股息",
       "type": "etf",
-      "price": 33.0,
-      "pct": -1.46,
+      "price": 32.99,
+      "pct": -1.49,
       "zone": "etf",
       "institutional": {
         "foreign": 2833,
