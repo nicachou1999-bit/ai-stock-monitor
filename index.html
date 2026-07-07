@@ -2,277 +2,478 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 投資顧問</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI 每日投資顧問</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html{font-size:18px}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:16px;font-size:16px}
-h1{font-size:1.4rem;font-weight:700;margin-bottom:2px}
-.subtitle{color:#94a3b8;font-size:.82rem;margin-bottom:2px}
-.update-time{color:#3b82f6;font-size:.75rem;margin-bottom:16px}
-.top-bar{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:20px 16px;font-size:15px}
+h1{font-size:1.5rem;font-weight:700;margin-bottom:2px}
+.subtitle{color:#94a3b8;font-size:.85rem;margin-bottom:4px}.update-time{color:#3b82f6;font-size:.78rem;margin-bottom:20px}
+.top-bar{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
 .idx-price{font-size:1.8rem;font-weight:700}
-.idx-chg{font-size:.95rem;margin-top:2px;margin-bottom:8px}
-.refresh-btn{background:#1e293b;border:1px solid #334155;color:#94a3b8;border-radius:8px;padding:7px 16px;font-size:.85rem;cursor:pointer}
-.refresh-btn:active{background:#334155}
-.section-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:10px;margin-top:20px}
-.alert-banner{background:#22c55e15;border:1px solid #22c55e44;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.85rem;color:#4ade80;display:none}
-.alert-banner.show{display:block}
-/* 三大法人 chips */
-.inst-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;margin-bottom:4px}
-.inst-chip{font-size:.72rem;font-weight:600;padding:3px 8px;border-radius:999px;border:1px solid}
-.inst-pos{background:#10b98118;color:#10b981;border-color:#10b98144}
-.inst-neg{background:#ef444418;color:#ef4444;border-color:#ef444444}
-.inst-zero{background:#33415518;color:#64748b;border-color:#33415566}
-.inst-date{font-size:.68rem;color:#475569;margin-top:2px}
-/* 市場溫度計 */
-.thermo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:4px}
-.tc-card{background:#0f172a;border-radius:8px;padding:12px;border:1px solid #1e293b}
-.tc-label{font-size:.7rem;color:#94a3b8;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
-.tc-value{font-size:1.2rem;font-weight:700;margin-bottom:2px}
-.tc-interp{font-size:.72rem;line-height:1.4}
-/* 分析 */
-.analysis-box{background:#1e293b;border-radius:12px;padding:16px;border:1px solid #334155;margin-bottom:4px}
-.analysis-empty{font-size:1rem;color:#475569;font-style:italic}
-.analysis-content{font-size:1.05rem;color:#e2e8f0;line-height:1.8}
-.analysis-content p{margin-bottom:10px}.analysis-content p:last-child{margin-bottom:0}
-/* 個股卡片 */
-.stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:6px}
-.stock-card{background:#1e293b;border-radius:12px;padding:15px;border:1px solid #334155}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
-.card-name{font-size:.95rem;font-weight:600;color:#cbd5e1;text-decoration:none}
-.card-name:hover{color:#60a5fa}
-.card-ticker{display:block;font-size:.7rem;color:#64748b;margin-top:1px;font-family:monospace}
-.card-price{font-size:1.55rem;font-weight:700;margin:4px 0 2px}
-.card-change{font-size:.88rem;font-weight:600;margin-bottom:10px}
-.chg-abs{font-size:.78rem;font-weight:400;color:#64748b}
+.idx-chg{font-size:1rem;margin-top:2px}
+.signal-badge{display:inline-block;padding:6px 20px;border-radius:999px;font-size:1.4rem;font-weight:800}
+.signal-sub{font-size:.9rem;color:#94a3b8;margin-top:4px;text-align:right}
+.section-title{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:10px}
+.section-label{font-size:.85rem;font-weight:700;color:#cbd5e1;margin-bottom:10px;padding-left:4px}
+.stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:24px}
+.stock-card{background:#1e293b;border-radius:12px;padding:16px;border:1px solid #334155}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.card-name{font-size:1rem;font-weight:600;color:#cbd5e1}
+.grade-badge{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid}
+.research-link{font-size:.72rem;color:#3b82f6;text-decoration:none;padding:2px 7px;border:1px solid #3b82f622;border-radius:999px;background:#3b82f611;white-space:nowrap}
+.research-link:hover{background:#3b82f622;color:#60a5fa}
+.card-price{font-size:1.6rem;font-weight:700;margin:4px 0}
+.card-change{font-size:.95rem;font-weight:600;margin-bottom:10px}
+.chg-abs{font-size:.8rem;font-weight:400;color:#94a3b8}
 .zone-bar-wrap{margin-bottom:8px}
-.zone-bar{position:relative;height:8px;border-radius:4px;overflow:visible;display:flex;margin-bottom:5px}
+.zone-bar-wrap.no-val{font-size:.75rem;color:#94a3b8;padding:6px 0;margin-bottom:8px;font-style:italic}
+.zone-bar{position:relative;height:8px;border-radius:4px;overflow:visible;display:flex;margin-bottom:4px}
 .zs{height:100%}
-.z1s{background:#10b981;border-radius:4px 0 0 4px}.z2s{background:#34d399}.z3s{background:#f59e0b}.z4s{background:#ef4444;border-radius:0 4px 4px 0}
+.z1s{background:#10b981;border-radius:4px 0 0 4px}
+.z2s{background:#34d399}
+.z3s{background:#f59e0b}
+.z4s{background:#ef4444;border-radius:0 4px 4px 0}
 .zone-dot{position:absolute;top:-3px;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid #0f172a;transform:translateX(-50%);box-shadow:0 0 0 2px rgba(255,255,255,.25)}
-.zone-prices{display:flex;justify-content:space-between;font-size:.68rem}
-.zone-label{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid;margin-bottom:6px}
-.zone-label.buy{background:#10b98122;color:#10b981;border-color:#10b981}
-.zone-label.fair{background:#34d39922;color:#34d399;border-color:#34d399}
-.zone-label.watch{background:#f59e0b22;color:#f59e0b;border-color:#f59e0b}
-.zone-label.expensive{background:#ef444422;color:#ef4444;border-color:#ef4444}
-.zone-label.etf{background:#3b82f622;color:#3b82f6;border-color:#3b82f6}
-.etf-category{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid}
-/* 持倉 */
-.holding-section{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:4px;border:1px solid #334155}
-.holding-section h2{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:12px}
-#holding-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:12px}
-#holding-table th{color:#94a3b8;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding:6px 6px;text-align:left;border-bottom:1px solid #334155}
-#holding-table td{padding:7px 6px;border-bottom:1px solid #1a2535}
+.zone-prices{display:flex;justify-content:space-between;font-size:.7rem}
+.zone-label{display:inline-block;font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid;margin-bottom:8px}
+.card-thesis{font-size:.82rem;color:#94a3b8;line-height:1.55}
+.warn-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.warn-item{display:flex;align-items:flex-start;gap:10px;background:#1e293b;border-radius:8px;padding:12px 14px}
+.warn-sym{font-size:1rem;font-weight:700;font-family:monospace;flex-shrink:0;margin-top:1px}
+.warn-text{display:flex;flex-direction:column;gap:2px;font-size:.88rem;line-height:1.5}
+.danger-row{border-left:3px solid #ef4444}
+.warn-row{border-left:3px solid #f59e0b}
+.ok-row{border-left:3px solid #10b981}
+.info-row{border-left:3px solid #475569}
+.holding-section{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:24px;border:1px solid #334155}
+.holding-section h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:12px}
+#holding-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:12px}
+#holding-table th{color:#94a3b8;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;padding:6px 8px;text-align:left;border-bottom:1px solid #334155}
+#holding-table td{padding:7px 8px;border-bottom:1px solid #1a2535}
 .pl-pos{color:#10b981;font-weight:600}.pl-neg{color:#ef4444;font-weight:600}
-.add-form{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-top:10px}
-.add-form select,.add-form input{background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:6px;padding:6px 8px;font-size:.82rem}
-.btn{padding:6px 12px;border-radius:6px;border:none;font-size:.82rem;font-weight:600;cursor:pointer}
-.btn-add{background:#3b82f6;color:#fff}.btn-del{background:#334155;color:#94a3b8;font-size:.72rem;padding:3px 7px}
+.add-form{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+.add-form select,.add-form input{background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:6px;padding:6px 10px;font-size:.88rem}
+.btn{padding:6px 14px;border-radius:6px;border:none;font-size:.88rem;font-weight:600;cursor:pointer}
+.btn-add{background:#3b82f6;color:#fff}.btn-del{background:#334155;color:#94a3b8;font-size:.75rem;padding:3px 8px}
 .btn-del:hover{background:#ef4444;color:#fff}
-.hadv-item{background:#0f172a;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:.85rem;line-height:1.5;border-left:3px solid #334155}
-.hadv-name{font-weight:700;margin-bottom:2px}
-footer{text-align:center;padding:24px 0 8px;font-size:.72rem;color:#334155}
-@media(max-width:480px){html{font-size:19px}.idx-price{font-size:2rem}.card-price{font-size:1.7rem}.section-title{font-size:.85rem}}
+.timestamp-bar{display:flex;justify-content:flex-end;gap:16px;font-size:.75rem;color:#94a3b8;margin-top:8px}
+.deep-section{background:#1e293b;border-radius:12px;padding:18px;margin-bottom:24px;border:1px solid #334155}
+.pattern-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.pattern-badge{font-size:.85rem;font-weight:700;padding:4px 14px;border-radius:999px;border:1px solid;white-space:nowrap;flex-shrink:0}
+.pattern-desc{font-size:.9rem;color:#cbd5e1;line-height:1.6}
+.advisor-merged{font-size:1rem;line-height:1.7;padding:12px 16px;border-radius:8px;background:#1a2535;margin-bottom:12px}
+.context-box{font-size:.88rem;color:#94a3b8;line-height:1.7;padding:10px 12px;background:#0f172a;border-radius:8px;margin-bottom:10px}
+.buffett-box{font-size:.92rem;color:#86efac;line-height:1.7;padding:10px 14px;background:#052e16;border-radius:8px;border-left:3px solid #22c55e;margin-bottom:10px}
+.buffett-icon{margin-right:6px}
+.claude-insight{font-size:.9rem;color:#e2e8f0;line-height:1.7;padding:12px 14px;background:#1a2a1a;border-radius:8px;border-left:3px solid #10b981;display:none}
+.claude-insight.visible{display:block}
+.hadv-item{background:#0f172a;border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:.88rem;line-height:1.6;border-left:3px solid #334155}
+.hadv-name{font-weight:700;margin-bottom:3px}.hadv-text{color:#94a3b8}
+.holding-advice{margin-bottom:14px}
+.monthly-section{background:#1e293b;border-radius:12px;margin-bottom:24px;border:1px solid #334155;overflow:hidden}
+.monthly-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;cursor:pointer;user-select:none}
+.monthly-header:hover{background:#263548}
+.monthly-chevron{font-size:.8rem;color:#94a3b8;transition:transform .2s}
+.monthly-body{padding:0 18px 16px;display:block}
+.monthly-body.closed{display:none}
+.mr-h1{font-size:1rem;font-weight:700;color:#e2e8f0;margin:12px 0 4px}
+.mr-h2{font-size:.9rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 6px;padding-top:10px;border-top:1px solid #334155}
+.mr-h3{font-size:.88rem;font-weight:600;color:#cbd5e1;margin:8px 0 4px}
+.mr-li{font-size:.88rem;color:#94a3b8;line-height:1.6;padding-left:6px;margin-bottom:2px}
+.mr-p{font-size:.88rem;color:#94a3b8;line-height:1.7;margin-bottom:2px}
+.mr-gap{height:6px}
+.monthly-none{padding:16px 18px;font-size:.88rem;color:#94a3b8}
+.card-link{color:#cbd5e1;text-decoration:none;font-size:1rem;font-weight:600}.card-link:hover{color:#60a5fa;text-decoration:underline}
+.card-ticker{display:block;font-size:.72rem;color:#94a3b8;margin-top:1px;font-family:monospace;letter-spacing:.04em}
+.tech-row{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
+.tech-tag{font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid}
+.tech-ma{font-size:.7rem;color:#94a3b8;padding:2px 6px;align-self:center}
+.batch-wrap{background:#0a1322;border-radius:8px;padding:8px 10px;margin:6px 0}
+.batch-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:5px}
+.batch-row{display:flex;align-items:center;gap:6px;padding:2px 0;font-size:.78rem}
+.batch-n{color:#94a3b8;width:2.5rem;flex-shrink:0}
+.batch-p{color:#e2e8f0;font-weight:600;flex:1}
+.batch-d{font-size:.72rem}
+.etf-category{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid;white-space:nowrap}
+.etf-metric{font-size:.82rem;color:#cbd5e1;margin-bottom:8px;padding:7px 10px;background:#0f172a;border-radius:6px;line-height:1.55}
+.etf-hint{font-size:.68rem;color:#94a3b8}
+.etf-note{font-size:.7rem;color:#94a3b8;margin-top:2px}
+.card-conclusion{font-size:.74rem;color:#94a3b8;background:#0f172a;border-radius:6px;padding:6px 10px;margin-top:6px;border-left:3px solid #3b82f6;line-height:1.5}
+.card-researched{font-size:.68rem;color:#94a3b8}
+.fv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:24px}
+.fv-card{background:#1e293b;border-radius:12px;padding:16px;border:1px solid #334155}
+.fv-cap{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:10px}
+.fv-date{font-size:.7rem;color:#94a3b8;margin-bottom:6px}
+.fbar{margin-bottom:8px}
+.fbar-lbl{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:3px}
+.fbar-track{height:8px;background:#0a1322;border-radius:4px;position:relative;overflow:hidden}
+.fbar-mid{position:absolute;left:50%;top:0;bottom:0;width:1px;background:#334155}
+.fbar-fill{position:absolute;top:0;bottom:0;border-radius:4px}
+.fv-gain{color:#ff5a5a}
+.fv-loss{color:#22c08a}
+.fv-verdict{font-size:.82rem;padding:8px 10px;border-radius:6px;border:1px solid #334155;margin-top:10px}
+.fv-verdict-in{background:rgba(255,90,90,.08);border-color:rgba(255,90,90,.35)}
+.fv-verdict-out{background:rgba(34,192,138,.08);border-color:rgba(34,192,138,.35)}
+.fv-heat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.fv-heat-cell{border-radius:7px;padding:8px 7px;display:flex;flex-direction:column;gap:4px;border:1px solid rgba(255,255,255,.05)}
+.fv-heat-name{font-size:.72rem;color:#94a3b8}
+.fv-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.fv-table th{color:#94a3b8;font-size:.68rem;text-transform:uppercase;padding:4px 6px;border-bottom:1px solid #334155;font-weight:500}
+.fv-table td{padding:5px 6px;border-bottom:1px solid #1a2535}
+.fv-table tr:last-child td{border-bottom:none}
+.concl-section{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:24px;border:1px solid #334155}
+.concl-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #1a2535;align-items:flex-start}
+.concl-row:last-child{border-bottom:none}
+.concl-left{width:160px;flex-shrink:0}
+.concl-name{display:block;font-size:.88rem;font-weight:700;color:#cbd5e1;margin-bottom:4px}
+.concl-action{font-size:.82rem;font-weight:600}
+.concl-right{flex:1}
+.concl-detail{font-size:.82rem;color:#94a3b8;margin-bottom:4px}
+.concl-meta{display:flex;gap:12px;flex-wrap:wrap}
+.concl-order{font-size:.82rem;color:#e2e8f0;font-weight:600}
+.concl-tech{font-size:.72rem;color:#94a3b8}
+.thermo-section{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:24px;border:1px solid #334155}
+.thermo-signal{font-size:.92rem;font-weight:600;padding:10px 14px;border-radius:8px;border:1px solid;margin-bottom:14px;line-height:1.5}
+.thermo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.tc-card{background:#0f172a;border-radius:8px;padding:12px;border:1px solid #1e293b}
+.tc-label{font-size:.72rem;color:#94a3b8;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.tc-value{font-size:1.2rem;font-weight:700;margin-bottom:2px}
+.tc-interp{font-size:.75rem;line-height:1.4}
 </style>
 </head>
 <body>
-<h1>AI 投資顧問</h1>
-<p class="subtitle">核心持股 · 潛力池 · 巴菲特長期價值投資</p>
-<p class="update-time" id="update-time">載入中…</p>
-
+<h1>AI 每日投資顧問</h1>
+<p class="subtitle">1 檔核心持股 &middot; 6 檔潛力池 &middot; 巴菲特價值投資</p>
+<p class="update-time">&#x1F551; 資料更新：2026-07-07 09:49</p>
 <div class="top-bar">
   <div>
-    <div class="section-title" style="margin-top:0">加權指數</div>
-    <div class="idx-price" id="twii-price">—</div>
-    <div class="idx-chg" id="twii-chg">—</div>
-    <div id="mkt-inst" class="inst-row"></div>
-    <div id="mkt-inst-date" class="inst-date"></div>
+    <div class="section-title">加權指數</div>
+    <div class="idx-price" style="color:#10b981">46,656</div>
+    <div class="idx-chg" style="color:#10b981">▲ +0.21%</div>
   </div>
-  <button class="refresh-btn" onclick="loadData()">↻ 更新</button>
+  <div>
+    <div class="signal-badge" style="border:2px solid #f59e0b;background:#f59e0b22;color:#f59e0b">T2</div>
+    <div class="signal-sub">震盪 走勢</div>
+  </div>
 </div>
-
-<div id="alert-banner" class="alert-banner"></div>
-
-<div class="section-title" style="margin-top:0">市場溫度計</div>
-<div class="thermo-grid">
-  <div class="tc-card"><div class="tc-label">VIX 恐慌指數</div><div class="tc-value" id="tc-vix">—</div><div class="tc-interp" id="tc-vix-i">—</div></div>
-  <div class="tc-card"><div class="tc-label">美 10Y 殖利率</div><div class="tc-value" id="tc-y10">—</div><div class="tc-interp" id="tc-y10-i">—</div></div>
-  <div class="tc-card"><div class="tc-label">美元／台幣</div><div class="tc-value" id="tc-fx">—</div><div class="tc-interp" id="tc-fx-i">—</div></div>
-</div>
-
-<div class="section-title">我的持倉</div>
+<div class="section-title">市場溫度計</div>
+<div class="thermo-section"><div class="thermo-signal" style="border-color:#10b981;background:#10b98111;color:#10b981">🟢 留意買點 — 恐慌訊號出現，價值投資人可對照估值燈號伺機布局</div><div class="thermo-grid"><div class="tc-card"><div class="tc-label">VIX 恐慌指數</div><div class="tc-value">15.6</div><div class="tc-interp" style="color:#f59e0b">正常波動</div></div><div class="tc-card"><div class="tc-label">美10年債殖利率</div><div class="tc-value">4.48%</div><div class="tc-interp" style="color:#f59e0b">利率中性</div></div><div class="tc-card"><div class="tc-label">美元／台幣</div><div class="tc-value">32.05</div><div class="tc-interp" style="color:#ef4444">台幣偏弱，注意外資動向</div></div><div class="tc-card"><div class="tc-label">外資今日買賣超</div><div class="tc-value" style="color:#ef4444">-255.0億</div><div class="tc-interp" style="color:#ef4444">外資淨賣超</div></div><div class="tc-card"><div class="tc-label">融資餘額</div><div class="tc-value">6313億</div><div class="tc-interp" style="color:#ef4444">↑+5億</div></div></div></div><div class="concl-section"><div class="section-title" style="margin-bottom:10px">今日結論 — 應該掛多少？</div><div class="concl-row"><div class="concl-left"><span class="concl-name">台積電</span><span class="concl-action" style="color:#ef4444">🔴 暫停加碼</span></div><div class="concl-right"><div class="concl-detail">估值偏高（謹慎觀察），新資金等待</div><div class="concl-meta"><span class="concl-order">已超過所有觸發價，暫停</span><span class="concl-tech">RSI 57 / 乖離 +3.6%</span></div></div></div></div><div class="section-title">今日市場觀察</div>
+<div id="holding-status-banner"></div>
+<div class="deep-section"><div class="pattern-row"><span class="pattern-badge" style="color:#94a3b8;border-color:#94a3b8;background:#94a3b822">正常震盪整理</span><span class="pattern-desc">市場整體在正常波動範圍內，持續觀察估值燈號，按計劃操作。</span></div><div class="advisor-merged" style="border-left:4px solid #f59e0b">市場震盪，核心標的估值偏高，耐心等候回調。現金等候，不追高是最好的策略。</div><div class="context-box">AI基礎建設長期需求穩固——TSMC產能能見度至2030年，全球CSP年度AI資本支出持續擴張。市場波動在預期範圍內，按估值燈號分批操作即可。</div><div class="buffett-box"><span class="buffett-icon">&#x1F4BC;</span>核心標的估值合理，是逐步建倉的時機。定期定額、分批布局，讓時間和複利做工。</div><div class="claude-insight visible" id="claude-insight"><p><strong>【深度解讀 2026-07-07】</strong></p><p>加權指數今日微幅上漲0.25%，收在46,672點，站穩月線之上。但個股表現分歧明顯：奇鋐重挫4.31%、信驊重挫3.06%，緯穎則逆勢走強2.28%。指數穩定、個股各自表態，屬正常震盪格局中的個股分化，而非全面下殺或類股齊跌。</p><p>低波動環境（VIX 15.57）下，大盤延續多頭格局，乖離率+1.97%顯示漲勢未過熱。個股層面，奇鋐急殺後來到2,555元，落入合理布局區間（1,900~2,600元），是今日唯一觸及估值甜蜜點的標的；信驊雖跌3.06%，現價15,215元仍遠高於偏貴門檻13,000元，泡沫尚未消化。台積電（2,485元）、緯穎（5,150元）、嘉澤（2,105元）、日月光（678元）均落在謹慎觀察區，漲跌互見但估值未見安全邊際。外資今日賣超255億、融資餘額仍在6,313億高檔，籌碼面偏多但不極端，未見系統性去槓桿訊號。</p><p>個股：奇鋐（2,555元，合理布局區）是今日唯一值得開始小額分批建倉的標的，但急跌後宜分3~4批進場，避免一次到位；信驊（15,215元）距合理布局門檻10,000元仍有逾3成空間，繼續觀察不進場；台積電、緯穎、嘉澤、日月光皆處謹慎觀察區，暫不動作；台達電因資料源異常今日無報價，待下次更新再評估。ETF：00662（121.6元）與006208（251.3元）皆逼近52週高點（分別達94%、94%分位），且VIX偏低代表市場情緒平穩，並非危機入市的甜蜜點，暫緩起筆，等待價格拉回月線或波動率回升。高息ETF：00919殖利率約11%具吸引力，但現價同樣逼近52週高點（88%分位），可視情況小額試單，非急迫；00878殖利率約5.6%、同樣近高檔（91%分位），優先序較低。現金策略：目前多數觀察標的仍在謹慎觀察或偏貴區，僅奇鋐一檔進入合理布局，此時保留現金、只對單一標的小額進場，是控制風險的正確做法——不進場本身就是一種紀律。</p></div></div>
+<div class="section-title">核心持股 &mdash; 估值燈號</div>
+<div class="section-label">🏆 核心價值股（有估值區間）</div>
+<div class="stocks-grid"><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/2330" target="_blank" rel="noopener">台積電</a><span class="card-ticker">2330</span></div><div style="display:flex;align-items:center;gap:6px"><span class="grade-badge" style="background:#10b98122;color:#10b981;border-color:#10b981">A</span></div></div><div class="card-price">2,485</div><div class="card-change" style="color:#10b981">▲ +1.02% <span class="chg-abs">(+25)</span></div><div class="zone-bar-wrap"><div class="zone-bar"><div class="zs z1s" style="width:20.0%"></div><div class="zs z2s" style="width:22.2%"></div><div class="zs z3s" style="width:27.8%"></div><div class="zs z4s" style="width:30.0%"></div><div class="zone-dot" style="left:58.1%"></div></div><div class="zone-prices"><span style="color:#10b981">1,800</span><span style="color:#34d399">2,200</span><span style="color:#f59e0b">2,700</span></div></div><div class="zone-label" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">謹慎觀察</div><div class="tech-row"><span class="tech-tag" style="color:#f59e0b;border-color:#f59e0b">RSI 57 中性</span><span class="tech-tag" style="color:#f59e0b;border-color:#f59e0b">乖離 +3.6% 正常</span><span class="tech-ma">MA20 2,398</span></div><div class="batch-wrap"><div class="batch-title">分批進場觸發價</div><div class="batch-row"><span class="batch-n">合理布局</span><span class="batch-p">≤ 2,200</span><span class="batch-d" style="color:#10b981">-11.5% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">估值中點</span><span class="batch-p">≤ 2,000</span><span class="batch-d" style="color:#10b981">-19.5% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">積極買進</span><span class="batch-p">≤ 1,800</span><span class="batch-d" style="color:#10b981">-27.6% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">深度折價</span><span class="batch-p">≤ 1,584</span><span class="batch-d" style="color:#10b981">-36.3% ✅已觸發</span></div></div><div class="card-thesis">先進製程唯一代工廠，全球每顆AI晶片都必須經過台積電，技術護城河不可複製，15年核心持倉</div></div></div>
+<div class="section-label">🔍 潛力池（持續追蹤）</div>
+<div class="stocks-grid"><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/6669" target="_blank" rel="noopener">緯穎</a><span class="card-ticker">6669</span></div><div style="display:flex;align-items:center;gap:6px"><span class="grade-badge" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">B</span></div></div><div class="card-price">5,160</div><div class="card-change" style="color:#10b981">▲ +2.48% <span class="chg-abs">(+125)</span></div><div class="zone-bar-wrap"><div class="zone-bar"><div class="zs z1s" style="width:14.6%"></div><div class="zs z2s" style="width:28.5%"></div><div class="zs z3s" style="width:30.5%"></div><div class="zs z4s" style="width:26.4%"></div><div class="zone-dot" style="left:46.3%"></div></div><div class="zone-prices"><span style="color:#10b981">3,600</span><span style="color:#34d399">5,000</span><span style="color:#f59e0b">6,500</span></div></div><div class="zone-label" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">謹慎觀察</div><div class="tech-row"><span class="tech-tag" style="color:#f59e0b;border-color:#f59e0b">RSI 56 中性</span><span class="tech-tag" style="color:#ef4444;border-color:#ef4444">乖離 +5.3% 偏高</span><span class="tech-ma">MA20 4,899</span></div><div class="batch-wrap"><div class="batch-title">分批進場觸發價</div><div class="batch-row"><span class="batch-n">合理布局</span><span class="batch-p">≤ 5,000</span><span class="batch-d" style="color:#10b981">-3.1% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">估值中點</span><span class="batch-p">≤ 4,300</span><span class="batch-d" style="color:#10b981">-16.7% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">積極買進</span><span class="batch-p">≤ 3,600</span><span class="batch-d" style="color:#10b981">-30.2% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">深度折價</span><span class="batch-p">≤ 3,168</span><span class="batch-d" style="color:#10b981">-38.6% ✅已觸發</span></div></div><div class="card-thesis">超大型雲端定製AI伺服器，2026E EPS 326元，Forward PE 13.9x為候補池最低估值</div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/5274O" target="_blank" rel="noopener">信驊</a><span class="card-ticker">5274O</span></div><div style="display:flex;align-items:center;gap:6px"><span class="grade-badge" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">B</span></div></div><div class="card-price">15,210</div><div class="card-change" style="color:#10b981">▲ +2.83% <span class="chg-abs">(+419)</span></div><div class="zone-bar-wrap"><div class="zone-bar"><div class="zs z1s" style="width:15.6%"></div><div class="zs z2s" style="width:26.0%"></div><div class="zs z3s" style="width:31.2%"></div><div class="zs z4s" style="width:27.2%"></div><div class="zone-dot" style="left:95.9%"></div></div><div class="zone-prices"><span style="color:#10b981">7,500</span><span style="color:#34d399">10,000</span><span style="color:#f59e0b">13,000</span></div></div><div class="zone-label" style="background:#ef444422;color:#ef4444;border-color:#ef4444">偏貴等待</div><div class="tech-row"><span class="tech-tag" style="color:#34d399;border-color:#34d399">RSI 43 偏弱</span><span class="tech-tag" style="color:#34d399;border-color:#34d399">乖離 -4.4% 偏低</span><span class="tech-ma">MA20 15,916</span></div><div class="batch-wrap"><div class="batch-title">分批進場觸發價</div><div class="batch-row"><span class="batch-n">合理布局</span><span class="batch-p">≤ 10,000</span><span class="batch-d" style="color:#10b981">-34.3% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">估值中點</span><span class="batch-p">≤ 8,750</span><span class="batch-d" style="color:#10b981">-42.5% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">積極買進</span><span class="batch-p">≤ 7,500</span><span class="batch-d" style="color:#10b981">-50.7% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">深度折價</span><span class="batch-p">≤ 6,600</span><span class="batch-d" style="color:#10b981">-56.6% ✅已觸發</span></div></div><div class="card-thesis">BMC伺服器管理晶片85%市佔壟斷，每台AI伺服器必用，AST2700新品2026下半年放量，護城河深</div><div class="card-conclusion">商業邏輯極強但現價103x PE嚴重偏貴，需回落至≤10,000才進入合理布局區 <span class="card-researched">(2026-06-26)</span></div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/3017" target="_blank" rel="noopener">奇鋐</a><span class="card-ticker">3017</span></div><div style="display:flex;align-items:center;gap:6px"><span class="grade-badge" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">B</span></div></div><div class="card-price">2,555</div><div class="card-change" style="color:#ef4444">▼ -4.31% <span class="chg-abs">(-115)</span></div><div class="zone-bar-wrap"><div class="zone-bar"><div class="zs z1s" style="width:16.4%"></div><div class="zs z2s" style="width:30.2%"></div><div class="zs z3s" style="width:25.9%"></div><div class="zs z4s" style="width:27.5%"></div><div class="zone-dot" style="left:44.6%"></div></div><div class="zone-prices"><span style="color:#10b981">1,900</span><span style="color:#34d399">2,600</span><span style="color:#f59e0b">3,200</span></div></div><div class="zone-label" style="background:#34d39922;color:#34d399;border-color:#34d399">合理布局</div><div class="tech-row"><span class="tech-tag" style="color:#f59e0b;border-color:#f59e0b">RSI 58 中性</span><span class="tech-tag" style="color:#f59e0b;border-color:#f59e0b">乖離 +3.2% 正常</span><span class="tech-ma">MA20 2,475</span></div><div class="batch-wrap"><div class="batch-title">分批進場觸發價</div><div class="batch-row"><span class="batch-n">合理布局</span><span class="batch-p">≤ 2,600</span><span class="batch-d" style="color:#94a3b8">差 +1.8%</span></div><div class="batch-row"><span class="batch-n">估值中點</span><span class="batch-p">≤ 2,250</span><span class="batch-d" style="color:#10b981">-11.9% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">積極買進</span><span class="batch-p">≤ 1,900</span><span class="batch-d" style="color:#10b981">-25.6% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">深度折價</span><span class="batch-p">≤ 1,672</span><span class="batch-d" style="color:#10b981">-34.6% ✅已觸發</span></div></div><div class="card-thesis">AI液冷散熱龍頭，Google TPU v8供應鏈，2026E EPS 93元，算力密度提升液冷從選配變標配</div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/3533" target="_blank" rel="noopener">嘉澤</a><span class="card-ticker">3533</span></div><div style="display:flex;align-items:center;gap:6px"><span class="grade-badge" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">B</span></div></div><div class="card-price">2,105</div><div class="card-change" style="color:#ef4444">▼ -0.94% <span class="chg-abs">(-20)</span></div><div class="zone-bar-wrap"><div class="zone-bar"><div class="zs z1s" style="width:13.5%"></div><div class="zs z2s" style="width:27.0%"></div><div class="zs z3s" style="width:33.8%"></div><div class="zs z4s" style="width:25.7%"></div><div class="zone-dot" style="left:40.8%"></div></div><div class="zone-prices"><span style="color:#10b981">1,500</span><span style="color:#34d399">2,100</span><span style="color:#f59e0b">2,850</span></div></div><div class="zone-label" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">謹慎觀察</div><div class="tech-row"><span class="tech-tag" style="color:#10b981;border-color:#10b981">RSI 28 超賣</span><span class="tech-tag" style="color:#34d399;border-color:#34d399">乖離 -4.7% 偏低</span><span class="tech-ma">MA20 2,209</span></div><div class="batch-wrap"><div class="batch-title">分批進場觸發價</div><div class="batch-row"><span class="batch-n">合理布局</span><span class="batch-p">≤ 2,100</span><span class="batch-d" style="color:#10b981">-0.2% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">估值中點</span><span class="batch-p">≤ 1,800</span><span class="batch-d" style="color:#10b981">-14.5% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">積極買進</span><span class="batch-p">≤ 1,500</span><span class="batch-d" style="color:#10b981">-28.7% ✅已觸發</span></div><div class="batch-row"><span class="batch-n">深度折價</span><span class="batch-p">≤ 1,320</span><span class="batch-d" style="color:#10b981">-37.3% ✅已觸發</span></div></div><div class="card-thesis">AI伺服器高速連接器龍頭，2026E EPS 95元，AI伺服器每台連接器用量持續增加</div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/3711" target="_blank" rel="noopener">日月光投控</a><span class="card-ticker">3711</span></div><div style="display:flex;align-items:center;gap:6px"><span class="grade-badge" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">B</span></div></div><div class="card-price">N/A</div><div class="card-change" style="color:#94a3b8">- N/A <span class="chg-abs"></span></div><div class="zone-bar-wrap"><div class="zone-bar"><div class="zs z1s" style="width:13.6%"></div><div class="zs z2s" style="width:25.0%"></div><div class="zs z3s" style="width:35.7%"></div><div class="zs z4s" style="width:25.7%"></div><div class="zone-dot" style="left:50%"></div></div><div class="zone-prices"><span style="color:#10b981">380</span><span style="color:#34d399">520</span><span style="color:#f59e0b">720</span></div></div><div class="zone-label" style="background:#94a3b822;color:#94a3b8;border-color:#94a3b8">待研究</div><div class="tech-row"><span class="tech-tag" style="color:#94a3b8;border-color:#94a3b8">RSI N/A</span><span class="tech-tag" style="color:#94a3b8;border-color:#94a3b8">乖離 N/A</span></div><div class="card-thesis">CoWoS先進封裝全球龍頭，每顆AI GPU出廠前必經封測，需求與台積電同步成長</div><div class="card-conclusion">封裝護城河真實，估值需重新驗證，現價641屬謹慎觀察區，等回落≤520再評估 <span class="card-researched">(2026-06-26)</span></div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/2308" target="_blank" rel="noopener">台達電</a><span class="card-ticker">2308</span></div><div style="display:flex;align-items:center;gap:6px"><span class="grade-badge" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">B</span></div></div><div class="card-price">N/A</div><div class="card-change" style="color:#94a3b8">- N/A <span class="chg-abs"></span></div><div class="zone-bar-wrap"><div class="zone-bar"><div class="zs z1s" style="width:13.5%"></div><div class="zs z2s" style="width:28.8%"></div><div class="zs z3s" style="width:32.1%"></div><div class="zs z4s" style="width:25.6%"></div><div class="zone-dot" style="left:50%"></div></div><div class="zone-prices"><span style="color:#10b981">1,050</span><span style="color:#34d399">1,500</span><span style="color:#f59e0b">2,000</span></div></div><div class="zone-label" style="background:#94a3b822;color:#94a3b8;border-color:#94a3b8">待研究</div><div class="tech-row"><span class="tech-tag" style="color:#94a3b8;border-color:#94a3b8">RSI N/A</span><span class="tech-tag" style="color:#94a3b8;border-color:#94a3b8">乖離 N/A</span></div><div class="card-thesis">AI資料中心電源供應，電力需求是AI基建剛需，護城河待確認，等估值回到合理再建倉</div><div class="card-conclusion">現價PE 53x（2026E EPS 36元）無安全邊際，需回落至≤1,500才進合理布局，≤1,050積極買進 <span class="card-researched">(2026-06-26)</span></div></div></div>
+<div class="section-title">精選 ETF 觀察</div>
+<div class="stocks-grid"><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/006208" target="_blank" rel="noopener">富邦台50</a><span class="card-ticker">006208</span></div><span class="etf-category" style="background:#3b82f622;color:#3b82f6;border-color:#3b82f6">台股核心</span></div><div class="card-price">251</div><div class="card-change" style="color:#ef4444">▼ -0.02%</div><div class="etf-metric">52週區間位置 <strong style="color:#ef4444">94%</strong> <span class="etf-hint">（低點113 ← 目前94% → 高點260）</span></div><div class="zone-label" style="background:#ef444422;color:#ef4444;border-color:#ef4444">接近52週高點，等待回調</div><div class="card-thesis">追蹤台灣市值最大50家公司，費用率0.03%全市場最低，台積電佔比30%，核心長期定期定額</div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/00662" target="_blank" rel="noopener">富邦NASDAQ</a><span class="card-ticker">00662</span></div><span class="etf-category" style="background:#8b5cf622;color:#8b5cf6;border-color:#8b5cf6">美股AI</span></div><div class="card-price">122</div><div class="card-change" style="color:#10b981">▲ +0.04%</div><div class="etf-metric">VIX恐慌指數 <strong style="color:#f59e0b">15.6</strong> <span class="etf-hint">（&gt;25買 / 15-25觀 / &lt;15停）</span></div><div class="zone-label" style="background:#f59e0b22;color:#f59e0b;border-color:#f59e0b">情緒正常，定期定額</div><div class="card-thesis">持有NVIDIA、Microsoft、Meta、Amazon、Alphabet等AI需求端甲方，補上美國AI曝險缺口，核心持倉</div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/00919" target="_blank" rel="noopener">群益台灣精選高息</a><span class="card-ticker">00919</span></div><span class="etf-category" style="background:#10b98122;color:#10b981;border-color:#10b981">現金流</span></div><div class="card-price">30</div><div class="card-change" style="color:#10b981">▲ +0.40%</div><div class="etf-metric">即時殖利率 <strong style="color:#10b981">11.0%</strong> <span class="etf-hint">（&ge;8%買 / 6-8%觀 / &lt;6%停）</span><div class="etf-note">季配，年化配息估算 3.28元/股（每季更新）</div></div><div class="zone-label" style="background:#10b98122;color:#10b981;border-color:#10b981">殖利率11.0%，高息，積極考慮進場</div><div class="card-thesis">退休現金流引擎，季配息殖利率約10%，AI供應鏈成分股重疊度高，填息紀錄穩健</div></div><div class="stock-card"><div class="card-top"><div><a class="card-name card-link" href="https://tw.stock.yahoo.com/quote/00878" target="_blank" rel="noopener">國泰永續高股息</a><span class="card-ticker">00878</span></div><span class="etf-category" style="background:#10b98122;color:#10b981;border-color:#10b981">現金流</span></div><div class="card-price">33</div><div class="card-change" style="color:#10b981">▲ +0.21%</div><div class="etf-metric">即時殖利率 <strong style="color:#10b981">5.6%</strong> <span class="etf-hint">（&ge;5.5%買 / 4-5.5%觀 / &lt;4%停）</span><div class="etf-note">季配，年化配息估算 1.88元/股（每季更新）</div></div><div class="zone-label" style="background:#10b98122;color:#10b981;border-color:#10b981">殖利率5.6%，高息，積極考慮進場</div><div class="card-thesis">退休現金流引擎，季配息，ESG篩選成分股品質穩定，與00919互補雙持</div></div></div>
+<div class="section-title">風險提醒</div>
+<div class="warn-list"><div class="warn-item info-row"><span class="warn-sym" style="color:#94a3b8">[i]</span><div class="warn-text"><strong style="color:#94a3b8">目前無重大風險警示</strong><span>市場整體穩定，繼續觀察估值燈號，等候進場時機</span></div></div></div>
 <div class="holding-section">
-  <div id="holding-advice"></div>
+  <h2>我的持倉</h2>
+  <div id="holding-advice" class="holding-advice"></div>
   <table id="holding-table">
-    <thead><tr><th>標的</th><th>股數</th><th>成本</th><th>現價</th><th>市值</th><th>損益</th><th>損益%</th><th></th></tr></thead>
+    <thead><tr><th>標的</th><th>股數</th><th>成本</th><th>現價</th><th>市値</th><th>損益</th><th>損益%</th><th></th></tr></thead>
     <tbody id="holding-body"></tbody>
   </table>
   <div class="add-form">
     <select id="f-ticker"><option value="">選擇標的</option></select>
-    <input id="f-shares" type="number" placeholder="股數" style="width:80px">
-    <input id="f-cost" type="number" placeholder="平均成本" style="width:100px" step="0.01">
+    <input id="f-shares" type="number" placeholder="股數" style="width:90px">
+    <input id="f-cost" type="number" placeholder="平均成本" style="width:110px" step="0.01">
     <button class="btn btn-add" onclick="addHolding()">加入持倉</button>
   </div>
 </div>
-
-<div class="section-title">核心持股 — 估值燈號</div>
-<div class="stocks-grid" id="core-list"></div>
-<div class="section-title">潛力池 — 持續追蹤</div>
-<div class="stocks-grid" id="observe-list"></div>
-<div class="section-title">ETF 定期定額</div>
-<div class="stocks-grid" id="etf-list"></div>
-
-<div class="section-title">盤後深度解讀</div>
-<div class="analysis-box"><div id="analysis-content" class="analysis-empty">盤後分析將於每日收盤後自動更新</div></div>
-
-<footer>資料來源：Yahoo Finance · TWSE · TPEX · 僅供參考，非投資建議</footer>
-
+<div class="section-title">月度研究</div>
+<div class="monthly-section"><div class="monthly-header" onclick="toggleMonthly()"><span class="section-title" style="margin:0">&#x1F4CB; 月度研究報告 &mdash; 2026-07</span><span class="monthly-chevron" id="monthly-chevron">&#x25B2;</span></div><div class="monthly-body" id="monthly-body"><div class="mr-h1">AI 投資顧問月度報告 — 2026-07</div>
+<div class="mr-gap"></div>
+<div class="mr-p"><strong>生成時間</strong>：2026-07-01 15:24（自動排程）</div>
+<div class="mr-p"><strong>資料來源</strong>：Yahoo Finance 即時報價 + 產業公開資訊</div>
+<div class="mr-p"><strong>投資視角</strong>：巴菲特長期價值投資 / 存股族觀點</div>
+<div class="mr-p"><strong>估值基準</strong>：watchlist.json 現行 cheap / fair / rich</div>
+<div class="mr-gap"></div>
+<div class="mr-p">> 本報告為自動排程產出。估值區間校準與換股決策僅列建議，任何修改 watchlist.json 前會先請你確認。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">一、本月市場摘要</div>
+<div class="mr-gap"></div>
+<div class="mr-p">| 指標 | 數值 | 觀察 |</div>
+<div class="mr-p">|------|------|------|</div>
+<div class="mr-p">| 加權指數 | 47,019（+1.94%） | 續創高，較 6/10 的 43,225 一個月漲逾 8.8% |</div>
+<div class="mr-p">| VIX 恐慌指數 | 16.45（-6.8%） | 偏低，市場情緒偏樂觀 |</div>
+<div class="mr-p">| 美 10 年債殖利率 | 4.418% | 溫和偏高，壓抑高估值成長股 |</div>
+<div class="mr-p">| 美元／台幣 | 31.9 | 台幣區間整理 |</div>
+<div class="mr-p">| 外資買賣超（今日） | +323.8 億 | 大幅買超，資金動能強 |</div>
+<div class="mr-p">| 融資餘額 | 6,117 億（+174 億） | 續增，散戶追價情緒升溫 |</div>
+<div class="mr-gap"></div>
+<div class="mr-p"><strong>一句話定調</strong>：市場處於<strong>高機會密度低、追價情緒高</strong>的階段。指數創高、VIX 偏低、外資大買、融資走高，這是「參與者亢奮」的訊號，不是「便宜錯殺」的訊號。對存股族而言，此時應<strong>紀律等待，維持較高現金水位（25～35%）</strong>，而非追高。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">二、AI 產業趨勢分數：**93 / 100**</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>是否仍為未來 15 年主線</strong>：✅ <strong>是</strong></div>
+<div class="mr-li">&#x2022; <strong>是否影響核心持倉</strong>：❌ 否（主線更強，不動搖核心邏輯）</div>
+<div class="mr-gap"></div>
+<div class="mr-h3">監控項目結論</div>
+<div class="mr-gap"></div>
+<div class="mr-p"><strong>① NVIDIA 展望（強）</strong></div>
+<div class="mr-li">&#x2022; FY27 Q1（截至 2026/4/26）營收 <strong>816 億美元</strong>，年增 <strong>85%</strong>、季增 20%，創新高；資料中心營收年增約 75%。</div>
+<div class="mr-li">&#x2022; FY27 Q2 財測 <strong>910 億美元（±2%）</strong>，續創高。</div>
+<div class="mr-li">&#x2022; Blackwell + Rubin 至 2026 年底已確認訂單約 <strong>5,000 億美元</strong>；Vera Rubin 平台下季開始貢獻營收，AWS／Google／Azure／Oracle 首批部署。</div>
+<div class="mr-li">&#x2022; 需求端能見度極高，AI 算力投資「加速中」而非趨緩。</div>
+<div class="mr-gap"></div>
+<div class="mr-p"><strong>② CSP AI CapEx（極強）</strong></div>
+<div class="mr-li">&#x2022; 微軟、Google、Meta、Amazon 2026 年合計資本支出上看 <strong>約 7,250 億美元</strong>，年增約 <strong>77%</strong>（2025 約 4,100 億）。</div>
+<div class="mr-li">&#x2022; 個別指引：Amazon ~2,000 億、微軟 ~1,900 億、Alphabet 1,750～1,850 億、Meta 1,150～1,450 億（已上修）。</div>
+<div class="mr-li">&#x2022; 分析師預估 2027 年四雲合計 CapEx 上看破 1 兆美元。這是台鏈 AI 供應鏈最直接的需求後盾。</div>
+<div class="mr-gap"></div>
+<div class="mr-p"><strong>③ 台積電 CoWoS 需求（緊）</strong></div>
+<div class="mr-li">&#x2022; 2026 年 CoWoS 月產能估 12～14 萬片（2024 年底約 3.5 萬片），仍<strong>全數售罄</strong>；2026 全年需求估近 100 萬片。</div>
+<div class="mr-li">&#x2022; 供需缺口由約 20% 收斂至年底約 10%，代表<strong>擴產仍追不上需求</strong>。</div>
+<div class="mr-li">&#x2022; NVIDIA 一家吃下逾 60% CoWoS 產能，前段客戶鎖定逾 85%。</div>
+<div class="mr-gap"></div>
+<div class="mr-p"><strong>④ 台積電本體（強）</strong></div>
+<div class="mr-li">&#x2022; 2026 Q1 營收 1.13 兆（年增 35.1%）、毛利率 66.2%、<strong>單季 EPS 22.08 元創新高</strong>；近四季 EPS 約 74.38 元。</div>
+<div class="mr-li">&#x2022; 全年美元營收展望首度上修至「<strong>超過 30%</strong>」；2026 資本支出近 560 億美元。管理層定調「AI 是 3 年以上長多」。</div>
+<div class="mr-gap"></div>
+<div class="mr-p"><strong>⑤ AI Server / 液冷 / 電源 / 高速傳輸供應鏈（強）</strong></div>
+<div class="mr-li">&#x2022; CSP 巨額 CapEx → 直接拉動緯穎（ODM 定製）、奇鋐（液冷）、台達電（電源）、嘉澤（連接器）、日月光（封測）訂單能見度。</div>
+<div class="mr-li">&#x2022; 瓶頸正從「晶片」轉向「電力與散熱」，利多散熱／電源環節。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">> <strong>主線判讀</strong>：需求（CSP CapEx）、供給（CoWoS 售罄）、龍頭（NVIDIA、台積電）三端同步走強，AI 主線比上月更確立。<strong>未扣分的 7 分主要來自估值端過熱與循環性投資（capex 回收 ROI）疑慮</strong>，屬於「價格風險」而非「主線風險」。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">三、各標的月度評估（依護城河分層）</div>
+<div class="mr-gap"></div>
+<div class="mr-p">> 現行區間定義：價格 ≤ cheap = 🟢積極買進；cheap～fair = 🟡合理布局；fair～rich = 🟠謹慎觀察；> rich = 🔴偏貴等待。</div>
+<div class="mr-gap"></div>
+<div class="mr-h3">S 級</div>
+<div class="mr-gap"></div>
+<div class="mr-p">#### 信驊 5274.TWO　現價 <strong>17,145</strong></div>
+<div class="mr-p">| 積極買進 | 合理布局 | 偏貴等待 | 護城河 |</div>
+<div class="mr-p">|---|---|---|---|</div>
+<div class="mr-p">| ≤ 7,500 | ≤ 10,000 | > 13,000 | S（85% 市佔壟斷 + 高切換成本） |</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>區間</strong>：🔴 <strong>偏貴等待</strong>（高於 rich 13,000 約 <strong>32%</strong>）。</div>
+<div class="mr-li">&#x2022; <strong>判讀</strong>：品質頂級，但價格嚴重脫離安全邊際。BMC 壟斷地位受惠 AI Server 出貨，市場已充分定價甚至超前定價。</div>
+<div class="mr-li">&#x2022; <strong>建議</strong>：<strong>不追</strong>。等待回落至 ≤ 10,000 才進入合理布局視野。估值區間目前<strong>不需調整</strong>（等季報再校準 EPS）。</div>
+<div class="mr-gap"></div>
+<div class="mr-h3">A 級</div>
+<div class="mr-gap"></div>
+<div class="mr-p">#### 台積電 2330.TW　現價 <strong>2,505</strong>（核心持倉）</div>
+<div class="mr-p">| 積極買進 | 合理布局 | 偏貴等待 | 護城河 |</div>
+<div class="mr-p">|---|---|---|---|</div>
+<div class="mr-p">| ≤ 1,800 | ≤ 2,200 | > 2,700 | A（先進製程唯一代工） |</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>區間</strong>：🟠 <strong>謹慎觀察</strong>（高於 fair 2,200 約 14%，距 rich 2,700 尚有 7%）。以近四季 EPS 74.38 計，本益比約 <strong>33.7 倍</strong>。</div>
+<div class="mr-li">&#x2022; <strong>判讀</strong>：本月漲勢凌厲（6/10 為 2,255 → 現 2,505）。基本面（Q1 EPS 創高、全年上修 >30%、CoWoS 售罄）強力支撐，但股價已反映樂觀預期。</div>
+<div class="mr-li">&#x2022; <strong>建議</strong>：<strong>基本持股續抱，不因波動賣出</strong>；新資金<strong>暫停加碼</strong>，等回落至 ≤ 2,200 合理區再分批。⚠️ <strong>估值校準提醒</strong>：若 Q2 財報（7 月中）續強、上修 2026 EPS，rich/fair 區間可能需上調——詳見第六節，將列 needs-review 待你確認後再改 watchlist.json。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">#### 緯穎 6669.TW　現價 <strong>5,035</strong></div>
+<div class="mr-p">| 積極買進 | 合理布局 | 偏貴等待 | 護城河 |</div>
+<div class="mr-p">|---|---|---|---|</div>
+<div class="mr-p">| ≤ 3,600 | ≤ 5,000 | > 6,500 | A（超大規模 CSP 定製，PE 最低） |</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>區間</strong>：🟠 <strong>謹慎觀察</strong>（剛越過 fair 5,000，僅高 0.7%，貼邊界）。本月單日 +8.63%，動能強。</div>
+<div class="mr-li">&#x2022; <strong>判讀</strong>：直接受惠 7,250 億美元 CSP CapEx，PE 相對同業最低，性價比佳。價格恰在合理／謹慎邊界。</div>
+<div class="mr-li">&#x2022; <strong>建議</strong>：<strong>可小量分批</strong>視同合理布局邊界操作；回落至 ≤ 5,000 以下加大力道，≤ 3,600 為重點加碼。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">#### 奇鋐 3017.TW　現價 <strong>2,620</strong></div>
+<div class="mr-p">| 積極買進 | 合理布局 | 偏貴等待 | 護城河 |</div>
+<div class="mr-p">|---|---|---|---|</div>
+<div class="mr-p">| ≤ 1,900 | ≤ 2,600 | > 3,200 | A（液冷認證壁壘，Google TPU 供應鏈） |</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>區間</strong>：🟠 <strong>謹慎觀察</strong>（剛越過 fair 2,600，高 0.8%，貼邊界）。</div>
+<div class="mr-li">&#x2022; <strong>判讀</strong>：瓶頸移向散熱，液冷滲透率續升，訂單能見度佳。價格在合理／謹慎邊界。</div>
+<div class="mr-li">&#x2022; <strong>建議</strong>：<strong>可小量分批</strong>；回落至合理區中段（2,200～2,400）較舒適，≤ 1,900 為積極加碼。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">#### 嘉澤 3533.TW　現價 <strong>2,160</strong></div>
+<div class="mr-p">| 積極買進 | 合理布局 | 偏貴等待 | 護城河 |</div>
+<div class="mr-p">|---|---|---|---|</div>
+<div class="mr-p">| ≤ 1,500 | ≤ 2,100 | > 2,850 | B（連接器認證壁壘，非獨占） |</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>區間</strong>：🟠 <strong>謹慎觀察</strong>（高於 fair 2,100 約 3%）。</div>
+<div class="mr-li">&#x2022; <strong>判讀</strong>：高速連接器受惠 AI Server 世代升級，但護城河為 B 級（非獨占）。</div>
+<div class="mr-li">&#x2022; <strong>建議</strong>：<strong>暫緩加碼</strong>，等回落至 ≤ 2,100 再分批。</div>
+<div class="mr-gap"></div>
+<div class="mr-h3">B 級</div>
+<div class="mr-gap"></div>
+<div class="mr-p">#### 日月光投控 3711.TW　現價 <strong>703</strong></div>
+<div class="mr-p">| 積極買進 | 合理布局 | 偏貴等待 | 護城河 |</div>
+<div class="mr-p">|---|---|---|---|</div>
+<div class="mr-p">| ≤ 380 | ≤ 520 | > 720 | B（封測規模壁壘，需驗證 EPS） |</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>區間</strong>：🟠 <strong>謹慎觀察</strong>，但<strong>已貼近 rich 720（僅差 2.4%）</strong>，接近偏貴。</div>
+<div class="mr-li">&#x2022; <strong>判讀</strong>：先進封裝外溢受惠，但護城河 B 級、EPS 假設仍待驗證。價格已偏高。</div>
+<div class="mr-li">&#x2022; <strong>建議</strong>：<strong>暫停加碼</strong>，等回落至 ≤ 520 合理區。突破 720 即進偏貴等待。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">#### 台達電 2308.TW　現價 <strong>1,990</strong></div>
+<div class="mr-p">| 積極買進 | 合理布局 | 偏貴等待 | 護城河 |</div>
+<div class="mr-p">|---|---|---|---|</div>
+<div class="mr-p">| ≤ 1,050 | ≤ 1,500 | > 2,000 | B（電源需求，需驗證 EPS） |</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>區間</strong>：🟠 <strong>謹慎觀察</strong>，但<strong>幾乎觸及 rich 2,000（僅差 0.5%）</strong>，實質已在偏貴門檻。</div>
+<div class="mr-li">&#x2022; <strong>判讀</strong>：AI 資料中心 HVDC 電源長期受惠確定，但現價已充分反映，本益比偏高無安全邊際。</div>
+<div class="mr-li">&#x2022; <strong>建議</strong>：<strong>暫停加碼</strong>，等回落至 ≤ 1,500 合理區。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">四、本月估值區間統計</div>
+<div class="mr-gap"></div>
+<div class="mr-p">| 區間 | 標的數 | 標的 |</div>
+<div class="mr-p">|------|--------|------|</div>
+<div class="mr-p">| 🟢 積極買進 | 0 | — |</div>
+<div class="mr-p">| 🟡 合理布局 | 0 | — |</div>
+<div class="mr-p">| 🟠 謹慎觀察 | 6 | 台積電、緯穎、奇鋐、嘉澤、日月光、台達電 |</div>
+<div class="mr-p">| 🔴 偏貴等待 | 1 | 信驊 |</div>
+<div class="mr-gap"></div>
+<div class="mr-p">> <strong>關鍵訊號</strong>：<strong>沒有任何標的落在積極買進或合理布局區</strong>，多數貼近或突破 fair／rich 上緣。這印證第一節的定調——目前是「貴的市場」，機會密度低。存股族的正確動作是<strong>紀律等待，不追高</strong>。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">五、核心持倉建議</div>
+<div class="mr-gap"></div>
+<div class="mr-h3">基本持股（不因估值未達完美而缺席）</div>
+<div class="mr-li">&#x2022; <strong>台積電 2330</strong>：🟠 謹慎觀察區。<strong>維持基本持股續抱</strong>，新資金等 ≤ 2,200 再加碼。基本面最強，長期核心不動搖。</div>
+<div class="mr-li">&#x2022; <strong>富邦 NASDAQ 00662</strong>（現價 123.65）：美股 AI 曝險核心，<strong>維持基本持股</strong>、定期定額續扣，補足 NVIDIA／微軟／Meta／Amazon 需求端曝險。</div>
+<div class="mr-li">&#x2022; <strong>富邦台 50 006208</strong>（現價 253.65）：台股 Beta 核心，費用率低，<strong>維持基本持股</strong>續扣。</div>
+<div class="mr-gap"></div>
+<div class="mr-h3">候補池：接近進場價者</div>
+<div class="mr-li">&#x2022; <strong>緯穎（5,035）</strong>、<strong>奇鋐（2,620）</strong>：兩檔貼近 fair 邊界，是候補池中<strong>最接近可小量分批</strong>的標的。若大盤回檔帶動回落至合理區，優先布局。</div>
+<div class="mr-li">&#x2022; 其餘（信驊、嘉澤、日月光、台達電）皆<strong>明顯偏貴或貼 rich，續等</strong>。</div>
+<div class="mr-gap"></div>
+<div class="mr-h3">現金策略</div>
+<div class="mr-li">&#x2022; 機會密度<strong>低</strong> → 維持現金水位 <strong>25～35%</strong>。子彈留著不吃虧，等大盤回檔或個股錯殺再動用。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">六、估值校準提醒（待你確認，暫不修改檔案）</div>
+<div class="mr-gap"></div>
+<div class="mr-p">依框架「每季搭配最新財報重新校準 EPS」，7 月為 Q3 起點、且台積電 Q2 法說即將登場，以下<strong>建議待你確認後</strong>再更新 watchlist.json：</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>台積電</strong>：Q1 EPS 22.08 創高、全年上修 >30%、近四季 EPS 74.38。現行 fair 2,200 / rich 2,700 對應本益比偏保守。<strong>建議 7 月法說後</strong>依 2026 全年 EPS 新預估，評估是否上調 fair／rich（避免長期把品質最強的核心標的框在「永遠偏貴」）。</div>
+<div class="mr-li">&#x2022; <strong>日月光、台達電</strong>：B 級且股價已貼 rich，<strong>建議搭配 Q2 財報驗證 EPS 假設</strong>再決定是否調整區間。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">> 我會另在 `needs-review/` 放一份校準建議說明，實際修改 watchlist.json 前一律等你確認。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">七、前三大風險</div>
+<div class="mr-gap"></div>
+<div class="mr-p">1. <strong>估值過熱、追價情緒升溫</strong>：指數創高、VIX 16.45 偏低、外資單日大買 323.8 億、融資餘額續增。多數標的貼近或突破 fair／rich。一旦利多出盡或財報不如預期，回檔幅度可能放大。<strong>因應</strong>：維持高現金、不追高、只在錯殺時動用子彈。</div>
+<div class="mr-p">2. <strong>AI CapEx 回收與循環性投資疑慮</strong>：7,250 億美元 CapEx 規模空前，市場開始關注 ROI 與變現速度；若 2027 CapEx 成長率放緩或雲廠財報示警，AI 供應鏈評價恐同步修正。<strong>因應</strong>：緊盯雲廠 2Q26 CapEx 實際數字與展望。</div>
+<div class="mr-p">3. <strong>集中度與地緣／政策風險</strong>：NVIDIA 獨占逾 60% CoWoS、產業高度集中；美國半導體 232 關稅、出口管制、台海地緣、台幣匯率皆為外生變數。<strong>因應</strong>：以核心 ETF（00662／006208）分散，個股不過度集中單一環節。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">八、下月（2026 年 8 月）關注事項</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; <strong>台積電 2Q26 法說（7 月中旬）</strong>：CoWoS 擴產進度、2 奈米放量、全年展望是否再上修、232 關稅影響——是本月最重要事件，並作為估值校準依據。</div>
+<div class="mr-li">&#x2022; <strong>雲端四巨頭 2Q26 財報／CapEx（7 月下旬～8 月初）</strong>：微軟、Google、Meta、Amazon 資本支出實際數與後續指引，直接驗證台鏈需求後盾。</div>
+<div class="mr-li">&#x2022; <strong>NVIDIA 下一季 Rubin 放量</strong>：Vera Rubin 開始貢獻營收的節奏。</div>
+<div class="mr-li">&#x2022; <strong>Fed 7 月會議（約 7/28–29）</strong>：利率路徑影響高估值科技股。</div>
+<div class="mr-li">&#x2022; <strong>台幣走勢</strong>：影響出口鏈毛利與外資動向。</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-gap"></div>
+<div class="mr-p">*本報告由 AI 投資顧問系統自動生成，僅供參考，不構成投資建議。所有投資決策請自行判斷並承擔風險。*</div>
+<div class="mr-gap"></div></div></div>
+<div class="timestamp-bar"><span>資料時間：2026-07-07 09:49</span><span>頁面產生：2026-07-07 09:49</span></div>
 <script>
-const ZONE_TEXT={buy:'★ 積極買進',fair:'◎ 合理布局',watch:'△ 謹慎觀察',expensive:'✗ 偏貴等待'};
-const ZONE_COLOR={buy:'#10b981',fair:'#34d399',watch:'#f59e0b',expensive:'#ef4444'};
-const ZONE_BUFFETT={buy:'積極買進區 — 可分批加碼，越跌越買。',fair:'合理布局區 — 估值合理，可小量加碼。',watch:'謹慎觀察區 — 持有但暫緩加碼。',expensive:'偏貴等待區 — 新資金暫停加碼。',none:'估值待研究設定。'};
-const arrow=p=>p>0?'▲':p<0?'▼':'';
-const colorPct=p=>{const s=(p>0?'+':'')+p.toFixed(2)+'%';return p>0?'<span style="color:#10b981">'+s+'</span>':p<0?'<span style="color:#ef4444">'+s+'</span>':'<span style="color:#94a3b8">'+s+'</span>';};
-const fmt=(n,d=0)=>n==null?'—':n.toLocaleString('zh-TW',{minimumFractionDigits:d,maximumFractionDigits:d});
-
-function instChip(label, val) {
-  if (val == null) return '';
-  const cls = val > 0 ? 'inst-pos' : val < 0 ? 'inst-neg' : 'inst-zero';
-  const sign = val > 0 ? '+' : '';
-  return `<span class="inst-chip ${cls}">${label} ${sign}${val.toLocaleString()}張</span>`;
+const PRICES = {"2330.TW": {"price": 2485.0, "name": "台積電"}, "6669.TW": {"price": 5160.0, "name": "緯穎"}, "5274.TWO": {"price": 15210.0, "name": "信驊"}, "3017.TW": {"price": 2555.0, "name": "奇鋐"}, "3533.TW": {"price": 2105.0, "name": "嘉澤"}, "3711.TW": {"price": null, "name": "日月光投控"}, "2308.TW": {"price": null, "name": "台達電"}, "006208.TW": {"price": 251.3, "name": "富邦台50"}, "00662.TW": {"price": 121.6, "name": "富邦NASDAQ"}, "00919.TW": {"price": 29.88, "name": "群益台灣精選高息"}, "00878.TW": {"price": 33.4, "name": "國泰永續高股息"}};
+const STOCKS = [{"ticker": "2330.TW", "name": "台積電", "cheap": 1800, "fair": 2200, "rich": 2700}, {"ticker": "6669.TW", "name": "緯穎", "cheap": 3600, "fair": 5000, "rich": 6500}, {"ticker": "5274.TWO", "name": "信驊", "cheap": 7500, "fair": 10000, "rich": 13000}, {"ticker": "3017.TW", "name": "奇鋐", "cheap": 1900, "fair": 2600, "rich": 3200}, {"ticker": "3533.TW", "name": "嘉澤", "cheap": 1500, "fair": 2100, "rich": 2850}, {"ticker": "3711.TW", "name": "日月光投控", "cheap": 380, "fair": 520, "rich": 720}, {"ticker": "2308.TW", "name": "台達電", "cheap": 1050, "fair": 1500, "rich": 2000}, {"ticker": "006208.TW", "name": "富邦台50", "cheap": null, "fair": null, "rich": null}, {"ticker": "00662.TW", "name": "富邦NASDAQ", "cheap": null, "fair": null, "rich": null}, {"ticker": "00919.TW", "name": "群益台灣精選高息", "cheap": null, "fair": null, "rich": null}, {"ticker": "00878.TW", "name": "國泰永續高股息", "cheap": null, "fair": null, "rich": null}];
+(function(){
+  var sel = document.getElementById('f-ticker');
+  STOCKS.forEach(function(s){
+    var opt = document.createElement('option');
+    opt.value = s.ticker; opt.textContent = s.name; sel.appendChild(opt);
+  });
+})();
+function loadH(){ var d=localStorage.getItem('ai_adv_v3'); return JSON.parse(d||'[]'); }
+function saveH(h){ localStorage.setItem('ai_adv_v3', JSON.stringify(h)); }
+// 持倉狀態 Banner
+(function renderHoldingBanner(){
+  var el = document.getElementById('holding-status-banner');
+  if(!el) return;
+  var h = loadH();
+  if(!h.length){
+    el.innerHTML = '<div style="background:#1a2535;border:1px solid #334155;border-left:4px solid #3b82f6;border-radius:8px;padding:10px 14px;font-size:.88rem;color:#94a3b8;margin-bottom:16px">📋 <strong style="color:#60a5fa">目前持倉為零</strong>　以下分析為進場時機觀察，非持倉建議。若有買進，請在「我的持倉」欄位登錄。</div>';
+  } else {
+    var names = h.map(function(p){ var info=PRICES[p.ticker]; return info?info.name:p.ticker; });
+    el.innerHTML = '<div style="background:#052e16;border:1px solid #166534;border-left:4px solid #22c55e;border-radius:8px;padding:10px 14px;font-size:.88rem;color:#86efac;margin-bottom:16px">💼 <strong>持倉中：</strong>' + names.join('、') + '　損益詳見下方持倉表格。</div>';
+  }
+})();
+function fmtN(n){ return n==null?'-':n.toLocaleString('zh-TW',{maximumFractionDigits:0}); }
+function fmtP(n){ return n==null?'-':(n>=0?'+':'')+n.toFixed(2)+'%'; }
+function getZone(price,cheap,fair,rich){
+  if(!price||!cheap) return 'none';
+  if(price<=cheap) return 'z1'; if(price<=fair) return 'z2';
+  if(price<=rich)  return 'z3'; return 'z4';
 }
-function instChipBillion(label, val) {
-  if (val == null) return '';
-  const cls = val > 0 ? 'inst-pos' : val < 0 ? 'inst-neg' : 'inst-zero';
-  const sign = val > 0 ? '+' : '';
-  return `<span class="inst-chip ${cls}">${label} ${sign}${val.toLocaleString()}億</span>`;
-}
-function instRow(inst, isBillion) {
-  if (!inst) return '';
-  const fn = isBillion ? instChipBillion : instChip;
-  return fn('外資', inst.foreign) + fn('投信', inst.trust) + fn('自營', inst.dealer);
-}
-
-function zoneBar(price,cheap,fair,rich){const lo=cheap*0.7,hi=rich*1.15,range=hi-lo;const w1=(cheap-lo)/range*100,w2=(fair-cheap)/range*100,w3=(rich-fair)/range*100,w4=(hi-rich)/range*100;const dot=Math.min(Math.max((price-lo)/range*100,1),99);return '<div class="zone-bar"><div class="zs z1s" style="width:'+w1.toFixed(1)+'%"></div><div class="zs z2s" style="width:'+w2.toFixed(1)+'%"></div><div class="zs z3s" style="width:'+w3.toFixed(1)+'%"></div><div class="zs z4s" style="width:'+w4.toFixed(1)+'%"></div><div class="zone-dot" style="left:'+dot.toFixed(1)+'%"></div></div><div class="zone-prices"><span style="color:#10b981">'+fmt(cheap)+'</span><span style="color:#34d399">'+fmt(fair)+'</span><span style="color:#f59e0b">'+fmt(rich)+'</span></div>';}
-
-function makeCard(sym,d){
-  const p=d.price,pct=d.pct||0;
-  const col=pct>0?'#10b981':pct<0?'#ef4444':'#e2e8f0';
-  const prev=p?p/(1+pct/100):0;
-  const absChg=p?'<span class="chg-abs">'+(pct>=0?'+':'')+Math.round(p-prev)+'</span>':'';
-  let barHtml='',labelHtml='';
-  if(d.cheap&&p){barHtml='<div class="zone-bar-wrap">'+zoneBar(p,d.cheap,d.fair,d.rich)+'</div>';labelHtml='<div class="zone-label '+d.zone+'">'+(ZONE_TEXT[d.zone]||d.zone)+'</div>';}
-  const ticker=sym.replace('.TW','').replace('.TWO','');
-  const instHtml = d.institutional ? '<div class="inst-row" style="margin-top:6px">'+instRow(d.institutional,false)+'</div>' : '';
-  return '<div class="stock-card" data-sym="'+sym+'"><div class="card-top"><div><a class="card-name" href="https://tw.stock.yahoo.com/quote/'+ticker+'" target="_blank" rel="noopener">'+d.name+'</a><span class="card-ticker">'+ticker+'</span></div></div><div class="card-price"><span style="color:'+col+'">'+fmt(p)+'</span></div><div class="card-change">'+arrow(pct)+' '+colorPct(pct)+' '+absChg+'</div>'+barHtml+labelHtml+instHtml+'</div>';
-}
-
-function makeEtfCard(sym,d){
-  const p=d.price,pct=d.pct||0;
-  const ticker=sym.replace('.TW','');
-  const instHtml = d.institutional ? '<div class="inst-row" style="margin-top:6px">'+instRow(d.institutional,false)+'</div>' : '';
-  return '<div class="stock-card" data-sym="'+sym+'"><div class="card-top"><div><a class="card-name" href="https://tw.stock.yahoo.com/quote/'+ticker+'" target="_blank" rel="noopener">'+d.name+'</a><span class="card-ticker">'+ticker+'</span></div><span class="etf-category" style="background:#3b82f622;color:#3b82f6;border-color:#3b82f6">定期定額</span></div><div class="card-price" style="font-size:1.3rem">'+(p?fmt(p,p<100?2:0):'—')+'</div><div class="card-change">'+arrow(pct)+' '+colorPct(pct)+'</div><div class="zone-label etf" style="margin-top:6px">長期持有</div>'+instHtml+'</div>';
-}
-
-function renderThermo(m){
-  if(m.vix){document.getElementById('tc-vix').textContent=m.vix.toFixed(1);const v=m.vix>30?{c:'#ef4444',t:'極度恐慌，可逢低布局'}:m.vix>20?{c:'#f59e0b',t:'市場警戒中'}:{c:'#10b981',t:'正常波動'};document.getElementById('tc-vix-i').innerHTML='<span style="color:'+v.c+'">'+v.t+'</span>';}
-  if(m.yield10y){document.getElementById('tc-y10').textContent=m.yield10y.toFixed(2)+'%';const y=m.yield10y>4.5?{c:'#ef4444',t:'利率偏高'}:m.yield10y>4?{c:'#f59e0b',t:'利率中性'}:{c:'#10b981',t:'利率友善'};document.getElementById('tc-y10-i').innerHTML='<span style="color:'+y.c+'">'+y.t+'</span>';}
-  if(m.usdtwd){document.getElementById('tc-fx').textContent=m.usdtwd.toFixed(2);const f=m.usdtwd>33?{c:'#ef4444',t:'台幣偏弱'}:m.usdtwd>31?{c:'#f59e0b',t:'台幣正常'}:{c:'#10b981',t:'台幣偏強'};document.getElementById('tc-fx-i').innerHTML='<span style="color:'+f.c+'">'+f.t+'</span>';}
-}
-
-function renderAnalysis(a){
-  const el=document.getElementById('analysis-content');
-  if(!a) return;
-  if(typeof a==='string'&&a.trim()){el.className='analysis-content';el.innerHTML=a;}
-  else if(typeof a==='object'&&a.text){el.className='analysis-content';el.innerHTML=a.text+(a.date?'<div style="font-size:.72rem;color:#475569;margin-top:8px">分析日期：'+a.date+'</div>':'');}
-}
-
-let CURRENT_PRICES={};
-const STOCKS_META=[
-  {sym:'2330.TW',name:'台積電',cheap:1800,fair:2200,rich:2700},
-  {sym:'6669.TW',name:'緯穎',cheap:3600,fair:5000,rich:6500},
-  {sym:'5274.TWO',name:'信驊',cheap:7500,fair:10000,rich:13000},
-  {sym:'3017.TW',name:'奇鋐',cheap:1900,fair:2600,rich:3200},
-  {sym:'3533.TW',name:'嘉澤',cheap:1500,fair:2100,rich:2850},
-  {sym:'3711.TW',name:'日月光',cheap:380,fair:520,rich:720},
-  {sym:'2308.TW',name:'台達電',cheap:1050,fair:1500,rich:2000},
-  {sym:'006208.TW',name:'富邦台50'},
-  {sym:'00662.TW',name:'富邦NASDAQ'},
-  {sym:'00919.TW',name:'群益台灣精選高息'},
-  {sym:'00878.TW',name:'國泰永續高股息'}
-];
-(function(){const sel=document.getElementById('f-ticker');STOCKS_META.forEach(s=>{const o=document.createElement('option');o.value=s.sym;o.textContent=s.name;sel.appendChild(o);});})();
-
-function loadH(){return JSON.parse(localStorage.getItem('ai_adv_v3')||'[]');}
-function saveH(h){localStorage.setItem('ai_adv_v3',JSON.stringify(h));}
-function getZoneH(p,m){if(!p||!m.cheap)return 'none';if(p<=m.cheap)return 'buy';if(p<=m.fair)return 'fair';if(p<=m.rich)return 'watch';return 'expensive';}
+var ZONE_COLOR   = {z1:'#10b981',z2:'#34d399',z3:'#f59e0b',z4:'#ef4444',none:'#94a3b8'};
+var ZONE_BUFFETT = {
+  z1:'積極買進區 — 符合長期低點布局原則，可分批加碼，越跌越買。',
+  z2:'合理布局區 — 估值合理，繼續持有，可小量加碼。',
+  z3:'謹慎觀察區 — 接近合理上限，持有但暫緩加碼，等待更好時機。',
+  z4:'偏貴等待區 — 超過合理估值，新資金暫停加碼，繼續長期持有。',
+  none:'估值待研究設定。'
+};
 function renderHoldingAdvice(){
-  const el=document.getElementById('holding-advice');const h=loadH();
-  if(!h.length){el.innerHTML='';return;}
-  let html='<div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px">持股個別建議</div>';
-  h.forEach(p=>{const cur=CURRENT_PRICES[p.sym];const meta=STOCKS_META.find(s=>s.sym===p.sym);if(!cur||!meta)return;const zone=getZoneH(cur,meta);const zc=ZONE_COLOR[zone]||'#94a3b8';const pl=((cur-p.cost)/p.cost*100).toFixed(1);const plCls=pl>=0?'pl-pos':'pl-neg';html+='<div class="hadv-item" style="border-left-color:'+zc+'"><div class="hadv-name">'+meta.name+' <span class="'+plCls+'">'+(pl>=0?'+':'')+pl+'%</span></div><div style="font-size:.82rem;color:'+zc+'">'+(ZONE_BUFFETT[zone]||'')+'</div></div>';});
+  var el=document.getElementById('holding-advice'); if(!el) return;
+  var h=loadH(); if(!h.length){ el.innerHTML=''; return; }
+  var html='<div style="font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px">持股個別建議</div>';
+  h.forEach(function(p){
+    var info=PRICES[p.ticker]; var stock=STOCKS.find(function(s){return s.ticker===p.ticker;});
+    if(!info||!stock) return;
+    var cur=info.price; var zone=getZone(cur,stock.cheap,stock.fair,stock.rich);
+    var zc=ZONE_COLOR[zone]||'#94a3b8';
+    var pl=cur?(cur-p.cost)/p.cost*100:null;
+    var plStr=pl!=null?(pl>=0?'+':'')+pl.toFixed(1)+'%':'-';
+    var plCls=pl==null?'':pl>=0?'pl-pos':'pl-neg';
+    html+='<div class="hadv-item" style="border-left-color:'+zc+'">'
+      +'<div class="hadv-name">'+info.name+' <span class="'+plCls+'">'+plStr+'</span></div>'
+      +'<div class="hadv-text" style="color:'+zc+'">'+ZONE_BUFFETT[zone]+'</div></div>';
+  });
   el.innerHTML=html;
 }
 function renderH(){
-  const tbody=document.getElementById('holding-body');const h=loadH();
-  if(!h.length){tbody.innerHTML='<tr><td colspan="8" style="color:#94a3b8;text-align:center;padding:16px">尚未新增持倉</td></tr>';renderHoldingAdvice();return;}
-  tbody.innerHTML=h.map((p,i)=>{const cur=CURRENT_PRICES[p.sym];const meta=STOCKS_META.find(s=>s.sym===p.sym);const mkt=cur?cur*p.shares:null;const pl=cur?(cur-p.cost)*p.shares:null;const plPct=cur?(cur-p.cost)/p.cost*100:null;const plCls=pl==null?'':pl>=0?'pl-pos':'pl-neg';return '<tr><td><strong>'+(meta?.name||p.sym)+'</strong></td><td>'+fmt(p.shares)+'</td><td>'+fmt(p.cost)+'</td><td>'+(cur?fmt(cur):'—')+'</td><td>'+(mkt?fmt(mkt):'—')+'</td><td class="'+plCls+'">'+(pl!=null?fmt(pl):'—')+'</td><td class="'+plCls+'">'+(plPct!=null?(plPct>=0?'+':'')+plPct.toFixed(1)+'%':'—')+'</td><td><button class="btn btn-del" onclick="delHolding('+i+')">刪</button></td></tr>';}).join('');
+  var tbody=document.getElementById('holding-body'); var h=loadH();
+  if(!h.length){
+    tbody.innerHTML='<tr><td colspan="8" style="color:#94a3b8;text-align:center;padding:16px">尚未新增持倉</td></tr>';
+    renderHoldingAdvice(); return;
+  }
+  tbody.innerHTML=h.map(function(p,i){
+    var info=PRICES[p.ticker]; var cur=info?info.price:null; var name=info?info.name:p.ticker;
+    var val=cur?cur*p.shares:null; var cost_t=p.cost*p.shares;
+    var pl=val!=null?val-cost_t:null; var plP=pl!=null?pl/cost_t*100:null;
+    var cls=pl==null?'':(pl>=0?'pl-pos':'pl-neg');
+    return '<tr><td><strong>'+name+'</strong></td><td>'+p.shares.toLocaleString()+'</td>'
+      +'<td>'+p.cost.toLocaleString()+'</td><td>'+(cur?cur.toLocaleString():'-')+'</td>'
+      +'<td>'+fmtN(val)+'</td><td class="'+cls+'">'+fmtN(pl)+'</td>'
+      +'<td class="'+cls+'">'+fmtP(plP)+'</td>'
+      +'<td><button class="btn btn-del" onclick="removeH('+i+')">移除</button></td></tr>';
+  }).join('');
   renderHoldingAdvice();
 }
-function addHolding(){const sym=document.getElementById('f-ticker').value;const shares=parseFloat(document.getElementById('f-shares').value);const cost=parseFloat(document.getElementById('f-cost').value);if(!sym||!shares||!cost)return;const h=loadH();h.push({sym,shares,cost});saveH(h);renderH();document.getElementById('f-shares').value='';document.getElementById('f-cost').value='';}
-function delHolding(i){const h=loadH();h.splice(i,1);saveH(h);renderH();}
-
-async function loadData(){
-  document.getElementById('update-time').textContent='更新中…';
-  try{
-    const r=await fetch('./data.json?t='+Date.now());
-    const json=await r.json();
-    document.getElementById('update-time').textContent='🕐 資料更新：'+json.updated;
-
-    // 大盤三大法人
-    if(json.institutional_market && Object.keys(json.institutional_market).length){
-      const im=json.institutional_market;
-      document.getElementById('mkt-inst').innerHTML=instChipBillion('外資',im.foreign)+instChipBillion('投信',im.trust)+instChipBillion('自營',im.dealer);
-      if(json.inst_date) document.getElementById('mkt-inst-date').textContent='三大法人資料：'+json.inst_date;
-    }
-
-    let core='',observe='',etf='';
-    const alerts=[];
-    for(const[sym,d]of Object.entries(json.data||{})){
-      if(d.price) CURRENT_PRICES[sym]=d.price;
-      if(d.type==='index'){
-        const pct=d.pct||0,p=d.price;
-        const col=pct>0?'#10b981':pct<0?'#ef4444':'#94a3b8';
-        document.getElementById('twii-price').innerHTML='<span style="color:'+col+'">'+fmt(p)+'</span>';
-        document.getElementById('twii-chg').innerHTML='<span style="color:'+col+'">'+arrow(pct)+' '+colorPct(pct)+'</span>';
-        continue;
-      }
-      if(d.type==='etf'){etf+=makeEtfCard(sym,d);continue;}
-      if(d.type==='core') core+=makeCard(sym,d);
-      else if(d.type==='observe') observe+=makeCard(sym,d);
-      if(d.zone==='buy') alerts.push(d.name+' 進入 ★ 積極買進區（'+fmt(d.price)+'）');
-      if(d.zone==='fair') alerts.push(d.name+' 進入 ◎ 合理布局區（'+fmt(d.price)+'）');
-    }
-    document.getElementById('core-list').innerHTML=core||'<p style="color:#475569;font-size:.85rem">—</p>';
-    document.getElementById('observe-list').innerHTML=observe||'<p style="color:#475569;font-size:.85rem">—</p>';
-    document.getElementById('etf-list').innerHTML=etf||'<p style="color:#475569;font-size:.85rem">—</p>';
-
-    const banner=document.getElementById('alert-banner');
-    if(alerts.length){banner.textContent='🔔 '+alerts.join('　／　');banner.classList.add('show');}
-    else banner.classList.remove('show');
-
-    if(json.market) renderThermo(json.market);
-    if(json.analysis) renderAnalysis(json.analysis);
-    renderH();
-  }catch(e){
-    document.getElementById('update-time').textContent='載入失敗：'+e.message;
-  }
+function addHolding(){
+  var ticker=document.getElementById('f-ticker').value;
+  var shares=parseFloat(document.getElementById('f-shares').value);
+  var cost=parseFloat(document.getElementById('f-cost').value);
+  if(!ticker||!shares||!cost||shares<=0||cost<=0){alert('請填寫完整資料');return;}
+  var h=loadH(); h.push({ticker:ticker,shares:shares,cost:cost}); saveH(h);
+  document.getElementById('f-shares').value=''; document.getElementById('f-cost').value='';
+  renderH();
 }
-loadData();
-setInterval(loadData,5*60*1000);
+function removeH(i){ var h=loadH(); h.splice(i,1); saveH(h); renderH(); }
+renderH();
+function toggleMonthly(){
+  var b=document.getElementById("monthly-body"); var c=document.getElementById("monthly-chevron");
+  if(b.classList.contains("closed")){b.classList.remove("closed");c.innerHTML="&#x25B2;";}
+  else{b.classList.add("closed");c.innerHTML="&#x25BC;";}
+}
 </script>
 </body>
 </html>
