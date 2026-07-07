@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07 13:11",
+  "updated": "2026-07-07 13:16",
   "market": {
     "vix": 15.57,
     "yield10y": 4.479,
@@ -17,8 +17,8 @@
     "^TWII": {
       "name": "加權指數",
       "type": "index",
-      "price": 45706.41,
-      "pct": -1.83,
+      "price": 45626.1,
+      "pct": -2.0,
       "zone": "index",
       "institutional": null
     },
@@ -28,8 +28,8 @@
       "cheap": 1800,
       "fair": 2200,
       "rich": 2700,
-      "price": 2460.0,
-      "pct": 0.0,
+      "price": 2455.0,
+      "pct": -0.2,
       "zone": "watch",
       "institutional": {
         "foreign": -241,
@@ -44,8 +44,8 @@
       "cheap": 3600,
       "fair": 5000,
       "rich": 6500,
-      "price": 5035.0,
-      "pct": 0.0,
+      "price": 5030.0,
+      "pct": -0.1,
       "zone": "watch",
       "institutional": {
         "foreign": -255,
@@ -60,8 +60,8 @@
       "cheap": 7500,
       "fair": 10000,
       "rich": 13000,
-      "price": 14415.0,
-      "pct": -11.4,
+      "price": 14400.0,
+      "pct": -11.49,
       "zone": "expensive",
       "institutional": {
         "foreign": 28,
@@ -76,8 +76,8 @@
       "cheap": 1900,
       "fair": 2600,
       "rich": 3200,
-      "price": 2440.0,
-      "pct": -8.61,
+      "price": 2425.0,
+      "pct": -9.18,
       "zone": "fair",
       "institutional": {
         "foreign": -351,
@@ -124,8 +124,8 @@
       "cheap": 1050,
       "fair": 1500,
       "rich": 2000,
-      "price": 1900.0,
-      "pct": -4.76,
+      "price": 1905.0,
+      "pct": -4.51,
       "zone": "watch",
       "institutional": {
         "foreign": -1966,
@@ -137,8 +137,8 @@
     "00662.TW": {
       "name": "富邦NASDAQ",
       "type": "etf",
-      "price": 121.1,
-      "pct": -0.49,
+      "price": 121.05,
+      "pct": -0.53,
       "zone": "etf",
       "institutional": {
         "foreign": 174,
@@ -150,8 +150,8 @@
     "006208.TW": {
       "name": "富邦台50",
       "type": "etf",
-      "price": 247.1,
-      "pct": -1.69,
+      "price": 246.75,
+      "pct": -1.83,
       "zone": "etf",
       "institutional": {
         "foreign": -240,
