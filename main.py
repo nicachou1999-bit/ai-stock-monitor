@@ -1245,36 +1245,6 @@ function toggleMonthly(){
   if(b.classList.contains("closed")){b.classList.remove("closed");c.innerHTML="&#x25B2;";}
   else{b.classList.add("closed");c.innerHTML="&#x25BC;";}
 }
-function triggerUpdate(){
-  var btn = document.getElementById('btn-refresh');
-  var status = document.getElementById('update-status');
-  if(!btn) return;
-  btn.disabled = true;
-  var orig = btn.innerHTML;
-  btn.innerHTML = '&#x23F3; 觸發中...';
-  fetch('https://api.github.com/repos/nicachou1999-bit/ai-stock-monitor/actions/workflows/update_prices.yml/dispatches', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer __TRIGGER_TOKEN__',
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28'
-    },
-    body: JSON.stringify({ref:'main'})
-  }).then(function(r){
-    if(r.status===204){
-      status.textContent = '已觸發更新，約30秒後重新整理頁面查看最新資料';
-      status.style.color = '#10b981';
-    } else {
-      status.textContent = '觸發失敗（狀態碼 '+r.status+'），請稍後再試';
-      status.style.color = '#ef4444';
-    }
-  }).catch(function(e){
-    status.textContent = '觸發失敗，請檢查網路連線';
-    status.style.color = '#ef4444';
-  }).then(function(){
-    setTimeout(function(){ btn.disabled=false; btn.innerHTML=orig; }, 20000);
-  });
-}
 """
     trigger_token = os.environ.get('UPDATE_TRIGGER_TOKEN', '')
     js = (js_tpl.replace('__PRICES__', prices_json)
@@ -1293,9 +1263,8 @@ function triggerUpdate(){
         f'<p class="subtitle">{n_core} 檔核心持股 &middot; {n_obs} 檔潛力池 &middot; 巴菲特價值投資</p>\n'
         + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">\n'
         + f'  <p class="update-time" style="margin:0">&#x1F551; 資料更新：{data_time}</p>\n'
-        + '  <button id="btn-refresh" class="btn-update" onclick="triggerUpdate()">&#x1F504; 手動更新</button>\n'
+        + '  <span style="font-size:.78rem;color:#94a3b8">&#x1F503; 盤中每5分鐘自動更新，收盤後17:01附深度分析</span>\n'
         + '</div>\n'
-        + '<div id="update-status" class="update-status"></div>\n'
         + '<div class="top-bar">\n'
         '  <div>\n'
         '    <div class="section-title">加權指數</div>\n'
