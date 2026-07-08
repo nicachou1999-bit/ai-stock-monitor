@@ -154,9 +154,8 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2px}
 <p class="subtitle">1 檔核心持股 &middot; 6 檔潛力池 &middot; 巴菲特價值投資</p>
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
   <p class="update-time" style="margin:0">&#x1F551; 資料更新：2026-07-08 11:48</p>
-  <button id="btn-refresh" class="btn-update" onclick="triggerUpdate()">&#x1F504; 手動更新</button>
+  <span style="font-size:.78rem;color:#94a3b8">&#x1F503; 盤中每5分鐘自動更新，收盤後17:01附深度分析</span>
 </div>
-<div id="update-status" class="update-status"></div>
 <div class="top-bar">
   <div>
     <div class="section-title">加權指數</div>
@@ -290,36 +289,7 @@ function toggleMonthly(){
   if(b.classList.contains("closed")){b.classList.remove("closed");c.innerHTML="&#x25B2;";}
   else{b.classList.add("closed");c.innerHTML="&#x25BC;";}
 }
-function triggerUpdate(){
-  var btn = document.getElementById('btn-refresh');
-  var status = document.getElementById('update-status');
-  if(!btn) return;
-  btn.disabled = true;
-  var orig = btn.innerHTML;
-  btn.innerHTML = '&#x23F3; 觸發中...';
-  fetch('https://api.github.com/repos/nicachou1999-bit/ai-stock-monitor/actions/workflows/update_prices.yml/dispatches', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ',
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28'
-    },
-    body: JSON.stringify({ref:'main'})
-  }).then(function(r){
-    if(r.status===204){
-      status.textContent = '已觸發更新，約30秒後重新整理頁面查看最新資料';
-      status.style.color = '#10b981';
-    } else {
-      status.textContent = '觸發失敗（狀態碼 '+r.status+'），請稍後再試';
-      status.style.color = '#ef4444';
-    }
-  }).catch(function(e){
-    status.textContent = '觸發失敗，請檢查網路連線';
-    status.style.color = '#ef4444';
-  }).then(function(){
-    setTimeout(function(){ btn.disabled=false; btn.innerHTML=orig; }, 20000);
-  });
-}
+
 </script>
 </body>
 </html>
