@@ -10,7 +10,6 @@
       "thesis": "台股大盤整體趨勢參考",
       "added_date": "2026-06-11"
     },
-
     "2330.TW": {
       "name": "台積電",
       "type": "core",
@@ -21,7 +20,6 @@
       "thesis": "先進製程唯一代工廠，全球每顆AI晶片都必須經過台積電，技術護城河不可複製，15年核心持倉",
       "added_date": "2026-06-11"
     },
-
     "6669.TW": {
       "name": "緯穎",
       "type": "observe",
@@ -32,7 +30,6 @@
       "thesis": "超大型雲端定製AI伺服器，2026E EPS 326元，Forward PE 13.9x為候補池最低估值",
       "added_date": "2026-06-26"
     },
-
     "5274.TWO": {
       "name": "信驊",
       "type": "observe",
@@ -45,7 +42,6 @@
       "last_researched": "2026-06-26",
       "added_date": "2026-06-26"
     },
-
     "3017.TW": {
       "name": "奇鋐",
       "type": "observe",
@@ -56,7 +52,6 @@
       "thesis": "AI液冷散熱龍頭，Google TPU v8供應鏈，2026E EPS 93元，算力密度提升液冷從選配變標配",
       "added_date": "2026-06-26"
     },
-
     "3533.TW": {
       "name": "嘉澤",
       "type": "observe",
@@ -67,7 +62,6 @@
       "thesis": "AI伺服器高速連接器龍頭，2026E EPS 95元，AI伺服器每台連接器用量持續增加",
       "added_date": "2026-06-26"
     },
-
     "3711.TW": {
       "name": "日月光投控",
       "type": "observe",
@@ -80,7 +74,6 @@
       "last_researched": "2026-06-26",
       "added_date": "2026-06-26"
     },
-
     "2308.TW": {
       "name": "台達電",
       "type": "observe",
@@ -93,7 +86,6 @@
       "last_researched": "2026-06-26",
       "added_date": "2026-06-11"
     },
-
     "006208.TW": {
       "name": "富邦台50",
       "type": "etf",
@@ -102,7 +94,6 @@
       "thesis": "追蹤台灣市值最大50家公司，費用率0.03%全市場最低，台積電佔比30%，核心長期定期定額",
       "added_date": "2026-06-26"
     },
-
     "00662.TW": {
       "name": "富邦NASDAQ",
       "type": "etf",
@@ -110,7 +101,6 @@
       "thesis": "持有NVIDIA、Microsoft、Meta、Amazon、Alphabet等AI需求端甲方，補上美國AI曝險缺口，核心持倉",
       "added_date": "2026-06-15"
     },
-
     "00919.TW": {
       "name": "群益台灣精選高息",
       "type": "etf",
@@ -118,14 +108,18 @@
       "annual_div": 3.28,
       "thesis": "退休現金流引擎，季配息殖利率約10%，AI供應鏈成分股重疊度高，填息紀錄穩健",
       "added_date": "2026-06-23",
-      "nav_trend": null,
-      "payout_quality": null,
-      "fill_rate_1y": null,
-      "div_history": [],
-      "etf_research_conclusion": null,
-      "etf_last_researched": null
+      "nav_trend": "上升",
+      "payout_quality": "混合",
+      "fill_rate_1y": 100,
+      "div_history": [
+        1.0,
+        0.78,
+        0.54,
+        0.54
+      ],
+      "etf_research_conclusion": "殖利率連12季維持10%以上（現為11.4%），近12次配息全數順利填息，填息體質健康；但配息組成中股利所得（54C）比例2025年落在3%~46%區間、波動大，混合資本利得與收益平準金，非純股利型。適合作為現金流部位小額起筆，但需每季追蹤配息組成是否轉差。",
+      "etf_last_researched": "2026-07-08"
     },
-
     "00878.TW": {
       "name": "國泰永續高股息",
       "type": "etf",
@@ -133,12 +127,17 @@
       "annual_div": 1.88,
       "thesis": "退休現金流引擎，季配息，ESG篩選成分股品質穩定，與00919互補雙持",
       "added_date": "2026-06-15",
-      "nav_trend": null,
-      "payout_quality": null,
-      "fill_rate_1y": null,
-      "div_history": [],
-      "etf_research_conclusion": null,
-      "etf_last_researched": null
+      "nav_trend": "上升",
+      "payout_quality": "混合",
+      "fill_rate_1y": 100,
+      "div_history": [
+        0.66,
+        0.42,
+        0.4,
+        0.4
+      ],
+      "etf_research_conclusion": "2026Q2配息0.66元創掛牌新高，年化殖利率約10%，近22次配息全數填息，填息紀錄穩健；但配息來源約6成為資本利得、股利所得僅約3成、平準金約5-10%，屬資本利得驅動型高息，若大盤修正配息與淨值可能同步走弱。適合小額布局但不宜視為穩定現金流主力。",
+      "etf_last_researched": "2026-07-08"
     }
   }
 }
