@@ -20,15 +20,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 45410.19,
+      "price": 45443.53,
       "prev": 45354.61,
-      "change": 55.58,
-      "pct": 0.12,
+      "change": 88.92,
+      "pct": 0.2,
       "w52_high": 48218.87,
       "w52_low": 22525.66,
-      "ma20": 45981.74,
-      "bias": -1.24,
-      "rsi": 36.0
+      "ma20": 45983.41,
+      "bias": -1.17,
+      "rsi": 36.3
     },
     "2330.TW": {
       "ticker": "2330.TW",
@@ -50,15 +50,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2450.0,
+      "price": 2445.0,
       "prev": 2415.0,
-      "change": 35.0,
-      "pct": 1.45,
+      "change": 30.0,
+      "pct": 1.24,
       "w52_high": 2535.0,
       "w52_low": 1085.0,
-      "ma20": 2426.5,
-      "bias": 0.97,
-      "rsi": 46.2
+      "ma20": 2426.25,
+      "bias": 0.77,
+      "rsi": 45.6
     },
     "6669.TW": {
       "ticker": "6669.TW",
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 4965.0,
+      "price": 4955.0,
       "prev": 5040.0,
-      "change": -75.0,
-      "pct": -1.49,
+      "change": -85.0,
+      "pct": -1.69,
       "w52_high": 5880.0,
       "w52_low": 2415.0,
-      "ma20": 4890.5,
-      "bias": 1.52,
-      "rsi": 58.3
+      "ma20": 4890.0,
+      "bias": 1.33,
+      "rsi": 58.0
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -110,15 +110,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 13265.0,
+      "price": 13315.0,
       "prev": 13665.0,
-      "change": -400.0,
-      "pct": -2.93,
+      "change": -350.0,
+      "pct": -2.56,
       "w52_high": 18072.727,
       "w52_low": 3959.091,
-      "ma20": 15389.7,
-      "bias": -13.81,
-      "rsi": 28.2
+      "ma20": 15392.2,
+      "bias": -13.5,
+      "rsi": 28.4
     },
     "3017.TW": {
       "ticker": "3017.TW",
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2230.0,
+      "price": 2225.0,
       "prev": 2350.0,
-      "change": -120.0,
-      "pct": -5.11,
+      "change": -125.0,
+      "pct": -5.32,
       "w52_high": 3010.0,
       "w52_low": 824.0,
-      "ma20": 2450.0,
-      "bias": -8.98,
-      "rsi": 43.3
+      "ma20": 2449.75,
+      "bias": -9.17,
+      "rsi": 43.2
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -170,15 +170,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1975.0,
+      "price": 1970.0,
       "prev": 1955.0,
-      "change": 20.0,
-      "pct": 1.02,
+      "change": 15.0,
+      "pct": 0.77,
       "w52_high": 2955.0,
       "w52_low": 1140.0,
-      "ma20": 2151.0,
-      "bias": -8.18,
-      "rsi": 25.9
+      "ma20": 2150.75,
+      "bias": -8.4,
+      "rsi": 25.2
     },
     "3711.TW": {
       "ticker": "3711.TW",
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 668.0,
+      "price": 666.0,
       "prev": 677.0,
-      "change": -9.0,
-      "pct": -1.33,
+      "change": -11.0,
+      "pct": -1.62,
       "w52_high": 729.0,
       "w52_low": 143.0,
-      "ma20": 652.4,
-      "bias": 2.39,
-      "rsi": 51.0
+      "ma20": 652.3,
+      "bias": 2.1,
+      "rsi": 50.7
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 246.25,
+      "price": 246.1,
       "prev": 245.7,
-      "change": 0.55,
-      "pct": 0.22,
+      "change": 0.4,
+      "pct": 0.16,
       "w52_high": 260.1,
       "w52_low": 115.25,
-      "ma20": 248.17,
-      "bias": -0.77,
-      "rsi": 39.7
+      "ma20": 248.16,
+      "bias": -0.83,
+      "rsi": 39.5
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -360,16 +360,16 @@
       ],
       "etf_research_conclusion": "2026Q2配息0.66元創掛牌新高，年化殖利率約10%，近22次配息全數填息，填息紀錄穩健；但配息來源約6成為資本利得、股利所得僅約3成、平準金約5-10%，屬資本利得驅動型高息，若大盤修正配息與淨值可能同步走弱。適合小額布局但不宜視為穩定現金流主力。",
       "etf_last_researched": "2026-07-08",
-      "price": 33.04,
+      "price": 33.05,
       "prev": 33.19,
-      "change": -0.15,
-      "pct": -0.45,
+      "change": -0.14,
+      "pct": -0.42,
       "w52_high": 34.62,
       "w52_low": 20.15,
       "ma20": 33.3,
-      "bias": -0.78,
-      "rsi": 37.3
+      "bias": -0.75,
+      "rsi": 37.4
     }
   },
-  "updated": "2026-07-13T13:02:30.125930+08:00"
+  "updated": "2026-07-13T13:07:36.996741+08:00"
 }
