@@ -20,14 +20,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 42897.3,
+      "price": 42885.05,
       "prev": 42671.27,
-      "change": 226.03,
-      "pct": 0.53,
+      "change": 213.78,
+      "pct": 0.5,
       "w52_high": 48218.87,
       "w52_low": 22985.9,
-      "ma20": 45672.52,
-      "bias": -6.08,
+      "ma20": 45671.91,
+      "bias": -6.1,
       "rsi": 38.3
     },
     "2330.TW": {
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 4775.0,
+      "price": 4785.0,
       "prev": 4620.0,
-      "change": 155.0,
-      "pct": 3.35,
+      "change": 165.0,
+      "pct": 3.57,
       "w52_high": 5880.0,
       "w52_low": 2415.0,
-      "ma20": 4873.5,
-      "bias": -2.02,
-      "rsi": 53.6
+      "ma20": 4874.0,
+      "bias": -1.83,
+      "rsi": 53.9
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -110,14 +110,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 13195.0,
+      "price": 13200.0,
       "prev": 12950.0,
-      "change": 245.0,
-      "pct": 1.89,
+      "change": 250.0,
+      "pct": 1.93,
       "w52_high": 18072.727,
       "w52_low": 3959.091,
-      "ma20": 14536.25,
-      "bias": -9.23,
+      "ma20": 14536.5,
+      "bias": -9.19,
       "rsi": 36.0
     },
     "3017.TW": {
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2130.0,
+      "price": 2150.0,
       "prev": 2200.0,
-      "change": -70.0,
-      "pct": -3.18,
+      "change": -50.0,
+      "pct": -2.27,
       "w52_high": 3010.0,
       "w52_low": 839.0,
-      "ma20": 2393.5,
-      "bias": -11.01,
-      "rsi": 32.4
+      "ma20": 2394.5,
+      "bias": -10.21,
+      "rsi": 33.0
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -170,15 +170,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1950.0,
+      "price": 1945.0,
       "prev": 1865.0,
-      "change": 85.0,
-      "pct": 4.56,
+      "change": 80.0,
+      "pct": 4.29,
       "w52_high": 2955.0,
       "w52_low": 1140.0,
-      "ma20": 2065.5,
-      "bias": -5.59,
-      "rsi": 39.5
+      "ma20": 2065.25,
+      "bias": -5.82,
+      "rsi": 39.1
     },
     "3711.TW": {
       "ticker": "3711.TW",
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 609.0,
+      "price": 608.0,
       "prev": 614.0,
-      "change": -5.0,
-      "pct": -0.81,
+      "change": -6.0,
+      "pct": -0.98,
       "w52_high": 729.0,
       "w52_low": 143.0,
-      "ma20": 660.75,
-      "bias": -7.83,
-      "rsi": 39.9
+      "ma20": 660.7,
+      "bias": -7.98,
+      "rsi": 39.8
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -230,15 +230,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1755.0,
+      "price": 1745.0,
       "prev": 1740.0,
-      "change": 15.0,
-      "pct": 0.86,
+      "change": 5.0,
+      "pct": 0.29,
       "w52_high": 2585.0,
       "w52_low": 508.0,
-      "ma20": 1916.25,
-      "bias": -8.41,
-      "rsi": 34.6
+      "ma20": 1915.75,
+      "bias": -8.91,
+      "rsi": 33.6
     },
     "006208.TW": {
       "ticker": "006208.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 228.1,
+      "price": 228.35,
       "prev": 227.75,
-      "change": 0.35,
-      "pct": 0.15,
+      "change": 0.6,
+      "pct": 0.26,
       "w52_high": 260.1,
       "w52_low": 117.4,
-      "ma20": 245.46,
-      "bias": -7.07,
-      "rsi": 22.0
+      "ma20": 245.48,
+      "bias": -6.98,
+      "rsi": 22.4
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -371,5 +371,5 @@
       "rsi": 25.1
     }
   },
-  "updated": "2026-07-20T13:08:34.916395+08:00"
+  "updated": "2026-07-20T13:13:42.626061+08:00"
 }
