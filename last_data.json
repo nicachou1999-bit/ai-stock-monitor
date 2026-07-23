@@ -20,15 +20,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 44504.65,
+      "price": 44560.91,
       "prev": 44825.78,
-      "change": -321.13,
-      "pct": -0.72,
+      "change": -264.87,
+      "pct": -0.59,
       "w52_high": 48218.87,
       "w52_low": 23063.57,
-      "ma20": 45284.02,
-      "bias": -1.72,
-      "rsi": 38.1
+      "ma20": 45286.83,
+      "bias": -1.6,
+      "rsi": 38.3
     },
     "2330.TW": {
       "ticker": "2330.TW",
@@ -50,15 +50,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2375.0,
+      "price": 2380.0,
       "prev": 2400.0,
-      "change": -25.0,
-      "pct": -1.04,
+      "change": -20.0,
+      "pct": -0.83,
       "w52_high": 2535.0,
       "w52_low": 1125.0,
-      "ma20": 2414.75,
-      "bias": -1.65,
-      "rsi": 43.5
+      "ma20": 2415.0,
+      "bias": -1.45,
+      "rsi": 43.9
     },
     "6669.TW": {
       "ticker": "6669.TW",
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 5475.0,
+      "price": 5480.0,
       "prev": 5500.0,
-      "change": -25.0,
-      "pct": -0.45,
+      "change": -20.0,
+      "pct": -0.36,
       "w52_high": 5880.0,
       "w52_low": 2415.0,
-      "ma20": 4976.5,
-      "bias": 10.02,
-      "rsi": 55.1
+      "ma20": 4976.75,
+      "bias": 10.11,
+      "rsi": 55.3
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -110,15 +110,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 15790.0,
+      "price": 15740.0,
       "prev": 15510.0,
-      "change": 280.0,
-      "pct": 1.81,
+      "change": 230.0,
+      "pct": 1.48,
       "w52_high": 18072.727,
       "w52_low": 3959.091,
-      "ma20": 14326.11,
-      "bias": 10.22,
-      "rsi": 50.6
+      "ma20": 14323.61,
+      "bias": 9.89,
+      "rsi": 50.3
     },
     "3017.TW": {
       "ticker": "3017.TW",
@@ -230,15 +230,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1875.0,
+      "price": 1870.0,
       "prev": 1880.0,
-      "change": -5.0,
-      "pct": -0.27,
+      "change": -10.0,
+      "pct": -0.53,
       "w52_high": 2585.0,
       "w52_low": 508.0,
-      "ma20": 1890.25,
-      "bias": -0.81,
-      "rsi": 35.1
+      "ma20": 1890.0,
+      "bias": -1.06,
+      "rsi": 34.8
     },
     "006208.TW": {
       "ticker": "006208.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 236.05,
+      "price": 236.4,
       "prev": 234.55,
-      "change": 1.5,
-      "pct": 0.64,
+      "change": 1.85,
+      "pct": 0.79,
       "w52_high": 260.1,
       "w52_low": 117.4,
-      "ma20": 243.77,
-      "bias": -3.17,
-      "rsi": 32.4
+      "ma20": 243.79,
+      "bias": -3.03,
+      "rsi": 32.9
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -290,15 +290,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 119.65,
+      "price": 119.7,
       "prev": 120.05,
-      "change": -0.4,
-      "pct": -0.33,
+      "change": -0.35,
+      "pct": -0.29,
       "w52_high": 124.0,
       "w52_low": 87.0,
       "ma20": 121.09,
-      "bias": -1.19,
-      "rsi": 38.6
+      "bias": -1.15,
+      "rsi": 38.7
     },
     "00919.TW": {
       "ticker": "00919.TW",
@@ -325,15 +325,15 @@
       ],
       "etf_research_conclusion": "殖利率連12季維持10%以上（現為11.4%），近12次配息全數順利填息，填息體質健康；但配息組成中股利所得（54C）比例2025年落在3%~46%區間、波動大，混合資本利得與收益平準金，非純股利型。適合作為現金流部位小額起筆，但需每季追蹤配息組成是否轉差。",
       "etf_last_researched": "2026-07-08",
-      "price": 29.43,
+      "price": 29.47,
       "prev": 29.0,
-      "change": 0.43,
-      "pct": 1.48,
+      "change": 0.47,
+      "pct": 1.62,
       "w52_high": 31.04,
       "w52_low": 20.99,
-      "ma20": 29.52,
-      "bias": -0.3,
-      "rsi": 52.8
+      "ma20": 29.53,
+      "bias": -0.2,
+      "rsi": 53.3
     },
     "00878.TW": {
       "ticker": "00878.TW",
@@ -360,16 +360,16 @@
       ],
       "etf_research_conclusion": "2026Q2配息0.66元創掛牌新高，年化殖利率約10%，近22次配息全數填息，填息紀錄穩健；但配息來源約6成為資本利得、股利所得僅約3成、平準金約5-10%，屬資本利得驅動型高息，若大盤修正配息與淨值可能同步走弱。適合小額布局但不宜視為穩定現金流主力。",
       "etf_last_researched": "2026-07-08",
-      "price": 32.64,
+      "price": 32.66,
       "prev": 32.05,
-      "change": 0.59,
-      "pct": 1.84,
+      "change": 0.61,
+      "pct": 1.9,
       "w52_high": 34.62,
       "w52_low": 20.15,
       "ma20": 32.93,
-      "bias": -0.88,
-      "rsi": 44.3
+      "bias": -0.82,
+      "rsi": 44.6
     }
   },
-  "updated": "2026-07-23T11:48:53.422863+08:00"
+  "updated": "2026-07-23T11:54:00.724519+08:00"
 }
