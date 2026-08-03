@@ -20,13 +20,13 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 43481.33,
+      "price": 43479.33,
       "prev": 43119.75,
-      "change": 361.58,
-      "pct": 0.84,
+      "change": 359.58,
+      "pct": 0.83,
       "w52_high": 48218.87,
       "w52_low": 23151.65,
-      "ma20": 43949.8,
+      "ma20": 43949.7,
       "bias": -1.07,
       "rsi": 45.8
     },
@@ -230,15 +230,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1590.0,
+      "price": 1585.0,
       "prev": 1640.0,
-      "change": -50.0,
-      "pct": -3.05,
+      "change": -55.0,
+      "pct": -3.35,
       "w52_high": 2585.0,
       "w52_low": 578.0,
-      "ma20": 1774.5,
-      "bias": -10.4,
-      "rsi": 36.8
+      "ma20": 1774.25,
+      "bias": -10.67,
+      "rsi": 36.6
     },
     "006208.TW": {
       "ticker": "006208.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 233.4,
+      "price": 233.2,
       "prev": 235.35,
-      "change": -1.95,
-      "pct": -0.83,
+      "change": -2.15,
+      "pct": -0.91,
       "w52_high": 260.1,
       "w52_low": 117.75,
-      "ma20": 235.57,
-      "bias": -0.92,
-      "rsi": 44.4
+      "ma20": 235.56,
+      "bias": -1.0,
+      "rsi": 44.3
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -290,15 +290,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 118.7,
+      "price": 118.8,
       "prev": 118.55,
-      "change": 0.15,
-      "pct": 0.13,
+      "change": 0.25,
+      "pct": 0.21,
       "w52_high": 124.0,
       "w52_low": 87.5,
       "ma20": 119.46,
-      "bias": -0.64,
-      "rsi": 43.6
+      "bias": -0.55,
+      "rsi": 43.8
     },
     "00919.TW": {
       "ticker": "00919.TW",
@@ -371,5 +371,5 @@
       "rsi": 49.3
     }
   },
-  "updated": "2026-08-03T13:08:13.869645+08:00"
+  "updated": "2026-08-03T13:13:19.005626+08:00"
 }
