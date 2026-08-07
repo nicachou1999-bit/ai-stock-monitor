@@ -20,14 +20,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 44176.77,
+      "price": 44171.95,
       "prev": 44396.7,
-      "change": -219.93,
-      "pct": -0.5,
+      "change": -224.75,
+      "pct": -0.51,
       "w52_high": 48218.87,
       "w52_low": 23620.24,
-      "ma20": 43616.11,
-      "bias": 1.29,
+      "ma20": 43615.87,
+      "bias": 1.27,
       "rsi": 56.9
     },
     "2330.TW": {
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 6120.0,
+      "price": 6105.0,
       "prev": 6265.0,
-      "change": -145.0,
-      "pct": -2.31,
+      "change": -160.0,
+      "pct": -2.55,
       "w52_high": 6400.0,
       "w52_low": 2745.0,
-      "ma20": 5412.75,
-      "bias": 13.07,
-      "rsi": 70.3
+      "ma20": 5412.0,
+      "bias": 12.8,
+      "rsi": 70.0
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 585.0,
+      "price": 584.0,
       "prev": 595.0,
-      "change": -10.0,
-      "pct": -1.68,
+      "change": -11.0,
+      "pct": -1.85,
       "w52_high": 729.0,
       "w52_low": 143.0,
-      "ma20": 606.35,
-      "bias": -3.52,
-      "rsi": 48.4
+      "ma20": 606.3,
+      "bias": -3.68,
+      "rsi": 48.3
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -260,14 +260,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 234.5,
+      "price": 234.45,
       "prev": 238.25,
-      "change": -3.75,
-      "pct": -1.57,
+      "change": -3.8,
+      "pct": -1.59,
       "w52_high": 260.1,
       "w52_low": 120.5,
       "ma20": 233.77,
-      "bias": 0.31,
+      "bias": 0.29,
       "rsi": 54.4
     },
     "00662.TW": {
@@ -290,15 +290,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 121.65,
+      "price": 121.6,
       "prev": 123.6,
-      "change": -1.95,
-      "pct": -1.58,
+      "change": -2.0,
+      "pct": -1.62,
       "w52_high": 124.0,
       "w52_low": 89.45,
       "ma20": 119.63,
-      "bias": 1.69,
-      "rsi": 56.5
+      "bias": 1.65,
+      "rsi": 56.4
     },
     "00919.TW": {
       "ticker": "00919.TW",
@@ -371,5 +371,5 @@
       "rsi": 56.9
     }
   },
-  "updated": "2026-08-07T12:16:58.456661+08:00"
+  "updated": "2026-08-07T12:22:03.208365+08:00"
 }
