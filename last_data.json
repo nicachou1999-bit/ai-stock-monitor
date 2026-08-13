@@ -20,14 +20,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 46038.34,
+      "price": 46045.94,
       "prev": 45518.07,
-      "change": 520.27,
-      "pct": 1.14,
+      "change": 527.87,
+      "pct": 1.16,
       "w52_high": 48218.87,
       "w52_low": 23620.24,
-      "ma20": 43630.11,
-      "bias": 5.52,
+      "ma20": 43630.49,
+      "bias": 5.54,
       "rsi": 61.2
     },
     "2330.TW": {
@@ -80,14 +80,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 6100.0,
+      "price": 6095.0,
       "prev": 6025.0,
-      "change": 75.0,
-      "pct": 1.24,
+      "change": 70.0,
+      "pct": 1.16,
       "w52_high": 6400.0,
       "w52_low": 2745.0,
-      "ma20": 5611.25,
-      "bias": 8.71,
+      "ma20": 5611.0,
+      "bias": 8.63,
       "rsi": 56.6
     },
     "5274.TWO": {
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 628.0,
+      "price": 627.0,
       "prev": 621.0,
-      "change": 7.0,
-      "pct": 1.13,
+      "change": 6.0,
+      "pct": 0.97,
       "w52_high": 729.0,
       "w52_low": 143.0,
-      "ma20": 597.95,
-      "bias": 5.03,
-      "rsi": 52.3
+      "ma20": 597.9,
+      "bias": 4.87,
+      "rsi": 52.1
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 244.55,
+      "price": 244.4,
       "prev": 238.9,
-      "change": 5.65,
-      "pct": 2.37,
+      "change": 5.5,
+      "pct": 2.3,
       "w52_high": 260.1,
       "w52_low": 120.5,
       "ma20": 232.65,
-      "bias": 5.11,
-      "rsi": 54.7
+      "bias": 5.05,
+      "rsi": 54.6
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -360,16 +360,16 @@
       ],
       "etf_research_conclusion": "配息組成資本利得占約6成、股利所得約3成、收益平準金約1成，合計股利與資本利得占比逾90%；近23次配息全數填息，2026年配息連4季創高(0.40→0.42→0.66→1.01元，其中1.01元已於8月中公告除息)，具備建倉條件；規模逾6,000億元須留意換股彈性下降風險。",
       "etf_last_researched": "2026-08-01",
-      "price": 33.78,
+      "price": 33.79,
       "prev": 33.47,
-      "change": 0.31,
-      "pct": 0.93,
+      "change": 0.32,
+      "pct": 0.96,
       "w52_high": 34.62,
       "w52_low": 20.15,
       "ma20": 32.45,
-      "bias": 4.1,
-      "rsi": 59.2
+      "bias": 4.13,
+      "rsi": 59.3
     }
   },
-  "updated": "2026-08-13T13:14:51.639794+08:00"
+  "updated": "2026-08-13T13:19:57.885089+08:00"
 }
