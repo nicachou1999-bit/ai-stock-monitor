@@ -20,13 +20,13 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 46013.54,
+      "price": 46013.04,
       "prev": 45811.01,
-      "change": 202.53,
+      "change": 202.03,
       "pct": 0.44,
       "w52_high": 48218.87,
       "w52_low": 23620.24,
-      "ma20": 43964.45,
+      "ma20": 43964.42,
       "bias": 4.66,
       "rsi": 74.5
     },
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 6525.0,
+      "price": 6550.0,
       "prev": 6435.0,
-      "change": 90.0,
-      "pct": 1.4,
+      "change": 115.0,
+      "pct": 1.79,
       "w52_high": 6740.0,
       "w52_low": 2745.0,
-      "ma20": 5792.5,
-      "bias": 12.65,
-      "rsi": 71.8
+      "ma20": 5793.75,
+      "bias": 13.05,
+      "rsi": 72.1
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 3205.0,
+      "price": 3195.0,
       "prev": 3235.0,
-      "change": -30.0,
-      "pct": -0.93,
+      "change": -40.0,
+      "pct": -1.24,
       "w52_high": 3320.0,
       "w52_low": 916.0,
-      "ma20": 2612.5,
-      "bias": 22.68,
-      "rsi": 78.8
+      "ma20": 2612.0,
+      "bias": 22.32,
+      "rsi": 78.3
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 629.0,
+      "price": 627.0,
       "prev": 616.0,
-      "change": 13.0,
-      "pct": 2.11,
+      "change": 11.0,
+      "pct": 1.79,
       "w52_high": 729.0,
       "w52_low": 143.0,
-      "ma20": 599.55,
-      "bias": 4.91,
-      "rsi": 62.8
+      "ma20": 599.45,
+      "bias": 4.6,
+      "rsi": 62.5
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -371,5 +371,5 @@
       "rsi": 71.8
     }
   },
-  "updated": "2026-08-17T10:51:24.417555+08:00"
+  "updated": "2026-08-17T10:56:29.700020+08:00"
 }
