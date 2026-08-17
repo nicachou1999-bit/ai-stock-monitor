@@ -20,14 +20,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 45972.96,
+      "price": 45979.96,
       "prev": 45811.01,
-      "change": 161.95,
-      "pct": 0.35,
+      "change": 168.95,
+      "pct": 0.37,
       "w52_high": 48218.87,
       "w52_low": 23620.24,
-      "ma20": 43962.42,
-      "bias": 4.57,
+      "ma20": 43962.77,
+      "bias": 4.59,
       "rsi": 74.4
     },
     "2330.TW": {
@@ -50,15 +50,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2405.0,
+      "price": 2410.0,
       "prev": 2395.0,
-      "change": 10.0,
-      "pct": 0.42,
+      "change": 15.0,
+      "pct": 0.63,
       "w52_high": 2535.0,
       "w52_low": 1135.0,
-      "ma20": 2364.0,
-      "bias": 1.73,
-      "rsi": 59.5
+      "ma20": 2364.25,
+      "bias": 1.94,
+      "rsi": 59.8
     },
     "6669.TW": {
       "ticker": "6669.TW",
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 6640.0,
+      "price": 6635.0,
       "prev": 6435.0,
-      "change": 205.0,
-      "pct": 3.19,
+      "change": 200.0,
+      "pct": 3.11,
       "w52_high": 6740.0,
       "w52_low": 2745.0,
-      "ma20": 5798.25,
-      "bias": 14.52,
-      "rsi": 73.0
+      "ma20": 5798.0,
+      "bias": 14.44,
+      "rsi": 72.9
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -110,15 +110,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 17410.0,
+      "price": 17315.0,
       "prev": 17690.0,
-      "change": -280.0,
-      "pct": -1.58,
+      "change": -375.0,
+      "pct": -2.12,
       "w52_high": 18600.0,
       "w52_low": 4286.364,
-      "ma20": 15598.75,
-      "bias": 11.61,
-      "rsi": 78.5
+      "ma20": 15594.0,
+      "bias": 11.04,
+      "rsi": 77.5
     },
     "3017.TW": {
       "ticker": "3017.TW",
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 3165.0,
+      "price": 3170.0,
       "prev": 3235.0,
-      "change": -70.0,
-      "pct": -2.16,
+      "change": -65.0,
+      "pct": -2.01,
       "w52_high": 3320.0,
       "w52_low": 916.0,
-      "ma20": 2610.5,
-      "bias": 21.24,
-      "rsi": 77.0
+      "ma20": 2610.75,
+      "bias": 21.42,
+      "rsi": 77.2
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -230,15 +230,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1890.0,
+      "price": 1895.0,
       "prev": 1885.0,
-      "change": 5.0,
-      "pct": 0.27,
+      "change": 10.0,
+      "pct": 0.53,
       "w52_high": 2585.0,
       "w52_low": 619.0,
-      "ma20": 1731.5,
-      "bias": 9.15,
-      "rsi": 71.8
+      "ma20": 1731.75,
+      "bias": 9.43,
+      "rsi": 72.0
     },
     "006208.TW": {
       "ticker": "006208.TW",
@@ -260,14 +260,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 244.4,
+      "price": 244.35,
       "prev": 243.45,
-      "change": 0.95,
-      "pct": 0.39,
+      "change": 0.9,
+      "pct": 0.37,
       "w52_high": 260.1,
       "w52_low": 120.5,
       "ma20": 234.27,
-      "bias": 4.32,
+      "bias": 4.3,
       "rsi": 69.7
     },
     "00662.TW": {
@@ -325,15 +325,15 @@
       ],
       "etf_research_conclusion": "近4季配息由0.54元逐步升至1.00元，最新一季(2026Q2)配息全數來自已實現資本利得，近4季全數順利填息(最快3天)，符合積極推薦條件；惟配息高度依賴資本利得而非股利所得，若台股大盤回檔，配息能否維持需留意。",
       "etf_last_researched": "2026-08-01",
-      "price": 30.4,
+      "price": 30.39,
       "prev": 30.57,
-      "change": -0.17,
-      "pct": -0.56,
+      "change": -0.18,
+      "pct": -0.59,
       "w52_high": 31.04,
       "w52_low": 20.99,
       "ma20": 29.61,
-      "bias": 2.67,
-      "rsi": 68.6
+      "bias": 2.63,
+      "rsi": 68.5
     },
     "00878.TW": {
       "ticker": "00878.TW",
@@ -371,5 +371,5 @@
       "rsi": 73.3
     }
   },
-  "updated": "2026-08-17T13:18:03.810519+08:00"
+  "updated": "2026-08-17T13:23:09.729361+08:00"
 }
