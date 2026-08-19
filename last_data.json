@@ -20,15 +20,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 44582.58,
-      "prev": 45857.27,
-      "change": -1274.69,
-      "pct": -2.78,
+      "price": 44585.37,
+      "prev": 45308.68,
+      "change": -723.31,
+      "pct": -1.6,
       "w52_high": 48218.87,
       "w52_low": 23620.24,
-      "ma20": 43832.89,
-      "bias": 1.71,
-      "rsi": 64.7
+      "ma20": 43998.4,
+      "bias": 1.33,
+      "rsi": 77.6
     },
     "2330.TW": {
       "ticker": "2330.TW",
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 6285.0,
+      "price": 6355.0,
       "prev": 6400.0,
-      "change": -115.0,
-      "pct": -1.8,
+      "change": -45.0,
+      "pct": -0.7,
       "w52_high": 6740.0,
       "w52_low": 2745.0,
-      "ma20": 5906.5,
-      "bias": 6.41,
-      "rsi": 74.9
+      "ma20": 5910.0,
+      "bias": 7.53,
+      "rsi": 76.8
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 3095.0,
+      "price": 3100.0,
       "prev": 3035.0,
-      "change": 60.0,
-      "pct": 1.98,
+      "change": 65.0,
+      "pct": 2.14,
       "w52_high": 3320.0,
       "w52_low": 916.0,
-      "ma20": 2687.0,
-      "bias": 15.18,
-      "rsi": 78.2
+      "ma20": 2687.25,
+      "bias": 15.36,
+      "rsi": 78.3
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 585.0,
+      "price": 584.0,
       "prev": 599.0,
-      "change": -14.0,
-      "pct": -2.34,
+      "change": -15.0,
+      "pct": -2.5,
       "w52_high": 729.0,
       "w52_low": 143.0,
-      "ma20": 593.6,
-      "bias": -1.45,
-      "rsi": 66.0
+      "ma20": 593.55,
+      "bias": -1.61,
+      "rsi": 65.7
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -230,15 +230,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1750.0,
+      "price": 1755.0,
       "prev": 1820.0,
-      "change": -70.0,
-      "pct": -3.85,
+      "change": -65.0,
+      "pct": -3.57,
       "w52_high": 2585.0,
       "w52_low": 619.0,
-      "ma20": 1724.0,
-      "bias": 1.51,
-      "rsi": 65.3
+      "ma20": 1724.25,
+      "bias": 1.78,
+      "rsi": 65.7
     },
     "006208.TW": {
       "ticker": "006208.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 236.25,
+      "price": 236.2,
       "prev": 244.05,
-      "change": -7.8,
-      "pct": -3.2,
+      "change": -7.85,
+      "pct": -3.22,
       "w52_high": 260.1,
       "w52_low": 120.5,
       "ma20": 234.34,
-      "bias": 0.82,
-      "rsi": 69.9
+      "bias": 0.79,
+      "rsi": 69.8
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -325,15 +325,15 @@
       ],
       "etf_research_conclusion": "近4季配息由0.54元逐步升至1.00元，最新一季(2026Q2)配息全數來自已實現資本利得，近4季全數順利填息(最快3天)，符合積極推薦條件；惟配息高度依賴資本利得而非股利所得，若台股大盤回檔，配息能否維持需留意。",
       "etf_last_researched": "2026-08-01",
-      "price": 30.4,
+      "price": 30.37,
       "prev": 30.34,
-      "change": 0.06,
-      "pct": 0.2,
+      "change": 0.03,
+      "pct": 0.1,
       "w52_high": 31.04,
       "w52_low": 20.99,
       "ma20": 29.68,
-      "bias": 2.43,
-      "rsi": 75.1
+      "bias": 2.32,
+      "rsi": 74.9
     },
     "00878.TW": {
       "ticker": "00878.TW",
@@ -360,16 +360,16 @@
       ],
       "etf_research_conclusion": "配息組成資本利得占約6成、股利所得約3成、收益平準金約1成，合計股利與資本利得占比逾90%；近23次配息全數填息，2026年配息連4季創高(0.40→0.42→0.66→1.01元，其中1.01元已於8月中公告除息)，具備建倉條件；規模逾6,000億元須留意換股彈性下降風險。",
       "etf_last_researched": "2026-08-01",
-      "price": 32.28,
+      "price": 32.27,
       "prev": 33.75,
-      "change": -1.47,
-      "pct": -4.36,
+      "change": -1.48,
+      "pct": -4.39,
       "w52_high": 34.62,
       "w52_low": 20.15,
       "ma20": 32.71,
-      "bias": -1.31,
-      "rsi": 62.3
+      "bias": -1.35,
+      "rsi": 62.2
     }
   },
-  "updated": "2026-08-19T12:55:42.572692+08:00"
+  "updated": "2026-08-19T13:00:47.576907+08:00"
 }
