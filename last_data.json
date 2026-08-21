@@ -20,13 +20,13 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 45080.09,
+      "price": 45080.48,
       "prev": 44933.74,
-      "change": 146.35,
+      "change": 146.74,
       "pct": 0.33,
       "w52_high": 48218.87,
       "w52_low": 23764.47,
-      "ma20": 44080.51,
+      "ma20": 44080.53,
       "bias": 2.27,
       "rsi": 66.2
     },
@@ -110,15 +110,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 15340.0,
+      "price": 15300.0,
       "prev": 15750.0,
-      "change": -410.0,
-      "pct": -2.6,
+      "change": -450.0,
+      "pct": -2.86,
       "w52_high": 18600.0,
       "w52_low": 4327.273,
-      "ma20": 15784.0,
-      "bias": -2.81,
-      "rsi": 44.8
+      "ma20": 15782.0,
+      "bias": -3.05,
+      "rsi": 44.5
     },
     "3017.TW": {
       "ticker": "3017.TW",
@@ -290,15 +290,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 119.8,
+      "price": 119.75,
       "prev": 120.25,
-      "change": -0.45,
-      "pct": -0.37,
+      "change": -0.5,
+      "pct": -0.42,
       "w52_high": 124.0,
       "w52_low": 90.8,
       "ma20": 120.33,
-      "bias": -0.44,
-      "rsi": 54.6
+      "bias": -0.48,
+      "rsi": 54.4
     },
     "00919.TW": {
       "ticker": "00919.TW",
@@ -325,15 +325,15 @@
       ],
       "etf_research_conclusion": "近4季配息由0.54元逐步升至1.00元，最新一季(2026Q2)配息全數來自已實現資本利得，近4季全數順利填息(最快3天)，符合積極推薦條件；惟配息高度依賴資本利得而非股利所得，若台股大盤回檔，配息能否維持需留意。",
       "etf_last_researched": "2026-08-01",
-      "price": 30.74,
+      "price": 30.75,
       "prev": 30.39,
-      "change": 0.35,
-      "pct": 1.15,
+      "change": 0.36,
+      "pct": 1.18,
       "w52_high": 31.04,
       "w52_low": 20.99,
       "ma20": 29.78,
-      "bias": 3.22,
-      "rsi": 72.9
+      "bias": 3.26,
+      "rsi": 73.0
     },
     "00878.TW": {
       "ticker": "00878.TW",
@@ -371,5 +371,5 @@
       "rsi": 48.7
     }
   },
-  "updated": "2026-08-21T12:52:05.431296+08:00"
+  "updated": "2026-08-21T12:57:11.736863+08:00"
 }
