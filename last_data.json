@@ -20,14 +20,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 44555.64,
+      "price": 44553.45,
       "prev": 44762.32,
-      "change": -206.68,
-      "pct": -0.46,
+      "change": -208.87,
+      "pct": -0.47,
       "w52_high": 48218.87,
       "w52_low": 23885.41,
-      "ma20": 44291.74,
-      "bias": 0.6,
+      "ma20": 44291.63,
+      "bias": 0.59,
       "rsi": 49.4
     },
     "2330.TW": {
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2865.0,
+      "price": 2870.0,
       "prev": 2855.0,
-      "change": 10.0,
-      "pct": 0.35,
+      "change": 15.0,
+      "pct": 0.53,
       "w52_high": 3320.0,
       "w52_low": 916.0,
-      "ma20": 2792.5,
-      "bias": 2.6,
-      "rsi": 54.9
+      "ma20": 2792.75,
+      "bias": 2.77,
+      "rsi": 55.1
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 236.3,
+      "price": 236.6,
       "prev": 239.3,
-      "change": -3.0,
-      "pct": -1.25,
+      "change": -2.7,
+      "pct": -1.13,
       "w52_high": 260.1,
       "w52_low": 121.0,
-      "ma20": 235.02,
-      "bias": 0.54,
-      "rsi": 58.9
+      "ma20": 235.03,
+      "bias": 0.67,
+      "rsi": 59.4
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -325,15 +325,15 @@
       ],
       "etf_research_conclusion": "近4季配息由0.54元逐步升至1.00元，最新一季(2026Q2)配息全數來自已實現資本利得，近4季全數順利填息(最快3天)，符合積極推薦條件；惟配息高度依賴資本利得而非股利所得，若台股大盤回檔，配息能否維持需留意。",
       "etf_last_researched": "2026-08-01",
-      "price": 31.02,
+      "price": 31.01,
       "prev": 30.65,
-      "change": 0.37,
-      "pct": 1.21,
+      "change": 0.36,
+      "pct": 1.17,
       "w52_high": 31.08,
       "w52_low": 20.99,
       "ma20": 29.99,
-      "bias": 3.43,
-      "rsi": 70.1
+      "bias": 3.4,
+      "rsi": 70.0
     },
     "00878.TW": {
       "ticker": "00878.TW",
@@ -371,5 +371,5 @@
       "rsi": 40.3
     }
   },
-  "updated": "2026-08-25T12:26:43.226781+08:00"
+  "updated": "2026-08-25T12:31:49.051222+08:00"
 }
