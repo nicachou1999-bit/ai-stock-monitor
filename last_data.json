@@ -20,15 +20,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 45740.12,
+      "price": 45706.76,
       "prev": 46331.45,
-      "change": -591.33,
-      "pct": -1.28,
+      "change": -624.69,
+      "pct": -1.35,
       "w52_high": 48218.87,
       "w52_low": 23885.41,
-      "ma20": 45192.47,
-      "bias": 1.21,
-      "rsi": 55.7
+      "ma20": 45190.8,
+      "bias": 1.14,
+      "rsi": 55.4
     },
     "2330.TW": {
       "ticker": "2330.TW",
@@ -80,15 +80,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 7120.0,
+      "price": 7055.0,
       "prev": 7200.0,
-      "change": -80.0,
-      "pct": -1.11,
+      "change": -145.0,
+      "pct": -2.01,
       "w52_high": 7360.0,
       "w52_low": 2745.0,
-      "ma20": 6392.5,
-      "bias": 11.38,
-      "rsi": 78.6
+      "ma20": 6389.25,
+      "bias": 10.42,
+      "rsi": 76.2
     },
     "5274.TWO": {
       "ticker": "5274.TWO",
@@ -110,14 +110,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 15320.0,
+      "price": 15315.0,
       "prev": 15630.0,
-      "change": -310.0,
-      "pct": -1.98,
+      "change": -315.0,
+      "pct": -2.02,
       "w52_high": 18600.0,
       "w52_low": 4327.273,
-      "ma20": 16180.5,
-      "bias": -5.32,
+      "ma20": 16180.25,
+      "bias": -5.35,
       "rsi": 39.8
     },
     "3017.TW": {
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 3365.0,
+      "price": 3355.0,
       "prev": 3360.0,
-      "change": 5.0,
-      "pct": 0.15,
+      "change": -5.0,
+      "pct": -0.15,
       "w52_high": 3450.0,
       "w52_low": 916.0,
-      "ma20": 3004.0,
-      "bias": 12.02,
-      "rsi": 70.4
+      "ma20": 3003.5,
+      "bias": 11.7,
+      "rsi": 70.0
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 574.0,
+      "price": 573.0,
       "prev": 621.0,
-      "change": -47.0,
-      "pct": -7.57,
+      "change": -48.0,
+      "pct": -7.73,
       "w52_high": 729.0,
       "w52_low": 151.0,
-      "ma20": 601.7,
-      "bias": -4.6,
-      "rsi": 30.2
+      "ma20": 601.65,
+      "bias": -4.76,
+      "rsi": 30.0
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -230,15 +230,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1800.0,
+      "price": 1790.0,
       "prev": 1830.0,
-      "change": -30.0,
-      "pct": -1.64,
+      "change": -40.0,
+      "pct": -2.19,
       "w52_high": 2585.0,
       "w52_low": 675.0,
-      "ma20": 1767.0,
-      "bias": 1.87,
-      "rsi": 49.4
+      "ma20": 1766.5,
+      "bias": 1.33,
+      "rsi": 48.4
     },
     "006208.TW": {
       "ticker": "006208.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 242.1,
+      "price": 242.0,
       "prev": 243.15,
-      "change": -1.05,
-      "pct": -0.43,
+      "change": -1.15,
+      "pct": -0.47,
       "w52_high": 260.1,
       "w52_low": 121.0,
-      "ma20": 239.2,
-      "bias": 1.21,
-      "rsi": 57.0
+      "ma20": 239.19,
+      "bias": 1.17,
+      "rsi": 56.8
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -371,5 +371,5 @@
       "rsi": 44.2
     }
   },
-  "updated": "2026-08-31T12:41:13.162214+08:00"
+  "updated": "2026-08-31T12:46:20.134380+08:00"
 }
