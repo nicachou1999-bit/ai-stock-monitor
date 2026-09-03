@@ -1361,9 +1361,11 @@ def main():
     deep     = build_deep_analysis(signal, data)
 
     generated_at = now_tw().strftime("%Y-%m-%d %H:%M")
+    monthly = read_monthly_report()
     html = generate_html(data, signal, signal_label, signal_color,
                          advisor, warnings, deep,
-                         data_time, generated_at, research_map, indicators)
+                         data_time, generated_at, research_map, indicators,
+                         monthly=monthly)
     html = inject_cached_analysis(html)
     with open(DASHBOARD_FILE, "w", encoding="utf-8") as f:
         f.write(html)
