@@ -153,7 +153,7 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2px}
 <h1>AI 每日投資顧問</h1>
 <p class="subtitle">1 檔核心持股 &middot; 6 檔潛力池 &middot; 巴菲特價值投資</p>
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-  <p class="update-time" style="margin:0">&#x1F551; 資料更新：2026-09-03 14:03</p>
+  <p class="update-time" style="margin:0">&#x1F551; 資料更新：2026-09-03 14:07</p>
   <span style="font-size:.78rem;color:#94a3b8">&#x1F503; 盤中每5分鐘自動更新，收盤後17:01附深度分析</span>
 </div>
 <div class="top-bar">
@@ -195,8 +195,56 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2px}
   </div>
 </div>
 <div class="section-title">月度研究</div>
-<div class="monthly-section"><div class="monthly-none">月度研究報告尚未生成——每月1日自動執行後將顯示於此。</div></div>
-<div class="timestamp-bar"><span>資料時間：2026-09-03 14:03</span><span>頁面產生：2026-09-03 14:03</span></div>
+<div class="monthly-section"><div class="monthly-header" onclick="toggleMonthly()"><span class="section-title" style="margin:0">&#x1F4CB; 月度研究報告 &mdash; 2026-09</span><span class="monthly-chevron" id="monthly-chevron">&#x25B2;</span></div><div class="monthly-body" id="monthly-body"><div class="mr-h1">AI資本配置月度報告 — 2026年9月</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">1. AI趨勢分數：92/100（未來15年主線未變，供給瓶頸更緊）</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; NVIDIA 2026/5-7月季報：營收962億美元，年增2.1倍，大幅超越市場預期的920億美元。下季指引1,080億美元±2%，FY2028維持70%成長展望；8/10 宣布與Apollo、BlackRock、Blackstone、Brookfield、Goldman Sachs、KKR共組逾5,000億美元AI基礎建設融資平台，顯示資金需求持續擴大。</div>
+<div class="mr-li">&#x2022; 四大CSP（Google、Amazon、Meta、Microsoft）2026年資本支出合計約7,250億美元，年增77%；納入Oracle、字節、騰訊、阿里、百度後全球合計超過8,867億美元。</div>
+<div class="mr-li">&#x2022; 台積電CoWoS：2026年底月產能擴至約12.5萬片（較2025年底增20-30%），但全年需求估達100萬片，供給僅60-70萬片，缺口延續至2027年；NVIDIA一家鎖定超過五成新增產能，Broadcom、AMD居次。</div>
+<div class="mr-li">&#x2022; 結論：需求端（NVIDIA營收、CSP capex）與供給端（CoWoS）雙雙緊俏，AI仍為主線，但也代表短期產能瓶頸可能限制部分供應鏈2026-27年營收成長彈性，需留意展延時程。</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">2. 各標的月度評估（依護城河分層，持倉零視角）</div>
+<div class="mr-gap"></div>
+<div class="mr-p">| 標的 | 現價 | 區間 | 護城河 | 備註 |</div>
+<div class="mr-p">|------|------|------|--------|------|</div>
+<div class="mr-p">| 台積電 2330 | 2,405 | 謹慎（介於fair 2,200~rich 2,700） | A | CoWoS供給吃緊為長期利多，估值本次未調整 |</div>
+<div class="mr-p">| 緯穎 6669 | 2,378（除權還原後） | 偏貴（>rich 2,180） | A | 9/2除權（股票股利19.83元，股數x2.983），區間已同步還原，原始9/1收盤7,095元僅供參考 |</div>
+<div class="mr-p">| 信驊 5274 | 17,120 | 偏貴（>rich 11,820） | S | 現價達新rich門檻的1.45倍，護城河最強但追價風險也最高 |</div>
+<div class="mr-p">| 奇鋐 3017 | 3,425 | 偏貴（>rich 3,200） | A | 剛越過偏貴門檻 |</div>
+<div class="mr-p">| 嘉澤 3533 | 1,690 | 合理（≤fair 2,100） | B | 唯一落於合理布局區的標的 |</div>
+<div class="mr-p">| 日月光投控 3711 | 584 | 謹慎（介於fair 520~rich 720） | B | 本月跌5.96%，仍未到合理區 |</div>
+<div class="mr-p">| 台達電 2308 | 1,840 | 謹慎（介於fair 1,500~rich 2,000） | B | — |</div>
+<div class="mr-gap"></div>
+<div class="mr-p">緯穎、信驊區間已於9/3重新校準：兩檔均因除權股數變動需機械還原（緯穎x2.983、信驊x1.1），隱含本益比倍數與除權前一致，未採用法人目標價上修；其餘五檔本次驗算後維持不動。詳見 `ai-investment-advisor/CLAUDE.md`。</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">3. 進場優先順序（持倉零視角，無標的落入積極買進區）</div>
+<div class="mr-gap"></div>
+<div class="mr-p">目前沒有標的價格落在「積極買進」區間，暫不建議進場。若以安全邊際（現價距離fair/rich的相對位置）排序關注優先度：</div>
+<div class="mr-gap"></div>
+<div class="mr-p">1. 嘉澤（唯一合理布局區，距積極買進約有12%空間）</div>
+<div class="mr-p">2. 台積電（謹慎區但護城河最強，CoWoS供給吃緊為結構性利多）</div>
+<div class="mr-p">3. 台達電（謹慎區）</div>
+<div class="mr-p">4. 日月光投控（謹慎區，本月大跌但尚未進合理區）</div>
+<div class="mr-p">5. 奇鋐 / 緯穎 / 信驊（均已偏貴，等回檔）</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">4. 風險提醒（前3大）</div>
+<div class="mr-gap"></div>
+<div class="mr-p">1. <strong>多檔已進入偏貴區</strong>：緯穎、信驊、奇鋐三檔均超過rich門檻，追高後若AI硬體訂單或財報不如預期，回檔風險大。</div>
+<div class="mr-p">2. <strong>CSP資本支出基期已高</strong>：2026年合計年增77%，市場預期打得很滿，一旦2027財測轉弱或ROI疑慮升溫，恐觸發評價修正，衝擊整條供應鏈估值。</div>
+<div class="mr-p">3. <strong>CoWoS供給瓶頸雙面性</strong>：雖是長期利多，但短期產能受限也可能限制封裝/測試相關標的2026-27年營收成長彈性，需留意台積電擴產時程是否如期落地。</div>
+<div class="mr-gap"></div>
+<div class="mr-h2">5. 下月關注事項</div>
+<div class="mr-gap"></div>
+<div class="mr-li">&#x2022; NVIDIA下次財報：1,080億美元±2%指引能否達成、Rubin出貨進度、毛利率變化</div>
+<div class="mr-li">&#x2022; 台積電Q3法說會（約10月中）：CoWoS擴產與2026-27資本支出指引更新</div>
+<div class="mr-li">&#x2022; 00919 / 00878 下一次配息組成：是否持續高度依賴已實現資本利得而非成分股股利</div>
+<div class="mr-li">&#x2022; 緯穎、信驊、奇鋐Q3財報：能否支撐目前偏貴估值</div>
+<div class="mr-gap"></div>
+<div class="mr-p">---</div>
+<div class="mr-p">（本報告會顯示於 https://nicachou1999-bit.github.io/ai-stock-monitor/ 的「月度研究」區塊；repo的main.py會讀取repo根目錄同名檔案，因此本檔需同步push至repo根目錄，本機outputs資料夾僅供備份保留一份。）</div>
+<div class="mr-gap"></div></div></div>
+<div class="timestamp-bar"><span>資料時間：2026-09-03 14:07</span><span>頁面產生：2026-09-03 14:07</span></div>
 <script>
 const PRICES = {"2330.TW": {"price": 2390.0, "name": "台積電"}, "6669.TW": {"price": 2475.0, "name": "緯穎"}, "5274.TWO": {"price": 17850.0, "name": "信驊"}, "3017.TW": {"price": 3300.0, "name": "奇鋐"}, "3533.TW": {"price": 1670.0, "name": "嘉澤"}, "3711.TW": {"price": null, "name": "日月光投控"}, "2308.TW": {"price": 1760.0, "name": "台達電"}, "006208.TW": {"price": 243.8, "name": "富邦台50"}, "00662.TW": {"price": 118.45, "name": "富邦NASDAQ"}, "00919.TW": {"price": 32.52, "name": "群益台灣精選高息"}, "00878.TW": {"price": 33.58, "name": "國泰永續高股息"}};
 const STOCKS = [{"ticker": "2330.TW", "name": "台積電", "cheap": 1800, "fair": 2200, "rich": 2700}, {"ticker": "6669.TW", "name": "緯穎", "cheap": 1200, "fair": 1680, "rich": 2180}, {"ticker": "5274.TWO", "name": "信驊", "cheap": 6820, "fair": 9090, "rich": 11820}, {"ticker": "3017.TW", "name": "奇鋐", "cheap": 1900, "fair": 2600, "rich": 3200}, {"ticker": "3533.TW", "name": "嘉澤", "cheap": 1500, "fair": 2100, "rich": 2850}, {"ticker": "3711.TW", "name": "日月光投控", "cheap": 380, "fair": 520, "rich": 720}, {"ticker": "2308.TW", "name": "台達電", "cheap": 1050, "fair": 1500, "rich": 2000}, {"ticker": "006208.TW", "name": "富邦台50", "cheap": null, "fair": null, "rich": null}, {"ticker": "00662.TW", "name": "富邦NASDAQ", "cheap": null, "fair": null, "rich": null}, {"ticker": "00919.TW", "name": "群益台灣精選高息", "cheap": null, "fair": null, "rich": null}, {"ticker": "00878.TW", "name": "國泰永續高股息", "cheap": null, "fair": null, "rich": null}];
