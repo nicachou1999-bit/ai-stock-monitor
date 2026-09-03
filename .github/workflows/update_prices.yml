@@ -2,8 +2,8 @@ name: Update Stock Prices
 
 on:
   schedule:
-    # 平日台北 09:00（UTC 01:00）觸發一次，之後由 job 內部迴圈每 5 分鐘更新到收盤
-    - cron: '0 1 * * 1-5'
+    # 平日台北 09:00-14:00（UTC 01:00-05:59）每5分鐘觸發一次，涵蓋開盤到收盤
+    - cron: '*/5 1-5 * * 1-5'
   workflow_dispatch:
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: price-loop
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   UPDATE_TRIGGER_TOKEN: ${{ secrets.UPDATE_TRIGGER_TOKEN }}
@@ -19,7 +19,7 @@ env:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,28 +29,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Intraday loop (every 5 min until 13:35 Taipei)
+      - name: Fetch price and update site
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          export TZ=Asia/Taipei
-          END_EPOCH=$(date -d "13:35" +%s)
-          echo "Loop will end at: $(date -d @$END_EPOCH)"
-          while true; do
-            echo "----- cycle $(date +'%H:%M:%S') -----"
-            git pull --rebase --autostash origin main || true
-            python main.py --no-browser || echo "run failed, continue"
-            cp dashboard.html index.html 2>/dev/null || echo "no dashboard.html produced"
-            git add index.html last_data.json 2>/dev/null || true
-            if git diff --staged --quiet; then
-              echo "no change"
-            else
-              git commit -m "update: $(date +'%Y-%m-%d %H:%M')"
-              git push || echo "push failed, retry next cycle"
-            fi
-            if [ "$(date +%s)" -ge "$END_EPOCH" ]; then
-              echo "Market closed or manual run outside market hours, loop ended."
-              break
-            fi
-            sleep 300
-          done
+          timeout 60 git pull --rebase --autostash origin main || true
+          timeout 120 python main.py --no-browser || echo "run failed, will retry next cycle"
+          cp dashboard.html index.html 2>/dev/null || echo "no dashboard.html produced"
+          git add index.html last_data.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "no change"
+          else
+            git commit -m "update: $(date +'%Y-%m-%d %H:%M')"
+            timeout 60 git push || echo "push failed, will retry next cycle"
+          fi
