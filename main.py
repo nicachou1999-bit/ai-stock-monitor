@@ -1010,7 +1010,7 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
 
     css = """
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:20px 16px;font-size:18.75px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:20px 16px;font-size:23.44px}
 h1{font-size:1.5rem;font-weight:700;margin-bottom:2px}
 .subtitle{color:#b0bec9;font-size:.85rem;margin-bottom:4px}.update-time{color:#60a5fa;font-size:.78rem;margin-bottom:20px}
 .top-bar{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
