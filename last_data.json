@@ -21,14 +21,14 @@
       "etf_research_conclusion": null,
       "etf_last_researched": null,
       "price": 47718.84,
-      "prev": 47180.75,
-      "change": 538.09,
-      "pct": 1.14,
+      "prev": 46288.0,
+      "change": 1430.84,
+      "pct": 3.09,
       "w52_high": 48218.87,
       "w52_low": 25469.04,
-      "ma20": 46405.53,
-      "bias": 2.83,
-      "rsi": 55.7
+      "ma20": 46257.71,
+      "bias": 3.16,
+      "rsi": 57.5
     },
     "2330.TW": {
       "ticker": "2330.TW",
@@ -261,14 +261,14 @@
       "etf_research_conclusion": null,
       "etf_last_researched": null,
       "price": 254.7,
-      "prev": 251.2,
-      "change": 3.5,
-      "pct": 1.39,
+      "prev": 247.4,
+      "change": 7.3,
+      "pct": 2.95,
       "w52_high": 260.1,
       "w52_low": 132.4,
-      "ma20": 246.59,
-      "bias": 3.29,
-      "rsi": 59.8
+      "ma20": 245.76,
+      "bias": 3.64,
+      "rsi": 62.1
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -291,14 +291,14 @@
       "etf_research_conclusion": null,
       "etf_last_researched": null,
       "price": 121.6,
-      "prev": 120.5,
-      "change": 1.1,
-      "pct": 0.91,
+      "prev": 119.2,
+      "change": 2.4,
+      "pct": 2.01,
       "w52_high": 124.0,
       "w52_low": 94.3,
-      "ma20": 119.44,
-      "bias": 1.81,
-      "rsi": 61.2
+      "ma20": 119.33,
+      "bias": 1.9,
+      "rsi": 54.7
     },
     "00919.TW": {
       "ticker": "00919.TW",
@@ -361,15 +361,15 @@
       "etf_research_conclusion": "近四季配息由0.4元一路走高至1.01元（2026Q3創掛牌新高），歷史配息已達22次全數完成填息、紀錄穩健。惟近期配息組成中資本利得／平準金占比明顯提高（Q2配息約39%來自資本利得平準金），股利所得比重下降，顯示高配息部分建立在多頭市場的資本利得上。可作為核心高息配置之一，但需留意配息結構正轉向資本利得依賴、非純股利驅動。",
       "etf_last_researched": "2026-09-01",
       "price": 35.11,
-      "prev": 34.83,
-      "change": 0.28,
-      "pct": 0.8,
+      "prev": 34.73,
+      "change": 0.38,
+      "pct": 1.09,
       "w52_high": 35.2,
       "w52_low": 20.23,
-      "ma20": 33.89,
-      "bias": 3.6,
-      "rsi": 74.9
+      "ma20": 33.75,
+      "bias": 4.03,
+      "rsi": 77.4
     }
   },
-  "updated": "2026-09-21T14:09:45.739598+08:00"
+  "updated": "2026-09-22T09:00:37.578233+08:00"
 }
