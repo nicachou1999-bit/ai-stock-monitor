@@ -20,15 +20,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 49820.26,
+      "price": 49766.6,
       "prev": 49822.55,
-      "change": -2.29,
-      "pct": -0.0,
+      "change": -55.95,
+      "pct": -0.11,
       "w52_high": 49968.92,
       "w52_low": 26395.98,
-      "ma20": 47578.16,
-      "bias": 4.71,
-      "rsi": 90.2
+      "ma20": 47575.48,
+      "bias": 4.61,
+      "rsi": 89.3
     },
     "2330.TW": {
       "ticker": "2330.TW",
@@ -50,15 +50,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": null,
-      "prev": null,
-      "change": null,
-      "pct": null,
-      "w52_high": null,
-      "w52_low": null,
-      "ma20": null,
-      "bias": null,
-      "rsi": null
+      "price": 2575.0,
+      "prev": 2585.0,
+      "change": -10.0,
+      "pct": -0.39,
+      "w52_high": 2590.0,
+      "w52_low": 1375.0,
+      "ma20": 2472.0,
+      "bias": 4.17,
+      "rsi": 78.8
     },
     "6669.TW": {
       "ticker": "6669.TW",
@@ -110,15 +110,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 17850.0,
+      "price": 17795.0,
       "prev": 18985.0,
-      "change": -1135.0,
-      "pct": -5.98,
+      "change": -1190.0,
+      "pct": -6.27,
       "w52_high": 21800.0,
       "w52_low": 4645.455,
-      "ma20": 18947.25,
-      "bias": -5.79,
-      "rsi": 52.0
+      "ma20": 18944.5,
+      "bias": -6.07,
+      "rsi": 51.6
     },
     "3017.TW": {
       "ticker": "3017.TW",
@@ -140,15 +140,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 3535.0,
+      "price": 3540.0,
       "prev": 3685.0,
-      "change": -150.0,
-      "pct": -4.07,
+      "change": -145.0,
+      "pct": -3.93,
       "w52_high": 3700.0,
       "w52_low": 1085.0,
-      "ma20": 3406.5,
-      "bias": 3.77,
-      "rsi": 66.8
+      "ma20": 3406.75,
+      "bias": 3.91,
+      "rsi": 67.1
     },
     "3533.TW": {
       "ticker": "3533.TW",
@@ -170,15 +170,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1855.0,
+      "price": 1845.0,
       "prev": 1865.0,
-      "change": -10.0,
-      "pct": -0.54,
+      "change": -20.0,
+      "pct": -1.07,
       "w52_high": 2955.0,
       "w52_low": 1140.0,
-      "ma20": 1683.0,
-      "bias": 10.22,
-      "rsi": 83.2
+      "ma20": 1682.5,
+      "bias": 9.66,
+      "rsi": 81.6
     },
     "3711.TW": {
       "ticker": "3711.TW",
@@ -200,15 +200,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 731.0,
+      "price": 730.0,
       "prev": 744.0,
-      "change": -13.0,
-      "pct": -1.75,
+      "change": -14.0,
+      "pct": -1.88,
       "w52_high": 758.0,
       "w52_low": 168.5,
-      "ma20": 668.25,
-      "bias": 9.39,
-      "rsi": 86.8
+      "ma20": 668.2,
+      "bias": 9.25,
+      "rsi": 86.3
     },
     "2308.TW": {
       "ticker": "2308.TW",
@@ -230,15 +230,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2010.0,
+      "price": 2000.0,
       "prev": 2050.0,
-      "change": -40.0,
-      "pct": -1.95,
+      "change": -50.0,
+      "pct": -2.44,
       "w52_high": 2585.0,
       "w52_low": 886.0,
-      "ma20": 1824.0,
-      "bias": 10.2,
-      "rsi": 75.8
+      "ma20": 1823.5,
+      "bias": 9.68,
+      "rsi": 74.6
     },
     "006208.TW": {
       "ticker": "006208.TW",
@@ -260,14 +260,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 266.05,
+      "price": 266.0,
       "prev": 265.35,
-      "change": 0.7,
-      "pct": 0.26,
+      "change": 0.65,
+      "pct": 0.24,
       "w52_high": 266.35,
       "w52_low": 135.9,
       "ma20": 253.13,
-      "bias": 5.1,
+      "bias": 5.08,
       "rsi": 89.2
     },
     "00662.TW": {
@@ -371,5 +371,5 @@
       "rsi": 77.4
     }
   },
-  "updated": "2026-10-07T12:30:26.712207+08:00"
+  "updated": "2026-10-07T12:45:17.335114+08:00"
 }
