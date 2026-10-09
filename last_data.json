@@ -20,9 +20,9 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 49313.4,
+      "price": 49313.44,
       "prev": 49806.37,
-      "change": -492.97,
+      "change": -492.93,
       "pct": -0.99,
       "w52_high": 49968.92,
       "w52_low": 26395.98,
@@ -371,5 +371,5 @@
       "rsi": 78.3
     }
   },
-  "updated": "2026-10-09T11:15:19.056527+08:00"
+  "updated": "2026-10-09T11:30:25.899410+08:00"
 }
