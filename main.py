@@ -1309,7 +1309,7 @@ function toggleMonthly(){
         + stale_banner
         + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">\n'
         + f'  <p class="update-time" style="margin:0">&#x1F551; 資料更新：{data_time}</p>\n'
-        + '  <span style="font-size:.78rem;color:#94a3b8">&#x1F503; 盤中每20分鐘自動更新，深度解讀每月1日更新'
+        + '  <span style="font-size:.78rem;color:#94a3b8">&#x1F503; 交易日收盤後自動更新，深度解讀每月1日更新'
         + ' &middot; <a href="admin.html" style="color:#60a5fa">&#x2699;&#xFE0F; 後台</a></span>\n'
         + '</div>\n'
         + '<div class="top-bar">\n'
