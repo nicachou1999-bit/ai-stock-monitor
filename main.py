@@ -400,30 +400,62 @@ def build_deep_analysis(signal, data):
 
 # ── 月度報告 ──────────────────────────────────────────────────────────────
 def read_monthly_report():
+    """取最新一份 monthly-report-YYYY-MM.md（不限當月），回傳 (月份, html)；找不到回傳 (None, None)"""
     import re
-    month = now_tw().strftime('%Y-%m')
-    for p in [os.path.normpath(os.path.join(SCRIPT_DIR,'..', f'monthly-report-{month}.md')),
-              os.path.join(SCRIPT_DIR, f'monthly-report-{month}.md')]:
-        if os.path.exists(p):
-            with open(p, 'r', encoding='utf-8') as f:
-                return month, _md_to_html(f.read())
-    return None, None
+    found = {}
+    for d in [SCRIPT_DIR, os.path.normpath(os.path.join(SCRIPT_DIR, '..'))]:
+        for p in glob.glob(os.path.join(d, 'monthly-report-*.md')):
+            m = re.search(r'monthly-report-(\d{4}-\d{2})\.md$', p)
+            if m and m.group(1) not in found:
+                found[m.group(1)] = p
+    if not found:
+        return None, None
+    month = max(found)
+    with open(found[month], 'r', encoding='utf-8') as f:
+        return month, _md_to_html(f.read())
+
+def _md_inline(s):
+    import re
+    s = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', s)
+    return re.sub(r'`([^`]+)`', r'\1', s)
 
 def _md_to_html(text):
     import re
     out = []
+    table = []
+
+    def flush_table():
+        if not table:
+            return
+        rows = [[c.strip() for c in r.strip().strip('|').split('|')] for r in table
+                if not re.match(r'^\|?\s*:?-{2,}', r.strip())]
+        html = '<div class="mr-table-wrap"><table class="mr-table">'
+        for i, cells in enumerate(rows):
+            tag = 'th' if i == 0 else 'td'
+            html += '<tr>' + ''.join(f'<{tag}>{_md_inline(c)}</{tag}>' for c in cells) + '</tr>'
+        out.append(html + '</table></div>')
+        table.clear()
+
     for line in text.split('\n'):
         s = line.rstrip()
-        if s.startswith('# '):   out.append(f'<div class="mr-h1">{s[2:]}</div>')
+        if s.startswith('|'):
+            table.append(s)
+            continue
+        flush_table()
+        if s.strip() == '---':
+            out.append('<div class="mr-gap"></div>')
+        elif re.match(r'^\d+\.\s', s):
+            num, body = s.split('.', 1)
+            out.append(f'<div class="mr-li">{num}. {_md_inline(body.strip())}</div>')
+        elif s.startswith('# '):   out.append(f'<div class="mr-h1">{s[2:]}</div>')
         elif s.startswith('## '): out.append(f'<div class="mr-h2">{s[3:]}</div>')
         elif s.startswith('### '):out.append(f'<div class="mr-h3">{s[4:]}</div>')
         elif s.startswith('- '):
-            body = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', s[2:])
-            out.append(f'<div class="mr-li">&#x2022; {body}</div>')
+            out.append(f'<div class="mr-li">&#x2022; {_md_inline(s[2:])}</div>')
         elif s == '':             out.append('<div class="mr-gap"></div>')
         else:
-            body = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', s)
-            out.append(f'<div class="mr-p">{body}</div>')
+            out.append(f'<div class="mr-p">{_md_inline(s)}</div>')
+    flush_table()
     return '\n'.join(out)
 
 
@@ -997,11 +1029,17 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
     )
 
     # ── 月度報告 ──
-    if monthly:
-        m_month, m_body = monthly
+    m_month, m_body = monthly if monthly else (None, None)
+    now_month = now_tw().strftime('%Y-%m')
+    stale_banner = ''
+    if m_month != now_month and now_tw().day >= 3:
+        stale_banner = (f'<div class="stale-banner">&#x26A0;&#xFE0F; 本月（{now_month}）月報尚未產出，'
+                        f'最新一份為 {m_month or "無"}。請檢查每月 1 日的月報排程。</div>\n')
+    if m_month:
+        m_label = m_month if m_month == now_month else f'{m_month}（非本月）'
         monthly_html = (f'<div class="monthly-section">'
                         f'<div class="monthly-header" onclick="toggleMonthly()">'
-                        f'<span class="section-title" style="margin:0">&#x1F4CB; 月度研究報告 &mdash; {m_month}</span>'
+                        f'<span class="section-title" style="margin:0">&#x1F4CB; 月度研究報告 &mdash; {m_label}</span>'
                         f'<span class="monthly-chevron" id="monthly-chevron">&#x25B2;</span></div>'
                         f'<div class="monthly-body" id="monthly-body">{m_body}</div></div>\n')
     else:
@@ -1094,6 +1132,11 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2px}
 .mr-p{font-size:.88rem;color:#b0bec9;line-height:1.7;margin-bottom:2px}
 .mr-gap{height:6px}
 .monthly-none{padding:16px 18px;font-size:.88rem;color:#b0bec9}
+.mr-table-wrap{overflow-x:auto}
+.mr-table{border-collapse:collapse;width:100%;margin:6px 0;font-size:.85rem}
+.mr-table th,.mr-table td{border:1px solid #334155;padding:5px 8px;text-align:left;color:#b0bec9;vertical-align:top}
+.mr-table th{background:#0f172a;color:#cbd5e1}
+.stale-banner{background:#7f1d1d;border:1px solid #ef4444;color:#fee2e2;border-radius:8px;padding:10px 14px;margin:8px 0 12px;font-size:.92rem;font-weight:600}
 .card-link{color:#cbd5e1;text-decoration:none;font-size:1rem;font-weight:600}.card-link:hover{color:#60a5fa;text-decoration:underline}
 .card-ticker{display:block;font-size:.8rem;color:#b0bec9;margin-top:1px;font-family:monospace;letter-spacing:.04em}
 .tech-row{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
@@ -1263,9 +1306,11 @@ function toggleMonthly(){
         '<style>' + css + '</style>\n</head>\n<body>\n'
         '<h1>AI 每日投資顧問</h1>\n'
         f'<p class="subtitle">{n_core} 檔核心持股 &middot; {n_obs} 檔潛力池 &middot; 巴菲特價值投資</p>\n'
+        + stale_banner
         + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">\n'
         + f'  <p class="update-time" style="margin:0">&#x1F551; 資料更新：{data_time}</p>\n'
-        + '  <span style="font-size:.78rem;color:#94a3b8">&#x1F503; 盤中每5分鐘自動更新，收盤後17:01附深度分析</span>\n'
+        + '  <span style="font-size:.78rem;color:#94a3b8">&#x1F503; 盤中每5分鐘自動更新，收盤後17:01附深度分析'
+        + ' &middot; <a href="admin.html" style="color:#60a5fa">&#x2699;&#xFE0F; 後台</a></span>\n'
         + '</div>\n'
         + '<div class="top-bar">\n'
         '  <div>\n'

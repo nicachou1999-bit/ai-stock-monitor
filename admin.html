@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>觀察清單後台</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:20px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:20px 16px 120px;line-height:1.5}
+a{color:#60a5fa}
+h1{font-size:1.4rem;font-weight:700}
+.wrap{max-width:1100px;margin:0 auto}
+.head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.sub{color:#b0bec9;font-size:.8rem}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;margin-bottom:16px}
+.section-title{font-size:.78rem;letter-spacing:.08em;color:#b0bec9;margin:22px 0 8px;display:flex;justify-content:space-between;align-items:center}
+.btn{font:inherit;font-size:.82rem;border-radius:8px;border:1px solid #475569;background:#334155;color:#e2e8f0;padding:6px 14px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#3d4f66}
+.btn-primary{background:#2563eb;border-color:#2563eb}.btn-primary:hover{background:#1d4ed8}
+.btn-green{background:#059669;border-color:#059669}.btn-green:hover{background:#047857}
+.btn-ghost{background:transparent}
+.btn-danger{background:transparent;border-color:#ef444466;color:#fca5a5}
+.btn:disabled{opacity:.5;cursor:default}
+input,select,textarea{font:inherit;font-size:.85rem;background:#0f172a;color:#e2e8f0;border:1px solid #475569;border-radius:8px;padding:7px 10px;width:100%}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #2563eb;border-color:#2563eb}
+label{display:block;font-size:.75rem;color:#b0bec9;margin-bottom:4px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.full{grid-column:1/-1}
+.hint{font-size:.72rem;color:#94a3b8;margin-top:3px}
+.err{color:#fca5a5;font-size:.78rem;margin-top:8px;white-space:pre-line}
+.ok{color:#6ee7b7}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th,td{padding:8px 6px;border-bottom:1px solid #334155;text-align:left;vertical-align:middle}
+th{color:#94a3b8;font-weight:600;font-size:.72rem}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.tk{display:block;font-family:monospace;color:#94a3b8;font-size:.72rem}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid;white-space:nowrap}
+.chg{color:#fbbf24;font-size:.68rem;margin-left:4px}
+.actions{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.tablewrap{overflow-x:auto}
+.empty{color:#94a3b8;font-size:.8rem;padding:10px 6px}
+.preview{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:10px 12px;font-size:.78rem;color:#cbd5e1}
+.preview b{color:#e2e8f0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#111c33ee;border-top:1px solid #334155;padding:12px 16px;display:none}
+.bar .in{max-width:1100px;margin:0 auto;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.difflist{list-style:none;font-size:.82rem}
+.difflist li{padding:6px 0;border-bottom:1px dashed #334155}
+.difflist .k{color:#94a3b8}
+details summary{cursor:pointer;color:#60a5fa;font-size:.8rem}
+details ol{margin:8px 0 0 20px;font-size:.78rem;color:#cbd5e1}
+details li{margin-bottom:4px}
+.row-flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hidden{display:none!important}
+.status{font-size:.82rem;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div>
+      <h1>觀察清單後台</h1>
+      <div class="sub">調整股票與 ETF，發布後首頁約 1 分鐘更新</div>
+    </div>
+    <div class="row-flex">
+      <a href="./">回首頁</a>
+      <button class="btn btn-ghost hidden" id="btn-logout" onclick="logout()">登出</button>
+    </div>
+  </div>
+
+  <!-- 連結 GitHub -->
+  <div class="card hidden" id="login-card">
+    <label for="tok">GitHub 金鑰（只存在這個瀏覽器，不會上傳到任何地方）</label>
+    <div class="row-flex">
+      <input id="tok" type="password" autocomplete="off" placeholder="github_pat_ 開頭" style="flex:1;min-width:220px">
+      <button class="btn btn-primary" onclick="connect()">連結</button>
+    </div>
+    <div class="row-flex" style="margin-top:8px">
+      <label style="margin:0;display:flex;gap:6px;align-items:center"><input type="checkbox" id="remember" checked style="width:auto">在這台裝置記住金鑰</label>
+    </div>
+    <div class="err" id="login-err"></div>
+    <details style="margin-top:12px">
+      <summary>還沒有金鑰？建立步驟（約 3 分鐘）</summary>
+      <ol>
+        <li>開啟 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub 建立金鑰頁</a>。</li>
+        <li>Token name 自訂（例：stock-admin），Expiration 選 1 year。</li>
+        <li>Repository access 選 Only select repositories，勾選 ai-stock-monitor。</li>
+        <li>Permissions 的 Repository permissions：Contents 設 Read and write，Actions 設 Read and write。</li>
+        <li>按 Generate token，複製 github_pat_ 開頭的整串，貼到上面。</li>
+      </ol>
+    </details>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="row-flex" style="justify-content:space-between">
+      <div><div class="sub" id="load-info"></div><div class="err" id="app-err"></div></div>
+      <div class="row-flex">
+        <button class="btn" onclick="reloadAll()">重新載入</button>
+        <button class="btn btn-primary" onclick="openEditor(null)">＋ 新增標的</button>
+      </div>
+    </div>
+
+    <!-- 差異預覽 -->
+    <div class="card hidden" id="diff-card" style="margin-top:16px">
+      <div style="font-weight:700;margin-bottom:10px">發布前確認：以下變更會寫回 GitHub</div>
+      <ul class="difflist" id="diff-list"></ul>
+      <div class="err" id="pub-err"></div>
+      <div class="status" id="pub-status"></div>
+      <div class="row-flex" style="margin-top:14px;justify-content:flex-end">
+        <button class="btn btn-ghost" id="btn-back" onclick="hideDiff()">繼續編輯</button>
+        <button class="btn btn-green" id="btn-publish" onclick="publish()">確認發布</button>
+      </div>
+    </div>
+
+    <!-- 編輯區 -->
+    <div class="card hidden" id="editor" style="margin-top:16px">
+      <div style="font-weight:700;margin-bottom:12px" id="ed-title">新增標的</div>
+      <div class="grid">
+        <div><label for="f-ticker">代號</label><input id="f-ticker" placeholder="2454.TW" oninput="this.value=this.value.toUpperCase();preview()"><div class="hint">上市加 .TW，上櫃加 .TWO</div></div>
+        <div><label for="f-name">名稱</label><input id="f-name" placeholder="聯發科"></div>
+        <div><label for="f-type">類型</label>
+          <select id="f-type" onchange="toggleFields();preview()">
+            <option value="core">核心持股</option>
+            <option value="observe">潛力池</option>
+            <option value="etf">ETF</option>
+          </select></div>
+        <div class="stock-only"><label for="f-grade">護城河評級</label>
+          <select id="f-grade"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="">（無）</option></select></div>
+        <div class="etf-only"><label for="f-category">ETF 分類</label><input id="f-category" placeholder="台股核心／美股AI／現金流"></div>
+        <div class="stock-only"><label for="f-cheap">積極買進 ≤</label><input id="f-cheap" type="number" min="0" step="any" oninput="preview()"></div>
+        <div class="stock-only"><label for="f-fair">合理布局 ≤</label><input id="f-fair" type="number" min="0" step="any" oninput="preview()"></div>
+        <div class="stock-only"><label for="f-rich">偏貴 &gt;</label><input id="f-rich" type="number" min="0" step="any" oninput="preview()"></div>
+        <div class="full"><label for="f-thesis">投資論點</label><textarea id="f-thesis"></textarea></div>
+        <div class="full stock-only"><label for="f-conclusion">研究結論（選填）</label><textarea id="f-conclusion" style="min-height:60px"></textarea></div>
+        <div class="full etf-only"><div class="hint">ETF 的配息、填息、淨值趨勢由每月月報更新，這裡不用填。</div></div>
+        <div class="full preview stock-only" id="pv"></div>
+      </div>
+      <div class="err" id="ed-err"></div>
+      <div class="row-flex" style="margin-top:14px;justify-content:flex-end">
+        <button class="btn btn-ghost" onclick="closeEditor()">取消</button>
+        <button class="btn btn-primary" onclick="applyEditor()">套用</button>
+      </div>
+    </div>
+
+    <div id="lists"></div>
+  </div>
+</div>
+
+<div class="bar" id="bar">
+  <div class="in">
+    <div id="bar-text"></div>
+    <div class="row-flex">
+      <button class="btn btn-ghost" onclick="discardAll()">放棄全部變更</button>
+      <button class="btn btn-green" onclick="showDiff()">檢視差異並發布</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var OWNER = 'nicachou1999-bit', REPO = 'ai-stock-monitor', BRANCH = 'main', WORKFLOW = 'stock_update.yml';
+var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
+var TYPE_LABEL = {core: '核心持股', observe: '潛力池', etf: 'ETF'};
+var TK_RE = /^[0-9]{4,6}[A-Z]?\.(TW|TWO)$/;
+var token = '', orig = null, wl = null, sha = '', prices = {}, editing = null;
+
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function fmt(n) { return (n == null || n === '' || isNaN(n)) ? '—' : Number(n).toLocaleString('zh-TW', {maximumFractionDigits: 2}); }
+function today() { var d = new Date(Date.now() + 8 * 3600 * 1000); return d.toISOString().slice(0, 10); }
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+// ── 金鑰保存（瀏覽器儲存可能被封鎖，一律包 try/catch）──
+function loadToken() {
+  try { return localStorage.getItem('gh_admin_token') || sessionStorage.getItem('gh_admin_token') || ''; } catch (e) { return ''; }
+}
+function saveToken(t, remember) {
+  try { (remember ? localStorage : sessionStorage).setItem('gh_admin_token', t); } catch (e) {}
+}
+function clearToken() {
+  try { localStorage.removeItem('gh_admin_token'); sessionStorage.removeItem('gh_admin_token'); } catch (e) {}
+}
+
+function gh(path, opts) {
+  opts = opts || {};
+  var headers = {'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28'};
+  if (opts.body) headers['Content-Type'] = 'application/json';
+  return fetch(API + path, {method: opts.method || 'GET', headers: headers, body: opts.body, cache: 'no-store'});
+}
+
+function b64ToUtf8(b64) {
+  var bin = atob(b64.replace(/\s/g, ''));
+  var bytes = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+function utf8ToB64(str) {
+  var bytes = new TextEncoder().encode(str), bin = '';
+  for (var i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+
+// ── 連結與載入 ──
+async function connect() {
+  var t = $('tok').value.trim();
+  $('login-err').textContent = '';
+  if (!t) { $('login-err').textContent = '請貼上金鑰。'; return; }
+  token = t;
+  var ok = await loadWatchlist();
+  if (ok) { saveToken(t, $('remember').checked); $('tok').value = ''; showApp(); }
+  else { token = ''; }
+}
+
+async function loadWatchlist() {
+  var r;
+  try { r = await gh('/contents/watchlist.json?ref=' + BRANCH); }
+  catch (e) { return fail('連不到 GitHub，請確認網路後再試。'); }
+  if (r.status === 401) return fail('金鑰無效或已過期，請重新建立。');
+  if (r.status === 403 || r.status === 404) return fail('這把金鑰沒有 ai-stock-monitor 的讀取權限。請確認建立時有勾選這個 repo，且 Contents 設為 Read and write。');
+  if (!r.ok) return fail('讀取失敗（HTTP ' + r.status + '）。');
+  var j = await r.json();
+  try { orig = JSON.parse(b64ToUtf8(j.content)); } catch (e) { return fail('watchlist.json 格式錯誤，無法解析。'); }
+  if (!orig.stocks) orig.stocks = {};
+  if (!orig.archived) orig.archived = {};
+  sha = j.sha;
+  wl = clone(orig);
+  await loadPrices();
+  $('load-info').textContent = '已載入最新清單（版本 ' + sha.slice(0, 7) + '）';
+  return true;
+}
+
+function fail(msg) {
+  $($('app').classList.contains('hidden') ? 'login-err' : 'app-err').textContent = msg;
+  return false;
+}
+
+async function loadPrices() {
+  try {
+    var r = await fetch('last_data.json?t=' + Date.now(), {cache: 'no-store'});
+    if (r.ok) { var j = await r.json(); prices = j.data || {}; }
+  } catch (e) { prices = {}; }
+}
+
+async function reloadAll() {
+  if (dirtyCount() && !confirm('重新載入會放棄畫面上尚未發布的變更，確定嗎？')) return;
+  closeEditor(); hideDiff(); $('app-err').textContent = '';
+  if (await loadWatchlist()) render();
+}
+
+function showApp() {
+  $('login-card').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  $('btn-logout').classList.remove('hidden');
+  render();
+}
+
+function logout() {
+  if (dirtyCount() && !confirm('還有未發布的變更，登出會一併放棄，確定嗎？')) return;
+  clearToken(); token = ''; orig = wl = null;
+  $('app').classList.add('hidden'); $('diff-card').classList.add('hidden'); $('bar').style.display = 'none';
+  $('btn-logout').classList.add('hidden'); $('login-card').classList.remove('hidden');
+}
+
+// ── 估值燈號 ──
+function zoneOf(p, c, f, r) {
+  if (p == null || !c || !f || !r) return null;
+  if (p <= c) return ['積極買進', '#10b981'];
+  if (p <= f) return ['合理布局', '#34d399'];
+  if (p <= r) return ['謹慎觀察', '#f59e0b'];
+  return ['偏貴等待', '#ef4444'];
+}
+function priceOf(t) { var d = prices[t]; return d && d.price != null ? d.price : null; }
+
+// ── 清單畫面 ──
+function render() {
+  var groups = {core: [], observe: [], etf: []};
+  Object.keys(wl.stocks).forEach(function (t) {
+    var s = wl.stocks[t];
+    if (groups[s.type]) groups[s.type].push(t);
+  });
+  var h = '';
+  ['core', 'observe', 'etf'].forEach(function (g) {
+    h += '<div class="section-title"><span>' + TYPE_LABEL[g] + '（' + groups[g].length + '）</span></div>';
+    h += '<div class="card tablewrap" style="padding:6px 12px">' + table(groups[g], g === 'etf', false) + '</div>';
+  });
+  var arch = Object.keys(wl.archived || {});
+  h += '<div class="section-title"><span>封存（' + arch.length + '，不會顯示在首頁）</span></div>';
+  h += '<div class="card tablewrap" style="padding:6px 12px">' + table(arch, false, true) + '</div>';
+  $('lists').innerHTML = h;
+  updateBar();
+}
+
+function table(tickers, isEtf, isArch) {
+  if (!tickers.length) return '<div class="empty">沒有標的</div>';
+  var h = '<table><tr><th>標的</th>' + (isEtf ? '<th>分類</th>' : '<th>評級</th><th class="num">積極</th><th class="num">合理</th><th class="num">偏貴</th>') +
+          '<th class="num">現價</th>' + (isEtf ? '' : '<th>燈號</th>') + '<th></th></tr>';
+  tickers.forEach(function (t) {
+    var s = isArch ? wl.archived[t] : wl.stocks[t];
+    var p = priceOf(t), z = isEtf ? null : zoneOf(p, s.cheap, s.fair, s.rich);
+    var changed = isChanged(t);
+    h += '<tr><td>' + esc(s.name) + (changed ? '<span class="chg">● ' + changed + '</span>' : '') + '<span class="tk">' + esc(t) + (isArch ? '｜原類型：' + esc(TYPE_LABEL[s.type] || s.type) : '') + '</span></td>';
+    if (isEtf) h += '<td>' + esc(s.category || '—') + '</td>';
+    else h += '<td>' + esc(s.grade || '—') + '</td><td class="num">' + fmt(s.cheap) + '</td><td class="num">' + fmt(s.fair) + '</td><td class="num">' + fmt(s.rich) + '</td>';
+    h += '<td class="num">' + fmt(p) + '</td>';
+    if (!isEtf) h += '<td>' + (z ? '<span class="badge" style="color:' + z[1] + ';border-color:' + z[1] + '">' + z[0] + '</span>' : '<span class="sub">—</span>') + '</td>';
+    h += '<td><div class="actions">';
+    if (isArch) h += '<button class="btn" onclick="restore(\'' + esc(t) + '\')">復原</button>';
+    else h += '<button class="btn" onclick="openEditor(\'' + esc(t) + '\')">編輯</button><button class="btn btn-danger" onclick="archive(\'' + esc(t) + '\')">封存</button>';
+    h += '</div></td></tr>';
+  });
+  return h + '</table>';
+}
+
+// ── 編輯 ──
+function toggleFields() {
+  var etf = $('f-type').value === 'etf';
+  document.querySelectorAll('.stock-only').forEach(function (el) { el.classList.toggle('hidden', etf); });
+  document.querySelectorAll('.etf-only').forEach(function (el) { el.classList.toggle('hidden', !etf); });
+}
+
+function openEditor(t) {
+  editing = t;
+  var s = t ? wl.stocks[t] : {type: 'observe', grade: 'B'};
+  $('ed-title').textContent = t ? '編輯：' + s.name : '新增標的';
+  $('f-ticker').value = t || ''; $('f-ticker').disabled = !!t;
+  $('f-name').value = s.name || '';
+  $('f-type').value = s.type || 'observe';
+  $('f-grade').value = s.grade || '';
+  $('f-category').value = s.category || '';
+  $('f-cheap').value = s.cheap != null ? s.cheap : '';
+  $('f-fair').value = s.fair != null ? s.fair : '';
+  $('f-rich').value = s.rich != null ? s.rich : '';
+  $('f-thesis').value = s.thesis || '';
+  $('f-conclusion').value = s.research_conclusion || '';
+  $('ed-err').textContent = '';
+  toggleFields(); preview();
+  $('editor').classList.remove('hidden');
+  $('editor').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+function closeEditor() { editing = null; $('editor').classList.add('hidden'); }
+
+function num(id) { var v = $(id).value.trim(); return v === '' ? null : Number(v); }
+
+function preview() {
+  var c = num('f-cheap'), f = num('f-fair'), r = num('f-rich');
+  var t = editing || $('f-ticker').value.trim();
+  var p = priceOf(t);
+  var out = '';
+  if (c && f && c < f) {
+    var mid = Math.round((c + f) / 2), deep = Math.round(c * 0.88);
+    out += '分批觸發價：合理布局 ≤ <b>' + fmt(f) + '</b>｜估值中點 ≤ <b>' + fmt(mid) + '</b>｜積極買進 ≤ <b>' + fmt(c) + '</b>｜深度折價 ≤ <b>' + fmt(deep) + '</b>';
+  }
+  if (p != null) {
+    var z = zoneOf(p, c, f, r);
+    out += (out ? '<br>' : '') + '現價 <b>' + fmt(p) + '</b>' + (z ? '，落在 <b style="color:' + z[1] + '">' + z[0] + '</b>' : '');
+  } else if (t) {
+    out += (out ? '<br>' : '') + '尚無現價，發布後下一次更新才會抓到。';
+  }
+  $('pv').innerHTML = out || '填入三條估值線後，這裡會顯示分批觸發價與目前燈號。';
+}
+
+function validate() {
+  var errs = [];
+  var t = editing || $('f-ticker').value.trim().toUpperCase();
+  var type = $('f-type').value;
+  if (!editing) {
+    if (!TK_RE.test(t)) errs.push('代號格式不對：台股上市寫 2454.TW，上櫃寫 5274.TWO。');
+    else if (wl.stocks[t]) errs.push(t + ' 已經在清單裡。');
+    else if (wl.archived[t]) errs.push(t + ' 在封存區，請直接按「復原」。');
+  }
+  if (!$('f-name').value.trim()) errs.push('請填名稱。');
+  if (!$('f-thesis').value.trim()) errs.push('請填投資論點。');
+  if (type !== 'etf') {
+    var c = num('f-cheap'), f = num('f-fair'), r = num('f-rich');
+    if (c == null || f == null || r == null) errs.push('三條估值線都要填。');
+    else if (!(c > 0 && f > 0 && r > 0)) errs.push('估值線必須大於 0。');
+    else if (!(c < f && f < r)) errs.push('估值線要符合：積極買進 < 合理布局 < 偏貴。');
+  }
+  return {ticker: t, errs: errs};
+}
+
+function applyEditor() {
+  var v = validate();
+  if (v.errs.length) { $('ed-err').textContent = v.errs.join('\n'); return; }
+  var t = v.ticker, type = $('f-type').value;
+  var s = editing ? wl.stocks[t] : {added_date: today()};
+  s.name = $('f-name').value.trim();
+  s.type = type;
+  s.thesis = $('f-thesis').value.trim();
+  if (type === 'etf') {
+    var cat = $('f-category').value.trim();
+    if (cat) s.category = cat; else delete s.category;
+    delete s.grade; delete s.cheap; delete s.fair; delete s.rich;
+  } else {
+    s.grade = $('f-grade').value;
+    s.cheap = num('f-cheap'); s.fair = num('f-fair'); s.rich = num('f-rich');
+    var rc = $('f-conclusion').value.trim();
+    if (rc) s.research_conclusion = rc; else delete s.research_conclusion;
+  }
+  if (!editing) {
+    // 依原檔慣例排序欄位：name、type 在前
+    var o = {name: s.name, type: s.type};
+    Object.keys(s).forEach(function (k) { if (!(k in o)) o[k] = s[k]; });
+    wl.stocks[t] = o;
+  }
+  closeEditor(); render();
+}
+
+function archive(t) {
+  var s = wl.stocks[t];
+  if (!confirm('把「' + s.name + '」移到封存區？首頁會不再顯示，之後可以復原。')) return;
+  s.archived_date = today();
+  wl.archived[t] = s; delete wl.stocks[t];
+  render();
+}
+function restore(t) {
+  var s = wl.archived[t];
+  delete s.archived_date;
+  wl.stocks[t] = s; delete wl.archived[t];
+  render();
+}
+
+// ── 差異 ──
+var FIELD_LABEL = {name: '名稱', type: '類型', grade: '評級', cheap: '積極買進', fair: '合理布局', rich: '偏貴', thesis: '投資論點', research_conclusion: '研究結論', category: 'ETF 分類'};
+function where(o, t) { return o.stocks[t] ? 'stocks' : (o.archived && o.archived[t] ? 'archived' : null); }
+function isChanged(t) {
+  var a = where(orig, t), b = where(wl, t);
+  if (!a) return '新增';
+  if (a !== b) return b === 'archived' ? '封存' : '復原';
+  return JSON.stringify(orig[a][t]) !== JSON.stringify(wl[b][t]) ? '已修改' : '';
+}
+function diffs() {
+  var out = [], all = {};
+  [orig, wl].forEach(function (o) { Object.keys(o.stocks).concat(Object.keys(o.archived || {})).forEach(function (t) { all[t] = 1; }); });
+  Object.keys(all).forEach(function (t) {
+    var ch = isChanged(t); if (!ch) return;
+    var b = where(wl, t), s = b ? wl[b][t] : orig[where(orig, t)][t];
+    var line = '<b>' + ch + '</b>　' + esc(s.name) + '（' + esc(t) + '）';
+    if (ch === '新增') line += '：' + esc(TYPE_LABEL[s.type]) + (s.type !== 'etf' ? '，區間 ' + fmt(s.cheap) + '／' + fmt(s.fair) + '／' + fmt(s.rich) : '');
+    if (ch === '已修改') {
+      var before = orig[where(orig, t)][t], parts = [];
+      Object.keys(FIELD_LABEL).forEach(function (k) {
+        if (JSON.stringify(before[k]) !== JSON.stringify(s[k])) {
+          var long = k === 'thesis' || k === 'research_conclusion';
+          parts.push('<span class="k">' + FIELD_LABEL[k] + '</span> ' + (long ? '已改寫' : esc(k === 'type' ? TYPE_LABEL[before[k]] : fmtv(before[k])) + ' → ' + esc(k === 'type' ? TYPE_LABEL[s[k]] : fmtv(s[k]))));
+        }
+      });
+      line += '：' + parts.join('；');
+    }
+    out.push({t: t, ch: ch, name: s.name, html: line});
+  });
+  return out;
+}
+function fmtv(v) { return v == null || v === '' ? '（空）' : (typeof v === 'number' ? fmt(v) : v); }
+function dirtyCount() { return wl && orig ? diffs().length : 0; }
+
+function updateBar() {
+  var n = dirtyCount();
+  var diffOpen = !$('diff-card').classList.contains('hidden');
+  $('bar').style.display = n && !diffOpen ? 'block' : 'none';
+  $('bar-text').textContent = n + ' 項變更尚未發布';
+}
+function showDiff() {
+  var d = diffs();
+  $('diff-list').innerHTML = d.map(function (x) { return '<li>' + x.html + '</li>'; }).join('');
+  $('pub-err').textContent = ''; $('pub-status').textContent = '';
+  $('btn-publish').disabled = false; $('btn-back').disabled = false;
+  $('diff-card').classList.remove('hidden');
+  $('bar').style.display = 'none';
+  $('diff-card').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+function hideDiff() { $('diff-card').classList.add('hidden'); updateBar(); }
+function discardAll() {
+  if (!confirm('放棄全部尚未發布的變更？')) return;
+  wl = clone(orig); closeEditor(); hideDiff(); render();
+}
+
+// ── 發布 ──
+async function publish() {
+  var d = diffs();
+  if (!d.length) { hideDiff(); return; }
+  $('btn-publish').disabled = true; $('btn-back').disabled = true;
+  $('pub-err').textContent = ''; $('pub-status').textContent = '寫回 GitHub 中…';
+  var out = clone(wl);
+  if (!Object.keys(out.archived).length) delete out.archived;
+  var summary = d.slice(0, 4).map(function (x) { return x.ch + x.name; }).join('、') + (d.length > 4 ? ' 等 ' + d.length + ' 項' : '');
+  var body = JSON.stringify({message: '後台：' + summary, content: utf8ToB64(JSON.stringify(out, null, 2) + '\n'), sha: sha, branch: BRANCH});
+  var r;
+  try { r = await gh('/contents/watchlist.json', {method: 'PUT', body: body}); }
+  catch (e) { return pubFail('連不到 GitHub，變更還保留在畫面上，請稍後再按一次發布。'); }
+  if (r.status === 409 || r.status === 422) return pubFail('GitHub 上的清單在你編輯期間被更新過（例如月報排程剛寫入）。請按「重新載入」取得最新版後再改一次。');
+  if (r.status === 401) return pubFail('金鑰已失效，請登出後重新連結。');
+  if (r.status === 403 || r.status === 404) return pubFail('這把金鑰沒有寫入權限。請到 GitHub 把它的 Contents 權限改成 Read and write。');
+  if (!r.ok) return pubFail('寫入失敗（HTTP ' + r.status + '），變更還保留在畫面上。');
+  var j = await r.json();
+  sha = j.content.sha;
+  orig = clone(wl);
+  var commit = (j.commit && j.commit.sha || '').slice(0, 7);
+  var msg = '已發布（版本 ' + commit + '）。';
+  var w;
+  try { w = await gh('/actions/workflows/' + WORKFLOW + '/dispatches', {method: 'POST', body: JSON.stringify({ref: BRANCH})}); } catch (e) { w = null; }
+  if (w && w.status === 204) msg += '首頁重建中，約 1 分鐘後更新。';
+  else msg += '但無法觸發首頁重建（金鑰的 Actions 權限需設為 Read and write），首頁會在下個平日 09:03 的排程更新。';
+  $('pub-status').innerHTML = '<span class="ok">' + esc(msg) + '</span> <a href="./">回首頁</a>';
+  $('btn-back').disabled = false; $('btn-back').textContent = '關閉';
+  $('load-info').textContent = '已載入最新清單（版本 ' + sha.slice(0, 7) + '）';
+  render();
+}
+function pubFail(msg) {
+  $('pub-status').textContent = '';
+  $('pub-err').textContent = msg;
+  $('btn-publish').disabled = false; $('btn-back').disabled = false;
+  return false;
+}
+
+window.addEventListener('beforeunload', function (e) {
+  if (dirtyCount()) { e.preventDefault(); e.returnValue = ''; }
+});
+
+(async function init() {
+  token = loadToken();
+  if (token && await loadWatchlist()) showApp();
+  else { token = ''; $('login-card').classList.remove('hidden'); }
+})();
+</script>
+</body>
+</html>
