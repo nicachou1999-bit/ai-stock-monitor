@@ -468,15 +468,15 @@ def build_daily_conclusion(data):
             action, ac = "🔴 暫停加碼", "#ef4444"
             detail = f"估值偏高（{zlabel}），新資金等待"
 
-        # 今日建議掛單價（最近一批觸發價）
+        # 今日建議掛單價：batches 由高到低，取「現價以下（含 2% 緩衝）最近的一批」
         batches = get_batch_prices(cheap, fair) or []
-        next_trigger = next((b for b in batches if b >= price * 0.98), None)
-        if next_trigger and next_trigger <= price * 1.02:
+        next_trigger = next((b for b in batches if b <= price * 1.02), None)
+        if next_trigger and next_trigger >= price * 0.98:
             order_str = f"可掛 ≤ {next_trigger:,.0f}"
         elif next_trigger:
             order_str = f"距觸發 {(next_trigger-price)/price*100:+.1f}%（{next_trigger:,.0f}）"
         else:
-            order_str = "已超過所有觸發價，暫停"
+            order_str = "已低於所有觸發價（全數觸發）"
 
         rsi_str  = f"{rsi:.0f}" if rsi is not None else "N/A"
         bias_str = f"{bias:+.1f}%" if bias is not None else "N/A"
@@ -585,11 +585,12 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
             batch_rows = ""
             for i, bp in enumerate(batches):
                 lbl = _BATCH_LABELS[i] if i < len(_BATCH_LABELS) else f"第{i+1}批"
-                diff_pct = (bp - price) / price * 100
-                if diff_pct <= 0:
-                    d_c, d_str = "#10b981", f"{diff_pct:+.1f}% ✅已觸發"
+                # 現價 ≤ 觸發價才算觸發；未觸發時顯示還要跌多少
+                if price <= bp:
+                    d_c, d_str = "#10b981", "✅已觸發"
                 else:
-                    d_c, d_str = "#94a3b8", f"差 +{diff_pct:.1f}%"
+                    gap_pct = (price - bp) / price * 100
+                    d_c, d_str = "#94a3b8", f"差 -{gap_pct:.1f}%"
                 batch_rows += (
                     f'<div class="batch-row">'
                     f'<span class="batch-n">{lbl}</span>'
