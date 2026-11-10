@@ -20,15 +20,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 43118.07,
+      "price": 42927.57,
       "prev": 39701.64,
-      "change": 3416.43,
-      "pct": 8.61,
+      "change": 3225.93,
+      "pct": 8.13,
       "w52_high": 49968.92,
       "w52_low": 26395.98,
-      "ma20": 45799.54,
-      "bias": -5.85,
-      "rsi": 35.7
+      "ma20": 45790.02,
+      "bias": -6.25,
+      "rsi": 34.9
     },
     "2330.TW": {
       "ticker": "2330.TW",
@@ -50,15 +50,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 2275.0,
+      "price": 2265.0,
       "prev": 2235.0,
-      "change": 40.0,
-      "pct": 1.79,
+      "change": 30.0,
+      "pct": 1.34,
       "w52_high": 2590.0,
       "w52_low": 1375.0,
-      "ma20": 2361.75,
-      "bias": -3.67,
-      "rsi": 37.5
+      "ma20": 2361.25,
+      "bias": -4.08,
+      "rsi": 36.3
     },
     "6669.TW": {
       "ticker": "6669.TW",
@@ -110,15 +110,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 11380.0,
+      "price": 11250.0,
       "prev": 11700.0,
-      "change": -320.0,
-      "pct": -2.74,
+      "change": -450.0,
+      "pct": -3.85,
       "w52_high": 21800.0,
       "w52_low": 5004.545,
-      "ma20": 15271.5,
-      "bias": -25.48,
-      "rsi": 24.8
+      "ma20": 15265.0,
+      "bias": -26.3,
+      "rsi": 24.5
     },
     "3017.TW": {
       "ticker": "3017.TW",
@@ -170,15 +170,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 1855.0,
+      "price": 1825.0,
       "prev": 1705.0,
-      "change": 150.0,
-      "pct": 8.8,
+      "change": 120.0,
+      "pct": 7.04,
       "w52_high": 2955.0,
       "w52_low": 1140.0,
-      "ma20": 1813.25,
-      "bias": 2.3,
-      "rsi": 52.5
+      "ma20": 1811.75,
+      "bias": 0.73,
+      "rsi": 51.0
     },
     "3711.TW": {
       "ticker": "3711.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 4055.0,
+      "price": 3985.0,
       "prev": 3725.0,
-      "change": 330.0,
-      "pct": 8.86,
+      "change": 260.0,
+      "pct": 6.98,
       "w52_high": 5480.0,
       "w52_low": 1130.0,
-      "ma20": 4003.75,
-      "bias": 1.28,
-      "rsi": 47.8
+      "ma20": 4000.25,
+      "bias": -0.38,
+      "rsi": 46.1
     },
     "2345.TW": {
       "ticker": "2345.TW",
@@ -320,15 +320,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 230.25,
+      "price": 229.15,
       "prev": 210.1,
-      "change": 20.15,
-      "pct": 9.59,
+      "change": 19.05,
+      "pct": 9.07,
       "w52_high": 266.65,
       "w52_low": 135.9,
-      "ma20": 242.57,
-      "bias": -5.08,
-      "rsi": 37.6
+      "ma20": 242.52,
+      "bias": -5.51,
+      "rsi": 36.7
     },
     "00662.TW": {
       "ticker": "00662.TW",
@@ -385,15 +385,15 @@
       ],
       "etf_research_conclusion": "Q3 配息1.1元(9/16除息)100%來自已實現資本利得，連三季創高；除息前收盤32.74元，11/4收31.11元仍低於除息前價，Q3填息未確認，近一年4次中3次已填息。Q4配息尚未公告。11/4大盤單日重挫，淨值短線回落，趨勢降為持平；配息本質為金融股多頭的資本利得分配，不符純股利條件，三條件(填息≥80%、NAV上升、純股利)未齊備，不積極建倉，待Q4配息組成公告與填息確認後再評估。",
       "etf_last_researched": "2026-11-04",
-      "price": 31.29,
+      "price": 31.22,
       "prev": 30.98,
-      "change": 0.31,
-      "pct": 1.0,
+      "change": 0.24,
+      "pct": 0.77,
       "w52_high": 33.19,
       "w52_low": 21.06,
       "ma20": 32.1,
-      "bias": -2.52,
-      "rsi": 41.9
+      "bias": -2.74,
+      "rsi": 41.1
     },
     "00878.TW": {
       "ticker": "00878.TW",
@@ -420,16 +420,16 @@
       ],
       "etf_research_conclusion": "Q4配息預估1.25元創新高(11/17除息)，淨值10/30約35.64元，高於9/24的34.88元，趨勢上升；近一年除息(2025/11至2026/8)4次全數填息、掛牌以來連續24次，Q3 1.01元15天填息。惟Q3配息約90.1%來自已實現資本利得，Q4組成尚未公告，1.25元年化14%為一次性非常態水準，不宜當長期現金流假設。填息與淨值達標、純股利未達標，屬分批觀察候選而非積極推薦；11/17除息後確認組成與填息再評估。",
       "etf_last_researched": "2026-11-04",
-      "price": 33.5,
+      "price": 33.41,
       "prev": 32.77,
-      "change": 0.73,
-      "pct": 2.23,
+      "change": 0.64,
+      "pct": 1.95,
       "w52_high": 35.75,
       "w52_low": 20.23,
-      "ma20": 34.61,
-      "bias": -3.21,
-      "rsi": 38.8
+      "ma20": 34.6,
+      "bias": -3.44,
+      "rsi": 37.9
     }
   },
-  "updated": "2026-11-10T10:00:37.602353+08:00"
+  "updated": "2026-11-10T10:15:21.436473+08:00"
 }
