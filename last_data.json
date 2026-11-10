@@ -20,13 +20,13 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 42540.86,
+      "price": 42539.99,
       "prev": 41661.7,
-      "change": 879.16,
+      "change": 878.29,
       "pct": 2.11,
       "w52_high": 49968.92,
       "w52_low": 26395.98,
-      "ma20": 45388.1,
+      "ma20": 45388.05,
       "bias": -6.27,
       "rsi": 33.7
     },
@@ -110,15 +110,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 11505.0,
+      "price": 11550.0,
       "prev": 11700.0,
-      "change": -195.0,
-      "pct": -1.67,
+      "change": -150.0,
+      "pct": -1.28,
       "w52_high": 21800.0,
       "w52_low": 5004.545,
-      "ma20": 15277.75,
-      "bias": -24.69,
-      "rsi": 25.2
+      "ma20": 15280.0,
+      "bias": -24.41,
+      "rsi": 25.3
     },
     "3017.TW": {
       "ticker": "3017.TW",
@@ -260,15 +260,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 3830.0,
+      "price": 3795.0,
       "prev": 3725.0,
-      "change": 105.0,
-      "pct": 2.82,
+      "change": 70.0,
+      "pct": 1.88,
       "w52_high": 5480.0,
       "w52_low": 1130.0,
-      "ma20": 3992.5,
-      "bias": -4.07,
-      "rsi": 41.8
+      "ma20": 3990.75,
+      "bias": -4.91,
+      "rsi": 40.7
     },
     "2345.TW": {
       "ticker": "2345.TW",
@@ -320,14 +320,14 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 227.35,
+      "price": 227.3,
       "prev": 210.1,
-      "change": 17.25,
-      "pct": 8.21,
+      "change": 17.2,
+      "pct": 8.19,
       "w52_high": 266.65,
       "w52_low": 135.9,
       "ma20": 242.43,
-      "bias": -6.22,
+      "bias": -6.24,
       "rsi": 35.0
     },
     "00662.TW": {
@@ -350,15 +350,15 @@
       "div_history": null,
       "etf_research_conclusion": null,
       "etf_last_researched": null,
-      "price": 117.65,
+      "price": 117.7,
       "prev": 114.4,
-      "change": 3.25,
-      "pct": 2.84,
+      "change": 3.3,
+      "pct": 2.88,
       "w52_high": 127.7,
       "w52_low": 94.3,
       "ma20": 121.35,
-      "bias": -3.05,
-      "rsi": 37.1
+      "bias": -3.01,
+      "rsi": 37.3
     },
     "00919.TW": {
       "ticker": "00919.TW",
@@ -431,5 +431,5 @@
       "rsi": 31.8
     }
   },
-  "updated": "2026-11-10T13:15:21.090867+08:00"
+  "updated": "2026-11-10T13:30:29.934191+08:00"
 }
