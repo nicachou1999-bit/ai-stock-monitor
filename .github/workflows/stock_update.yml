@@ -1,11 +1,11 @@
-name: Stock Update v2
+nname: Stock Update v2
 
 on:
   schedule:
     # 平日台北 09:03-13:43（UTC 01:00-05:59）每20分鐘排一次。
-    # 實測（2026-09-11 起 39 個平日）：GitHub 每天只會實際執行其中 1 次，時間落在台北 13:44-15:47，
-    # 一律在收盤後，所以每天至少有一次收盤後更新；盤中更新靠 workflow_dispatch 觸發。
     - cron: '3,23,43 1-5 * * 1-5'
+    # 收盤後（台北 13:35 / 14:35 / 15:35）多排幾次，增加被執行的機會
+    - cron: '35 5,6,7 * * 1-5'
   workflow_dispatch:
 
 permissions:
@@ -36,12 +36,20 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           timeout 60 git pull --rebase --autostash origin main || true
-          timeout 120 python main.py --no-browser || echo "run failed, will retry next cycle"
-          cp dashboard.html index.html 2>/dev/null || echo "no dashboard.html produced"
-          git add index.html last_data.json 2>/dev/null || true
+
+          # 先刪掉舊的 dashboard.html，避免 main.py 失敗時又把舊頁面複製成 index.html
+          rm -f dashboard.html
+
+          # 不再吞掉錯誤：main.py 出錯，這一步會直接變紅燈並顯示原因
+          timeout 120 python main.py --no-browser
+
+          test -s dashboard.html
+          cp dashboard.html index.html
+
+          git add index.html last_data.json
           if git diff --staged --quiet; then
             echo "no change"
           else
             git commit -m "update: $(date +'%Y-%m-%d %H:%M')"
-            timeout 60 git push || echo "push failed, will retry next cycle"
+            git push || (git pull --rebase origin main && git push)
           fi
