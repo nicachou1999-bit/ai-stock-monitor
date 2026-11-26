@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 """
-AI 每日投資顧問系統 v5 - main.py
+AI 每日投資顧問系統 v5.1 - main.py
 巴菲特存股觀念 | 動態觀察名單 | 估值三價燈號 | 市場溫度計 | 持倉追蹤
+
+v5.1 修正：
+  1. ticker 代碼：.TWO 不再被截成 5274O（改用 tw_code）
+  2. 抓價失敗會重試 3 次，仍失敗則沿用上次價格並標示「資料延遲」，不再變 N/A
+  3. 漲跌幅基準：依時間戳判斷最後一根日K是不是今天，盤中不再拿前天當昨收
+  4. 漲跌 = 0 時不再被誤判成抓價失敗
+  5. 外資 / 融資標示實際資料日期，不再一律寫「今日」
 """
-import urllib.request, json, os, glob, datetime, argparse
+import urllib.request, json, os, glob, datetime, argparse, time
 
 # 台灣時間（UTC+8）
 TW_TZ = datetime.timezone(datetime.timedelta(hours=8))
@@ -28,6 +35,17 @@ DASHBOARD_FILE  = os.path.join(SCRIPT_DIR, "dashboard.html")
 RESEARCH_DIR    = os.path.join(SCRIPT_DIR, "research")
 ANALYSIS_CACHE_FILE = os.path.join(SCRIPT_DIR, "analysis_cache.json")
 os.makedirs(RESEARCH_DIR, exist_ok=True)
+
+
+# ── 小工具 ────────────────────────────────────────────────────────────────
+def tw_code(ticker):
+    """'5274.TWO' -> '5274'、'2330.TW' -> '2330'、'^TWII' -> '^TWII'"""
+    return ticker.split(".")[0]
+
+def fmt_date8(d):
+    """'20261125' -> '11/25'；格式不對回傳空字串"""
+    d = str(d or "")
+    return f"{d[4:6]}/{d[6:8]}" if len(d) == 8 and d.isdigit() else ""
 
 
 def inject_cached_analysis(html):
@@ -76,6 +94,32 @@ def find_research_files():
 
 
 # ── 技術指標計算 ──────────────────────────────────────────────────────────
+def split_prev(result, price):
+    """
+    回傳 (closes, prev)。
+    Yahoo 盤中常常還沒有「今天」那根日K，這時 closes[-2] 其實是前天。
+    這裡用時間戳判斷最後一根是不是今天：
+      - 是今天：昨收 = closes[-2]
+      - 不是今天：昨收 = closes[-1]，並把現價補進 closes，讓 MA20 / RSI 也含今天
+    """
+    meta = result["meta"]
+    tz = datetime.timezone(datetime.timedelta(seconds=meta.get("gmtoffset", 0)))
+    ts  = result.get("timestamp") or []
+    raw = result["indicators"]["quote"][0].get("close", [])
+    pairs  = [(t, c) for t, c in zip(ts, raw) if c is not None]
+    closes = [c for _, c in pairs]
+    if not pairs or price is None:
+        return closes, None
+    day = lambda t: datetime.datetime.fromtimestamp(t, tz).date()
+    mkt_day = day(meta.get("regularMarketTime") or pairs[-1][0])
+    if day(pairs[-1][0]) == mkt_day:
+        prev = closes[-2] if len(closes) >= 2 else meta.get("chartPreviousClose")
+    else:
+        prev = closes[-1]
+        closes = closes + [price]
+    return closes, prev
+
+
 def calc_technicals(closes, price):
     """回傳 (ma20, bias, rsi14)"""
     ma20 = round(sum(closes[-20:]) / 20, 2) if len(closes) >= 20 else None
@@ -103,19 +147,10 @@ def get_batch_prices(cheap, fair):
 _BATCH_LABELS = ["合理布局", "估值中點", "積極買進", "深度折價"]
 
 # ── 股價抓取 ──────────────────────────────────────────────────────────────
-def fetch_price(ticker, cfg):
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=60d"
-    req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=15) as r:
-        data = json.loads(r.read())
-    result = data["chart"]["result"][0]
-    meta   = result["meta"]
-    price  = meta.get("regularMarketPrice")
-    closes = [c for c in result["indicators"]["quote"][0].get("close", []) if c is not None]
-    prev   = closes[-2] if len(closes) >= 2 else meta.get("chartPreviousClose")
-    change = round(price - prev, 2) if price and prev else None
-    pct    = round(change / prev * 100, 2) if change and prev else None
-    ma20, bias, rsi = calc_technicals(closes, price) if price else (None, None, None)
+_PRICE_KEYS = ("price", "prev", "change", "pct", "w52_high", "w52_low", "ma20", "bias", "rsi")
+
+def _base_entry(ticker, cfg):
+    """由 watchlist 設定組出基本欄位（價格欄位先留空）"""
     return {
         "ticker":       ticker,
         "name":         cfg["name"],
@@ -136,6 +171,28 @@ def fetch_price(ticker, cfg):
         "div_history":        cfg.get("div_history"),
         "etf_research_conclusion": cfg.get("etf_research_conclusion"),
         "etf_last_researched":     cfg.get("etf_last_researched"),
+        "price": None, "prev": None, "change": None, "pct": None,
+        "w52_high": None, "w52_low": None,
+        "ma20": None, "bias": None, "rsi": None,
+        "stale": False,
+    }
+
+def fetch_price(ticker, cfg):
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=60d"
+    req = urllib.request.Request(url, headers=HEADERS)
+    with urllib.request.urlopen(req, timeout=15) as r:
+        data = json.loads(r.read())
+    result = data["chart"]["result"][0]
+    meta   = result["meta"]
+    price  = meta.get("regularMarketPrice")
+    if price is None:
+        raise ValueError("no regularMarketPrice")
+    closes, prev = split_prev(result, price)
+    change = round(price - prev, 2) if prev else None
+    pct    = round((price - prev) / prev * 100, 2) if prev else None
+    ma20, bias, rsi = calc_technicals(closes, price)
+    entry = _base_entry(ticker, cfg)
+    entry.update({
         "price":        price,
         "prev":         round(prev, 2) if prev else None,
         "change":       change,
@@ -145,35 +202,50 @@ def fetch_price(ticker, cfg):
         "ma20":         ma20,
         "bias":         bias,
         "rsi":          rsi,
-    }
+        "stale":        False,
+    })
+    return entry
+
+def fetch_price_retry(ticker, cfg, tries=3):
+    last = None
+    for i in range(tries):
+        try:
+            return fetch_price(ticker, cfg)
+        except Exception as e:
+            last = e
+            if i < tries - 1:
+                time.sleep(2 * (i + 1))
+    raise last
+
+def load_old_cache():
+    try:
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            return json.load(f).get("data", {})
+    except Exception:
+        return {}
 
 def fetch_all(tickers):
     results = {}
+    old = load_old_cache()
     for ticker, cfg in tickers.items():
         try:
-            results[ticker] = fetch_price(ticker, cfg)
+            results[ticker] = fetch_price_retry(ticker, cfg)
             p = results[ticker]
-            print(f"  OK  {cfg['name']:6s}: {p['price']:>12,.2f}  ({p['pct']:+.2f}%)")
+            pct_s = f"{p['pct']:+.2f}%" if p["pct"] is not None else "n/a"
+            print(f"  OK  {cfg['name']:6s}: {p['price']:>12,.2f}  ({pct_s})")
         except Exception as e:
-            print(f"  NG  {cfg['name']:6s}: {e}")
-            results[ticker] = {
-                "ticker": ticker, "name": cfg["name"], "type": cfg.get("type","core"),
-                "grade": cfg.get("grade",""), "thesis": cfg.get("thesis",""),
-                "category": cfg.get("category",""),
-                "cheap": cfg.get("cheap"), "fair": cfg.get("fair"), "rich": cfg.get("rich"),
-                "annual_div": cfg.get("annual_div"), "benchmark_pe": cfg.get("benchmark_pe"),
-                "research_conclusion": cfg.get("research_conclusion"),
-                "last_researched": cfg.get("last_researched"),
-                "nav_trend": cfg.get("nav_trend"),
-                "payout_quality": cfg.get("payout_quality"),
-                "fill_rate_1y": cfg.get("fill_rate_1y"),
-                "div_history": cfg.get("div_history"),
-                "etf_research_conclusion": cfg.get("etf_research_conclusion"),
-                "etf_last_researched": cfg.get("etf_last_researched"),
-                "price": None, "prev": None, "change": None, "pct": None,
-                "w52_high": None, "w52_low": None,
-                "ma20": None, "bias": None, "rsi": None,
-            }
+            entry = _base_entry(ticker, cfg)
+            old_e = old.get(ticker) or {}
+            if old_e.get("price") is not None:
+                # 沿用上次價格，但設定值（估值區間、說明）用最新的 watchlist
+                for k in _PRICE_KEYS:
+                    entry[k] = old_e.get(k)
+                entry["stale"] = True
+                print(f"  NG  {cfg['name']:6s}: {e}  → 沿用上次價格 {entry['price']}")
+            else:
+                print(f"  NG  {cfg['name']:6s}: {e}  → 無舊資料")
+            results[ticker] = entry
+        time.sleep(0.4)   # 避免被 Yahoo 限流
     return results
 
 
@@ -190,18 +262,23 @@ def fetch_market_indicators():
         ("TNX",    "^TNX",  "美10年債殖利率"),
         ("USDTWD", "TWD=X", "美元／台幣"),
     ]:
-        try:
-            url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=5d"
-            req = urllib.request.Request(url, headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=10) as r:
-                d = json.loads(r.read())
-            res = d["chart"]["result"][0]
-            price  = res["meta"].get("regularMarketPrice")
-            closes = [c for c in res["indicators"]["quote"][0].get("close", []) if c is not None]
-            prev   = closes[-2] if len(closes) >= 2 else None
-            pct    = round((price - prev) / prev * 100, 2) if price and prev else None
-            results[key] = {"name": name, "value": price, "pct": pct}
-        except:
+        got = False
+        for attempt in range(3):
+            try:
+                url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=5d"
+                req = urllib.request.Request(url, headers=HEADERS)
+                with urllib.request.urlopen(req, timeout=10) as r:
+                    d = json.loads(r.read())
+                res = d["chart"]["result"][0]
+                price  = res["meta"].get("regularMarketPrice")
+                closes, prev = split_prev(res, price)
+                pct    = round((price - prev) / prev * 100, 2) if price and prev else None
+                results[key] = {"name": name, "value": price, "pct": pct}
+                got = True
+                break
+            except Exception:
+                time.sleep(1.5)
+        if not got:
             results[key] = {"name": name, "value": None, "pct": None}
 
     # TWSE 三大法人買賣超
@@ -342,6 +419,10 @@ def build_warnings(signal, data):
         if zid == "z1":
             warnings.append(("ok", f"買進機會：{v['name']}",
                              f"{v['name']} 進入積極買進區間，符合長期布局標準"))
+    stale_names = [v["name"] for v in data.values() if v.get("stale")]
+    if stale_names:
+        warnings.append(("warn", "部分資料延遲",
+                         f"{' / '.join(stale_names)} 本次抓價失敗，顯示的是上次的價格，請以券商報價為準"))
     if rich_list:
         warnings.append(("warn","估值偏高，暫停加碼",
                          f"{' / '.join(rich_list)} 超過偏貴區間——此時不宜新建部位，耐心等候估值回落至合理區"))
@@ -386,7 +467,9 @@ def build_deep_analysis(signal, data):
                    if get_zone(v["price"],v["cheap"],v["fair"],v["rich"])[0] == "z1"]
     context = ("AI基礎建設長期需求穩固——TSMC產能能見度至2030年，全球CSP年度AI資本支出持續擴張。"
                "市場波動在預期範圍內，按估值燈號分批操作即可。")
-    if buy_stocks:
+    if not valuation_stocks:
+        buffett_advice = ("核心標的本次沒有取得價格，暫無估值判斷。請稍後重新整理，或以券商報價為準。")
+    elif buy_stocks:
         buffett_advice = (f"{' / '.join(buy_stocks)} 目前在積極買進區，符合「以合理價格買入優質企業，然後長期持有」的原則。"
                           "可分批建倉——分散時間成本比等完美低點更重要。")
     elif rich_stocks:
@@ -500,6 +583,9 @@ def build_daily_conclusion(data):
             action, ac = "🔴 暫停加碼", "#ef4444"
             detail = f"估值偏高（{zlabel}），新資金等待"
 
+        if v.get("stale"):
+            detail += "（⚠️ 價格為上次資料）"
+
         # 今日建議掛單價：batches 由高到低，取「現價以下（含 2% 緩衝）最近的一批」
         batches = get_batch_prices(cheap, fair) or []
         next_trigger = next((b for b in batches if b <= price * 1.02), None)
@@ -538,6 +624,8 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
     core_stks = [v for v in data.values() if v["type"] == "core"]
     obs_stks  = [v for v in data.values() if v["type"] == "observe"]
 
+    STALE_TAG = ' <span class="stale-tag">⚠️ 資料延遲</span>'
+
     # ── 股票卡片生成器 ──
     def make_card(s):
         price  = s.get("price")
@@ -550,10 +638,12 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
         if s.get("change") is not None:
             sign = "+" if s["change"] >= 0 else ""
             chg_abs = f"({sign}{s['change']:,.0f})"
-        ticker_key = s["ticker"].replace(".TW","").replace(".TWO","")
+        tw_ticker = tw_code(s["ticker"])
+        ticker_key = tw_ticker
         research_link = ""
         if ticker_key in research_map:
             research_link = f'<a class="research-link" href="{research_map[ticker_key]}">📄 研究報告</a>'
+        stale_tag = STALE_TAG if s.get("stale") else ""
         # 估值條（observe股無估值則顯示待研究標籤）
         if cheap and fair and rich:
             bar_html = (
@@ -573,7 +663,6 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
             )
         else:
             bar_html = '<div class="zone-bar-wrap no-val">估值待深度研究後設定</div>'
-        tw_ticker = s['ticker'].replace('.TW','').replace('.TWO','')
         yf_url = f"https://tw.stock.yahoo.com/quote/{tw_ticker}"
 
         # ── 技術指標 HTML ──
@@ -642,7 +731,7 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
             f'<div style="display:flex;align-items:center;gap:6px">'
             f'<span class="grade-badge" style="background:{gc}22;color:{gc};border-color:{gc}">{grade or "—"}</span>'
             f'{research_link}</div></div>'
-            f'<div class="card-price">{fp(price)}</div>'
+            f'<div class="card-price">{fp(price)}{stale_tag}</div>'
             f'<div class="card-change" style="color:{pc(s.get("pct"))}">'
             f'{arr(s.get("pct"))} {fpct(s.get("pct"))} <span class="chg-abs">{chg_abs}</span>'
             f'</div>'
@@ -667,8 +756,9 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
             "現金流":  "#10b981", "美股廣度": "#f59e0b",
         }
         cat_c = cat_colors.get(category, "#64748b")
-        tw_ticker2 = ticker.replace('.TW','').replace('.TWO','')
+        tw_ticker2 = tw_code(ticker)
         yf_url = f"https://tw.stock.yahoo.com/quote/{tw_ticker2}"
+        stale_tag = STALE_TAG if s.get("stale") else ""
 
 
         # ── 每隻 ETF 用最適合其本質的估值指標 ──
@@ -862,7 +952,7 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
             f'</div>'
             f'<span class="etf-category" style="background:{cat_c}22;color:{cat_c};border-color:{cat_c}">{category}</span>'
             f'</div>'
-            f'<div class="card-price">{fp(price)}</div>'
+            f'<div class="card-price">{fp(price)}{stale_tag}</div>'
             f'<div class="card-change" style="color:{pc(s.get("pct"))}">'
             f'{arr(s.get("pct"))} {fpct(s.get("pct"))}'
             f'</div>'
@@ -908,12 +998,16 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
     foreign_str   = fmt_b(foreign)
     foreign_c     = "#10b981" if (foreign or 0) > 0 else "#ef4444"
     foreign_label = "外資淨買超" if (foreign or 0) > 0 else "外資淨賣超"
+    inst_dl       = fmt_date8(inst.get("date"))
+    inst_title    = f"外資買賣超 {inst_dl}" if inst_dl else "外資買賣超"
 
     marg_today  = marg.get("today")
     marg_change = marg.get("change")
     marg_str    = f"{marg_today/100_000:.0f}億" if marg_today else "N/A"
     marg_chg_str = (("↑+" if marg_change > 0 else "↓") + f"{abs(marg_change)/100_000:.0f}億") if marg_change else ""
     marg_c = "#ef4444" if (marg_change or 0) > 0 else "#10b981"
+    marg_dl     = fmt_date8(marg.get("date"))
+    marg_title  = f"融資餘額 {marg_dl}" if marg_dl else "融資餘額"
 
     thermo_html = (
         f'<div class="thermo-section">'
@@ -940,13 +1034,13 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
         f'</div>'
         # 外資
         f'<div class="tc-card">'
-        f'<div class="tc-label">外資今日買賣超</div>'
+        f'<div class="tc-label">{inst_title}</div>'
         f'<div class="tc-value" style="color:{foreign_c}">{foreign_str}</div>'
         f'<div class="tc-interp" style="color:{foreign_c}">{foreign_label}</div>'
         f'</div>'
         # 融資
         f'<div class="tc-card">'
-        f'<div class="tc-label">融資餘額</div>'
+        f'<div class="tc-label">{marg_title}</div>'
         f'<div class="tc-value">{marg_str}</div>'
         f'<div class="tc-interp" style="color:{marg_c}">{marg_chg_str or "持平"}</div>'
         f'</div>'
@@ -993,6 +1087,9 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
             f'<span class="concl-tech">RSI {rsi_str} / 乖離 {bias_str}</span>'
             f'</div></div></div>'
         )
+    if not concl_rows_html:
+        concl_rows_html = ('<div class="concl-row"><div class="concl-detail">'
+                           '核心標的本次沒有取得價格，暫無結論。</div></div>')
     conclusion_html = (
         f'<div class="concl-section">'
         f'<div class="section-title" style="margin-bottom:10px">今日結論 — 應該掛多少？</div>'
@@ -1017,7 +1114,7 @@ def generate_html(data, signal, signal_label, signal_color, advisor, warnings, d
 
     # ── 資金流向區塊 ──
     core_tickers_for_flow = [
-        (v["ticker"].replace(".TW","").replace(".TWO",""), v["name"])
+        (tw_code(v["ticker"]), v["name"])
         for v in data.values()
         if v.get("type") in ("core","observe")
     ]
@@ -1068,6 +1165,7 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2px}
 .research-link{font-size:.8rem;color:#60a5fa;text-decoration:none;padding:2px 7px;border:1px solid #3b82f622;border-radius:999px;background:#3b82f611;white-space:nowrap}
 .research-link:hover{background:#3b82f622;color:#60a5fa}
 .card-price{font-size:1.6rem;font-weight:700;margin:4px 0}
+.stale-tag{font-size:.78rem;font-weight:600;color:#f59e0b;border:1px solid #f59e0b;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle}
 .card-change{font-size:.95rem;font-weight:600;margin-bottom:10px}
 .chg-abs{font-size:.8rem;font-weight:400;color:#b0bec9}
 .zone-bar-wrap{margin-bottom:8px}
@@ -1353,7 +1451,13 @@ function toggleMonthly(){
         + '  </div>\n</div>\n'
         + '<div class="section-title">月度研究</div>\n'
         + monthly_html
-        + '<div class="timestamp-bar">'        + '<span>資料時間：' + data_time + '</span>'        + '<span>頁面產生：' + generated_at + '</span>'        + '</div>\n'        + '<script>' + js + '</script>\n'        + '</body>\n</html>'    )
+        + '<div class="timestamp-bar">'
+        + '<span>資料時間：' + data_time + '</span>'
+        + '<span>頁面產生：' + generated_at + '</span>'
+        + '</div>\n'
+        + '<script>' + js + '</script>\n'
+        + '</body>\n</html>'
+    )
     return html
 
 
@@ -1365,7 +1469,7 @@ def main():
     args = parser.parse_args()
 
     print(f"\n{'='*55}")
-    print(f"  AI v5  |  {now_tw().strftime('%Y-%m-%d %H:%M')}")
+    print(f"  AI v5.1  |  {now_tw().strftime('%Y-%m-%d %H:%M')}")
     print(f"{'='*55}")
 
     tickers = load_watchlist()
@@ -1420,10 +1524,13 @@ def main():
     obs_n  = sum(1 for v in data.values() if v["type"] == "observe")
     etf_n  = sum(1 for v in data.values() if v["type"] == "etf")
     res_n  = len(research_map)
+    stale_n = sum(1 for v in data.values() if v.get("stale"))
     print(f"\n  Dashboard: {DASHBOARD_FILE}")
     print(f"  Data time: {data_time}")
     print(f"  Core: {core_n}  Observe: {obs_n}  ETF: {etf_n}")
     print(f"  Research reports: {res_n}")
+    if stale_n:
+        print(f"  ⚠️ {stale_n} 檔使用上次價格（抓價失敗）")
 
 if __name__ == "__main__":
     main()
