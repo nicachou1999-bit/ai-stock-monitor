@@ -1,4 +1,4 @@
-nname: Stock Update v2
+name: Stock Update v2
 
 on:
   schedule:
